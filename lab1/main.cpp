@@ -1,6 +1,5 @@
 #include<iostream>
 #include"Stack.h"
-#include"sqd_types.h"
 #include<vector>
 using namespace std;
 

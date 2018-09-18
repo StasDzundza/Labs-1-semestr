@@ -1,5 +1,6 @@
 #pragma once
-#include"sqd_types.h"
+#include"sqd_list.h"
+#include"sqd_arr.h"
 enum MODE
 {
 	list,
@@ -51,7 +52,7 @@ template<typename T>
 void Stack<T>::show()
 {
 	if (mode == MODE::list)
-		lst.show_stack();
+		lst.show();
 	else
 		arrr.show_st();
 }
