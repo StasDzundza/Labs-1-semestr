@@ -18,7 +18,7 @@ public:
 	virtual T pop() = 0;//delete from begin
 	virtual bool erase_from_position(int position) = 0;
 	virtual bool delete_data(T a) = 0;
-	//virtual int size() = 0;
+	virtual int size() = 0;
 };
 
 template<typename T>
@@ -27,16 +27,20 @@ class Stack:public stack<T>
 public :
 	
 	Stack() {}
+	Stack(int size)
+	{
+		
+	}
 	void push_back(T a) override;
 	void show() override;
 	void set_state(int st);
-	bool is_empty();
-	T back();
-	T front();
-	T pop();//delete from begin
-	bool erase_from_position(int position);
-	bool delete_data(T a);
-	//int size();
+	bool is_empty() override;
+	T back() override;
+	T front() override;
+	T pop() override;//delete from begin
+	bool erase_from_position(int position) override;
+	bool delete_data(T a) override;
+	int size() override;
 private:
 	MODE mode;
 	sqd_list<T> lst;
@@ -117,4 +121,13 @@ bool Stack<T>::delete_data(T a)
 		return lst.delete_data(a);
 	else
 		return arrr.delete_data(a);
+}
+
+template<typename T>
+int Stack<T>::size()
+{
+	if (mode == MODE::list)
+		return lst.size();
+	else
+		return arrr.size();
 }

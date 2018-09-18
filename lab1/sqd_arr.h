@@ -113,6 +113,7 @@ T sqd_arr<T>::front()
 template<typename T>
 T sqd_arr<T>::pop()
 {
+	int first_element = arr[0];
 	if (Index > 0)
 	{
 		Index--;// we delete element
@@ -120,6 +121,7 @@ T sqd_arr<T>::pop()
 		{
 			arr[i] = arr[i + 1];
 		}
+		return first_element;
 	}
 	else
 		return 0;
