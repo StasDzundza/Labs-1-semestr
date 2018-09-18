@@ -33,14 +33,25 @@ public:
 	bool erase_position(int position);
 	bool delete_data(T a);
 	int size();
-
+	void operator =(const sqd_arr&other_class)
+	{
+		if (arr != nullptr)
+			delete arr;
+		arr = new T[other_class.Max];
+		Max = other_class.Max;
+		Index = other_class.Index;
+		for (int i = 0; i < other_class.Index; i++)
+		{
+			arr[i] = other_class.arr[i];
+		}
+	}
 	~sqd_arr()
 	{
 		delete[]arr;
 	}
 
 private:
-	int Max;
+	int Max = 1000;
 	int Index;
 	T*arr = nullptr;
 };

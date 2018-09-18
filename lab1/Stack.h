@@ -29,7 +29,7 @@ public :
 	Stack() {}
 	Stack(int size)
 	{
-		
+		arrr = sqd_arr<T>(size);
 	}
 	void push_back(T a) override;
 	void show() override;
