@@ -1,5 +1,4 @@
 #pragma once
-#include<vector>
 template<typename T>
 class sqd_list//покищо лише стек і черга
 {

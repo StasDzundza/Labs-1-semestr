@@ -4,13 +4,22 @@
 #include"Stack.h"
 #include"Queue.h"
 template<typename T>
-class deque :public queue<T>,public stack<T>
+class deque //:public virtual queue<T>,public virtual stack<T>
 {
 public:
 	virtual void push_back(T a) = 0;
 	virtual void push_front(T a) = 0;
 	virtual bool pop_back() = 0;
 	virtual bool pop_front() = 0;
+
+	virtual void show() = 0;
+	virtual bool is_empty() = 0;
+	virtual T back() = 0;
+	virtual T front() = 0;
+	virtual T pop() = 0;//delete from begin
+	virtual bool erase_from_position(int position) = 0;
+	virtual bool delete_data(T a) = 0;
+	virtual int size() = 0;
 };
 
 template<typename T>
@@ -54,9 +63,9 @@ template<typename T>
 void Deque<T>::push_back(T a)
 {
 	if (mode == MODE::list)
-		lst.push_back(T a);
+		lst.push_back(a);
 	else
-		arrr.push_back(T a);
+		arrr.push_back(a);
 }
 template<typename T>
 bool Deque<T>::pop_back()
@@ -78,9 +87,9 @@ template<typename T>
 void Deque<T>::push_front(T a)
 {
 	if (mode == MODE::list)
-		lst.push_front(T a);
+		lst.push_front(a);
 	else
-		arrr.push_front(T a);
+		arrr.push_front(a);
 }
 
 template<typename T>
