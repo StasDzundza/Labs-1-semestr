@@ -81,7 +81,7 @@ T sqd_list<T>::back()
 		return tmp->data;
 	}
 	else
-		return;
+		return 0;
 }
 
 
@@ -91,7 +91,7 @@ T sqd_list<T>::front()
 	if (head)
 		return head->data;
 	else
-		return;
+		return 0;
 }
 
 template<typename T>
@@ -106,7 +106,7 @@ T sqd_list<T>::pop()
 		delete tmp;
 		return a;
 	}
-	else return;
+	else return 0;
 }
 
 

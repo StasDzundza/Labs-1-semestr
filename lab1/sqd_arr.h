@@ -98,7 +98,7 @@ T sqd_arr<T>::back()
 	if (Index > 0)
 		return arr[Index - 1];
 	else
-		return;
+		return 0;
 }
 
 template<typename T>
@@ -107,7 +107,7 @@ T sqd_arr<T>::front()
 	if (Index > 0)
 		return arr[0];
 	else
-		return;
+		return 0;
 }
 
 template<typename T>
@@ -122,7 +122,7 @@ T sqd_arr<T>::pop()
 		}
 	}
 	else
-		return;
+		return 0;
 }
 
 template<typename T>
@@ -169,12 +169,15 @@ bool sqd_arr<T>::delete_data(T a)
 					position = i;
 				}
 			}
-			Index--;// we delete element
-			for (int i = position; i < Index; i++)
+			if (position != -1)//we found this element
 			{
-				arr[i] = arr[i + 1];
+				Index--;
+				for (int i = position; i < Index; i++)
+				{
+					arr[i] = arr[i + 1];
+				}
+				return true;
 			}
-			return true;
 		}
 	}
 	return false;
