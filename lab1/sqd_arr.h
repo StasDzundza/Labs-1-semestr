@@ -6,9 +6,32 @@ public:
 
 	sqd_arr();
 	sqd_arr(int size);
+
+
+	//functions for stack in arr
 	void add_st(T a);
+
+
+	//functions for queue in arr
 	void add_qu(T a);
+
+
+
+
+	//same functions for all 
 	void show();
+	bool is_empty();
+	T back();
+	T front();
+	T pop();//delete from begin
+	bool erase_position(int position);
+	bool delete_data(T a);
+	int size();
+
+
+
+
+
 	~sqd_arr()
 	{
 		delete[]arr;
@@ -18,16 +41,14 @@ private:
 	int Max;
 	int Index;
 	T*arr = nullptr;
-	int Size;
 };
-
+/////////////////////////////////////////////////////
 template<typename T>
 sqd_arr<T>::sqd_arr()
 {
 	Max = 1000;
 	Index = 0;
 	arr = new T[Max];
-	Size = 0;
 }
 template<typename T>
 sqd_arr<T>::sqd_arr(int size)
@@ -37,7 +58,7 @@ sqd_arr<T>::sqd_arr(int size)
 		Max = 1000;
 		Index = 0;
 		arr = new T[size];
-		Size = 0;
+		Max = size;
 	}
 	else
 	{
@@ -45,21 +66,9 @@ sqd_arr<T>::sqd_arr(int size)
 		Max = 1000;
 		Index = 0;
 		arr = new T[Max];
-		Size = 0;
 	}
 }
-template<typename T>
-void sqd_arr<T>::add_qu(T a)
-{
-	if (Index < Max)
-	{
-		arr[Index++] = a;
-		Size++;
-	}
-	else
-		std::cout << "Переповнення." << std::endl;
-}
-
+/////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename T>
 void sqd_arr<T>::add_st(T a)
 {
@@ -69,13 +78,83 @@ void sqd_arr<T>::add_st(T a)
 			arr[i] = arr[i - 1];
 
 		arr[0] = a;
-		Size++;
 		Index++;
 	}
 	else
 		std::cout << "Переповнення." << std::endl;
 }
 
+template<typename T>
+bool sqd_arr<T>::is_empty()
+{
+	return Index == 0;
+}
+
+template<typename T>
+T sqd_arr<T>::back()
+{
+	if (Index > 0)
+		return arr[Index - 1];
+	else
+		return;
+}
+
+template<typename T>
+T sqd_arr<T>::front()
+{
+	if (Index > 0)
+		return arr[0];
+	else
+		return;
+}
+
+template<typename T>
+T sqd_arr<T>::pop()
+{
+	if (Index > 0)
+	{
+		Index--;// we delete element
+		for (int i = 0; i < Index; i++)
+		{
+			arr[i] = arr[i + 1];
+		}
+	}
+	else
+		return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+template<typename T>
+void sqd_arr<T>::add_qu(T a)
+{
+	if (Index < Max)
+	{
+		arr[Index++] = a;
+	}
+	else
+		std::cout << "Переповнення." << std::endl;
+}
 template<typename T>
 void sqd_arr<T>::show()
 {

@@ -30,7 +30,7 @@ public:
 	bool is_empty();
 	T back();
 	T front();
-	T pop();
+	T pop();//delete from begin
 	bool erase_position(int position);
 	bool delete_data(T a);
 	int size();
