@@ -1,16 +1,16 @@
 #pragma once
-#include"sqd_list.h"
 #include"sqd_arr.h"
-enum MODE
-{
-	list,
-	arr
-};
+#include"sqd_list.h"
+//enum MODE
+//{
+//	list,
+//	arr
+//};
 template<typename T>
-class stack
+class queue
 {
 public:
-	virtual void push(T a) = 0;
+	virtual void push_back(T a) = 0;
 	virtual void show() = 0;
 	virtual bool is_empty() = 0;
 	virtual T back() = 0;
@@ -22,16 +22,16 @@ public:
 };
 
 template<typename T>
-class Stack:public stack<T>
+class Queue :public queue<T>
 {
-public :
-	
-	Stack() {}
-	Stack(int size)
+public:
+
+	Queue() {}
+	Queue(int size)
 	{
 		arrr = sqd_arr<T>(size);
 	}
-	void push(T a) override;
+	void push_back(T a) override;
 	void show() override;
 	void set_state(int st);
 	bool is_empty() override;
@@ -48,7 +48,7 @@ private:
 };
 
 template<typename T>
-void Stack<T>::set_state(int state)
+void Queue<T>::set_state(int state)
 {
 	if (state == 1)
 		mode = MODE::list;
@@ -56,16 +56,16 @@ void Stack<T>::set_state(int state)
 		mode = MODE::arr;
 }
 template<typename T>
-void Stack<T>::push(T a)
+void Queue<T>::push_back(T a)
 {
 	if (mode == MODE::list)
-		lst.add_stack(a);
+		lst.add_queue(a);
 	else
-		arrr.add_st(a);
+		arrr.add_qu(a);
 }
 
 template<typename T>
-void Stack<T>::show()
+void Queue<T>::show()
 {
 	if (mode == MODE::list)
 		lst.show();
@@ -73,7 +73,7 @@ void Stack<T>::show()
 		arrr.show();
 }
 template<typename T>
-bool Stack<T>::is_empty()
+bool Queue<T>::is_empty()
 {
 	if (mode == MODE::list)
 		return lst.is_empty();
@@ -81,7 +81,7 @@ bool Stack<T>::is_empty()
 		return arrr.is_empty();
 }
 template<typename T>
-T Stack<T>::back()
+T Queue<T>::back()
 {
 	if (mode == MODE::list)
 		return lst.back();
@@ -89,7 +89,7 @@ T Stack<T>::back()
 		return arrr.back();
 }
 template<typename T>
-T Stack<T>::front()
+T Queue<T>::front()
 {
 	if (mode == MODE::list)
 		return lst.front();
@@ -97,7 +97,7 @@ T Stack<T>::front()
 		return arrr.front();
 }
 template<typename T>
-T Stack<T>::pop()
+T Queue<T>::pop()
 {
 	if (mode == MODE::list)
 		return lst.pop();
@@ -106,7 +106,7 @@ T Stack<T>::pop()
 }
 
 template<typename T>
-bool Stack<T>::erase_from_position(int position)
+bool Queue<T>::erase_from_position(int position)
 {
 	if (mode == MODE::list)
 		return lst.erase_position(position);
@@ -115,7 +115,7 @@ bool Stack<T>::erase_from_position(int position)
 }
 
 template<typename T>
-bool Stack<T>::delete_data(T a)
+bool Queue<T>::delete_data(T a)
 {
 	if (mode == MODE::list)
 		return lst.delete_data(a);
@@ -124,10 +124,11 @@ bool Stack<T>::delete_data(T a)
 }
 
 template<typename T>
-int Stack<T>::size()
+int Queue<T>::size()
 {
 	if (mode == MODE::list)
 		return lst.size();
 	else
 		return arrr.size();
 }
+

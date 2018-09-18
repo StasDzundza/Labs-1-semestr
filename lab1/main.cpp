@@ -1,10 +1,11 @@
 #include<iostream>
 #include"Stack.h"
+#include"Queue.h"
 using namespace std;
 
 int main()
 {
-	Stack<int> s(5);
+	Queue<int> s;
 	s.set_state(2);
 	s.push_back(1);
 	s.push_back(2);
