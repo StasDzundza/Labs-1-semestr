@@ -1,13 +1,22 @@
 #pragma once
+#include<vector>
 template<typename T>
 class sqd_list//покищо лише стек і черга
 {
 public:
 	sqd_list() { Size = 0; }
-	void add_st(T a);
-	void add_qu(T a);
-	void show_st();
-	void show_qu();
+	void add_stack(T a);
+	T back_stack();
+	void show_stack();
+	T front_stack();
+	T pop_stack();
+	bool is_empty_stack();
+
+
+
+
+	void add_queue(T a);
+	void show_queue();
 private:
 	template<typename T>
 	class Node
@@ -46,9 +55,16 @@ private:
 	int Size;
 
 };
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+template<typename T>
+bool sqd_list<T>::is_empty_stack()
+{
+	return head == NULL;
+}
+
 
 template<typename T>
-void sqd_list<T>::add_st(T a)
+void sqd_list<T>::add_stack(T a)
 {
 	if (!head)
 	{
@@ -61,10 +77,71 @@ void sqd_list<T>::add_st(T a)
 		this->head = tmp;
 	}
 	Size++;
-
 }
+
+
 template<typename T>
-void sqd_list<T>::add_qu(T a)
+T sqd_list<T>::back_stack()
+{
+	if (!this->is_empty_stack())
+	{
+		Node<T>*tmp = head;
+		while (tmp->next)
+			tmp = tmp->next;
+		return tmp->data;
+	}
+	else
+		return;
+}
+
+
+template<typename T>
+T sqd_list<T>::front_stack()
+{
+	if (head)
+		return head->data;
+	else
+		return;
+}
+
+template<typename T>
+T sqd_list<T>::pop_stack()
+{
+	if (head)
+	{
+		Node<T>*tmp = head;
+		T a = tmp->data;
+		head = head->next;
+		Size--;
+		delete tmp;
+		return a;
+	}
+	else return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+template<typename T>
+void sqd_list<T>::add_queue(T a)
 {
 	if (!head)
 	{
@@ -82,7 +159,7 @@ void sqd_list<T>::add_qu(T a)
 	Size++;
 }
 template<typename T>
-void sqd_list<T>::show_st()
+void sqd_list<T>::show_stack()
 {
 	Node<T>*tmp = head;
 	while (tmp)
@@ -93,7 +170,7 @@ void sqd_list<T>::show_st()
 	std::cout << std::endl;
 }
 template<typename T>
-void sqd_list<T>::show_qu()
+void sqd_list<T>::show_queue()
 {
 	Node<T>*tmp = head;
 	while (tmp)
@@ -103,6 +180,7 @@ void sqd_list<T>::show_qu()
 	std::cout << std::endl;
 }
 /////////////////////////////////////////////////////////////////////////////////////
+
 template<typename T>
 sqd_arr<T>::sqd_arr()
 {
@@ -158,3 +236,5 @@ void sqd_arr<T>::show_qu()
 	}
 	std::cout << std::endl;
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////

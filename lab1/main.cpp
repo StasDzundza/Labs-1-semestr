@@ -1,6 +1,7 @@
 #include<iostream>
 #include"Stack.h"
 #include"sqd_types.h"
+#include<vector>
 using namespace std;
 
 int main()
@@ -11,7 +12,7 @@ int main()
 	s.push_back(2);
 	s.push_back(0);
 	s.show();
-
+	vector<int> vec;
 	system("pause");
 	return 0;
 }
