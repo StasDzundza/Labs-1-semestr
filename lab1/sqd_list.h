@@ -113,7 +113,7 @@ T sqd_list<T>::pop()
 template<typename T>
 bool sqd_list<T>::erase_position(int position)
 {
-	if (position < Size)
+	if (position < Size && head!=nullptr)
 	{
 		if (position == 1)
 		{
@@ -162,8 +162,7 @@ bool sqd_list<T>::delete_data(T data)
 			return true;
 		}
 	}
-	else
-		return false;
+	return false;
 }
 template<typename T>
 int sqd_list<T>::size()

@@ -123,6 +123,60 @@ T sqd_arr<T>::pop()
 		return;
 }
 
+template<typename T>
+bool sqd_arr<T>::erase_position(int position)
+{
+	if (Index > 0 && position <= Index)
+	{
+		if (position == 1)
+		{
+			this->pop();
+			return true;
+		}
+		else
+		{
+			Index--;// we delete element
+			position--;//because 0 == 1 position for user
+			for (int i = position; i < Index; i++)
+			{
+				arr[i] = arr[i + 1];
+			}
+			return true;
+		}
+	}
+	else
+		return false;
+}
+template<typename T>
+bool sqd_arr<T>::delete_data(T a)
+{
+	if (Index > 0)
+	{
+		if (arr[0]==a)
+		{
+			this->pop();
+			return true;
+		}
+		else
+		{
+			int position = -1;
+			for (int i = 1; i < Index; i++)
+			{
+				if (arr[i] == a)
+				{
+					position = i;
+				}
+			}
+			Index--;// we delete element
+			for (int i = position; i < Index; i++)
+			{
+				arr[i] = arr[i + 1];
+			}
+			return true;
+		}
+	}
+	return false;
+}
 
 
 
