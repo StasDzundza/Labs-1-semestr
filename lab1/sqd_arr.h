@@ -16,6 +16,12 @@ public:
 	void add_qu(T a);
 
 
+	//functions for deque in list
+	void push_front(T a);
+	void push_back(T a);
+	bool pop_front();
+	bool pop_back();
+
 
 
 	//same functions for all 
@@ -27,10 +33,6 @@ public:
 	bool erase_position(int position);
 	bool delete_data(T a);
 	int size();
-
-
-
-
 
 	~sqd_arr()
 	{
@@ -178,25 +180,11 @@ bool sqd_arr<T>::delete_data(T a)
 	return false;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+template<typename T>
+int sqd_arr<T>::size()
+{
+	return Index;
+}
 
 
 template<typename T>
@@ -208,6 +196,36 @@ void sqd_arr<T>::add_qu(T a)
 	}
 	else
 		std::cout << "Переповнення." << std::endl;
+}
+template<typename T>
+void sqd_arr<T>::push_front(T a)
+{
+	this->add_st(a);
+}
+template<typename T>
+void sqd_arr<T>::push_back(T a)
+{
+	this->add_qu(a);
+}
+template<typename T>
+bool sqd_arr<T>::pop_front()
+{
+	if (Index > 0)
+	{
+		this->pop();
+		return true;
+	}
+	return false;
+}
+template<typename T>
+bool sqd_arr<T>::pop_back()
+{
+	if (Index > 0)
+	{
+		this->erase_position(Index);
+		return true;
+	}
+	return false;
 }
 template<typename T>
 void sqd_arr<T>::show()

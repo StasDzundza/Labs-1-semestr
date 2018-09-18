@@ -1,6 +1,5 @@
 #include<iostream>
 #include"Stack.h"
-#include<deque>
 using namespace std;
 
 int main()

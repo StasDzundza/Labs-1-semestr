@@ -225,10 +225,21 @@ void sqd_list<T>::push_front(T a)
 template<typename T>
 bool sqd_list<T>::pop_front()
 {
-	this->erase_position(1);
+	if (head)
+	{
+		this->pop();
+		return true;
+	}
+	return false;
 }
 template<typename T>
 bool sqd_list<T>::pop_back()
 {
-	this->erase_position(Size);
+	if (head)
+	{
+		this->erase_position(Size);
+		return true;
+	}
+	return false;
 }
+

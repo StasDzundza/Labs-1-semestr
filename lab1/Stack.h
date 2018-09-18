@@ -12,6 +12,13 @@ class stack
 public:
 	virtual void push_back(T a) = 0;
 	virtual void show() = 0;
+	//virtual bool is_empty() = 0;
+	//virtual T back() = 0;
+	//virtual T front() = 0;
+	//virtual T pop() = 0;//delete from begin
+	//virtual bool erase_position(int position) = 0;
+	//virtual bool delete_data(T a) = 0;
+	//virtual int size() = 0;
 };
 
 template<typename T>
@@ -23,6 +30,13 @@ public :
 	void push_back(T a) override;
 	void show() override;
 	void set_state(int st);
+	//bool is_empty();
+	//T back();
+	//T front();
+	//T pop();//delete from begin
+	//bool erase_position(int position);
+	//bool delete_data(T a);
+	//int size();
 private:
 	MODE mode;
 	sqd_list<T> lst;
