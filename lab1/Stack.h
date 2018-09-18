@@ -43,9 +43,7 @@ void Stack<T>::push_back(T a)
 	if (mode == MODE::list)
 		lst.add_stack(a);
 	else
-	{
 		arrr.add_st(a);
-	}
 }
 
 template<typename T>
@@ -54,5 +52,5 @@ void Stack<T>::show()
 	if (mode == MODE::list)
 		lst.show();
 	else
-		arrr.show_st();
+		arrr.show();
 }

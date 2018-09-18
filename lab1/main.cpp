@@ -1,6 +1,6 @@
 #include<iostream>
 #include"Stack.h"
-#include<vector>
+#include<deque>
 using namespace std;
 
 int main()
@@ -11,7 +11,6 @@ int main()
 	s.push_back(2);
 	s.push_back(0);
 	s.show();
-	vector<int> vec;
 	system("pause");
 	return 0;
 }

@@ -5,10 +5,10 @@ class sqd_arr//покищо лише стек і черга
 public:
 
 	sqd_arr();
+	sqd_arr(int size);
 	void add_st(T a);
 	void add_qu(T a);
-	void show_st();
-	void show_qu();
+	void show();
 	~sqd_arr()
 	{
 		delete[]arr;
@@ -19,7 +19,6 @@ private:
 	int Index;
 	T*arr = nullptr;
 	int Size;
-
 };
 
 template<typename T>
@@ -29,6 +28,25 @@ sqd_arr<T>::sqd_arr()
 	Index = 0;
 	arr = new T[Max];
 	Size = 0;
+}
+template<typename T>
+sqd_arr<T>::sqd_arr(int size)
+{
+	if (size < Max)
+	{
+		Max = 1000;
+		Index = 0;
+		arr = new T[size];
+		Size = 0;
+	}
+	else
+	{
+		std::cout << "Завеликий розмір. Виділено масив на 1000 елементів" << std::endl;
+		Max = 1000;
+		Index = 0;
+		arr = new T[Max];
+		Size = 0;
+	}
 }
 template<typename T>
 void sqd_arr<T>::add_qu(T a)
@@ -59,17 +77,7 @@ void sqd_arr<T>::add_st(T a)
 }
 
 template<typename T>
-void sqd_arr<T>::show_st()
-{
-	for (int i = 0; i < Index; i++)
-	{
-		std::cout << arr[i] << " ";
-	}
-	std::cout << std::endl;
-}
-
-template<typename T>
-void sqd_arr<T>::show_qu()
+void sqd_arr<T>::show()
 {
 	for (int i = 0; i < Index; i++)
 	{

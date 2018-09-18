@@ -4,18 +4,25 @@ template<typename T>
 class sqd_list//покищо лише стек і черга
 {
 public:
-	//functions for stack in list
 	sqd_list() { Size = 0; }
+
+	//functions for stack in list
 	void add_stack(T a);
 	
 	
 	
 	
-
-
 	//functions for queue in list
 	void add_queue(T a);
 	
+
+
+	//functions for deque in list
+	void push_front(T a);
+	void push_back(T a);
+	bool pop_front();
+	bool pop_back();
+
 
 
 	//same functions for all 
@@ -26,6 +33,7 @@ public:
 	T pop();
 	bool erase_position(int position);
 	bool delete_data(T a);
+	int size();
 private:
 	template<typename T>
 	class Node
@@ -43,11 +51,7 @@ private:
 	Node<T> *head;
 };
 
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 template<typename T>
 void sqd_list<T>::add_stack(T a)
@@ -127,6 +131,7 @@ bool sqd_list<T>::erase_position(int position)
 			Node<T>*next_el = tmp->next;
 			tmp->next = next_el->next;
 			delete next_el;
+			Size--;
 			return true;
 		}
 	}
@@ -152,6 +157,7 @@ bool sqd_list<T>::delete_data(T data)
 			}
 			Node<T>*next_el = tmp->next;
 			tmp->next = next_el->next;
+			Size--;
 			delete next_el;
 			return true;
 		}
@@ -159,27 +165,15 @@ bool sqd_list<T>::delete_data(T data)
 	else
 		return false;
 }
+template<typename T>
+int sqd_list<T>::size()
+{
+	return Size;
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////
 template<typename T>
 void sqd_list<T>::add_queue(T a)
 {
@@ -200,9 +194,6 @@ void sqd_list<T>::add_queue(T a)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename T>
 void sqd_list<T>::show()
@@ -220,4 +211,25 @@ template<typename T>
 bool sqd_list<T>::is_empty()
 {
 	return head == NULL;
+}
+
+template<typename T>
+void sqd_list<T>::push_back(T a)
+{
+	this->add_queue(a);
+}
+template<typename T>
+void sqd_list<T>::push_front(T a)
+{
+	this->add_stack(a);
+}
+template<typename T>
+bool sqd_list<T>::pop_front()
+{
+	this->erase_position(1);
+}
+template<typename T>
+bool sqd_list<T>::pop_back()
+{
+	this->erase_position(Size);
 }
