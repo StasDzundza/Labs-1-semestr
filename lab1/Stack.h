@@ -12,7 +12,7 @@ class Stack:public SQD<T>
 {
 public :
 	
-	Stack() {}
+	Stack() { impl = new sqd_list<T>; }
 	Stack(int size)
 	{
 		if(size > 0)
@@ -30,7 +30,7 @@ public :
 	bool delete_data(T a) override;
 	int size() override;
 private:
-	MODE mode;
+	MODE mode = list;
 	int SIZE = 0;//для масиву
 	SQD<T>*impl;
 	void push_back(T a) override;
@@ -44,13 +44,17 @@ void Stack<T>::set_mode(int mode)
 	{
 		impl = new sqd_list<T>;
 	}
-	else
+	else if(mode == 2)
 	{
 		if(SIZE > 0)
 			impl = new sqd_arr<T>(SIZE);
 		else
 			impl = new sqd_arr<T>;
 	}	
+	else
+	{
+
+	}
 }
 template<typename T>
 void Stack<T>::push_front(T a)
@@ -101,7 +105,7 @@ int Stack<T>::size()
 {
 	return impl->size();
 }
-/////////////////////////////////////////////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
+///////////////////////////////////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
 template<typename T>
 void Stack<T>::push_back(T a)
 {

@@ -1,134 +1,114 @@
 #pragma once
 #include"sqd_arr.h"
 #include"sqd_list.h"
-//enum MODE
-//{
-//	list,
-//	arr
-//};
-template<typename T>
-class queue
+#include"SQD.h"
+enum MODE
 {
-public:
-	virtual void push_back(T a) = 0;
-	virtual void show() = 0;
-	virtual bool is_empty() = 0;
-	virtual T back() = 0;
-	virtual T front() = 0;
-	virtual T pop() = 0;//delete from begin
-	virtual bool erase_from_position(int position) = 0;
-	virtual bool delete_data(T a) = 0;
-	virtual int size() = 0;
+	list,
+	arr
 };
-
 template<typename T>
-class Queue :public queue<T>
+class Queue :public SQD<T>
 {
 public:
 
-	Queue() {}
+	Queue() {impl = new sqd_list<T>;}
 	Queue(int size)
 	{
-		arrr = sqd_arr<T>(size);
+		if (size > 0)
+			this->SIZE = size;
 	}
-	void push_back(T a) override;
 	void show() override;
-	void set_state(int st);
+	void set_mode(int mode);
 	bool is_empty() override;
 	T back() override;
 	T front() override;
-	T pop() override;//delete from begin
 	bool erase_from_position(int position) override;
 	bool delete_data(T a) override;
 	int size() override;
+	void push_back(T a) override;
+	T pop_front() override;//delete from begin
 private:
-	MODE mode;
-	sqd_list<T> lst;
-	sqd_arr<T> arrr;
+	MODE mode = list;
+	int SIZE = 0;//для масиву
+	SQD<T>*impl;
+	void push_front(T a) override;
+	bool pop_back() override;
 };
 
 template<typename T>
-void Queue<T>::set_state(int state)
+void Queue<T>::set_mode(int mode)
 {
-	if (state == 1)
-		mode = MODE::list;
+	if (mode == 1)
+		impl = new sqd_list<T>;
+	else if (mode == 2)
+	{
+		if (SIZE > 0)
+			impl = new sqd_arr<T>(SIZE);
+		else
+			impl = new sqd_arr<T>;
+	}
 	else
-		mode = MODE::arr;
+	{
+
+	}
 }
 template<typename T>
 void Queue<T>::push_back(T a)
 {
-	if (mode == MODE::list)
-		lst.add_queue(a);
-	else
-		arrr.add_qu(a);
+	impl->push_back(a);
 }
 
 template<typename T>
 void Queue<T>::show()
 {
-	if (mode == MODE::list)
-		lst.show();
-	else
-		arrr.show();
+	impl->show();
 }
 template<typename T>
 bool Queue<T>::is_empty()
 {
-	if (mode == MODE::list)
-		return lst.is_empty();
-	else
-		return arrr.is_empty();
+	return impl->is_empty();
 }
 template<typename T>
 T Queue<T>::back()
 {
-	if (mode == MODE::list)
-		return lst.back();
-	else
-		return arrr.back();
+	return impl->back();
 }
 template<typename T>
 T Queue<T>::front()
 {
-	if (mode == MODE::list)
-		return lst.front();
-	else
-		return arrr.front();
-}
-template<typename T>
-T Queue<T>::pop()
-{
-	if (mode == MODE::list)
-		return lst.pop();
-	else
-		return arrr.pop();
+	return impl->front();
 }
 
 template<typename T>
 bool Queue<T>::erase_from_position(int position)
 {
-	if (mode == MODE::list)
-		return lst.erase_position(position);
-	else
-		return arrr.erase_position(position);
+	return impl->erase_from_position(position);
 }
 
 template<typename T>
 bool Queue<T>::delete_data(T a)
 {
-	if (mode == MODE::list)
-		return lst.delete_data(a);
-	else
-		return arrr.delete_data(a);
+	return impl->delete_data(a);
 }
 
 template<typename T>
 int Queue<T>::size()
 {
-	if (mode == MODE::list)
-		return lst.size();
-	else
-		return arrr.size();
+	return impl->size();
 }
-
+template<typename T>
+T Queue<T>::pop_front()
+{
+	return impl->pop_front();
+}
+////////////////////////////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
+template<typename T>
+void Queue<T>::push_front(T a)
+{
+}
+template<typename T>
+bool Queue<T>::pop_back()
+{
+	return false;
+}
