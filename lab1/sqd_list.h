@@ -20,7 +20,7 @@ public:
 	void push_front(T a)override;
 	void push_back(T a)override;
 	T pop_front()override;
-	bool pop_back()override;
+	T pop_back()override;
 
 
 
@@ -222,13 +222,25 @@ void sqd_list<T>::push_front(T a)
 	this->add_stack(a);
 }
 template<typename T>
-bool sqd_list<T>::pop_back()
+T sqd_list<T>::pop_back()
 {
 	if (head)
 	{
-		this->erase_from_position(Size);
-		return true;
+		if (head->next == nullptr)
+			return this->pop_front();
+		else
+		{
+			T element;
+			Node<T>*tmp = head;
+			while (tmp->next->next)//шукаємо передостанній
+				tmp = tmp->next;
+			element = tmp->next->data;
+			delete tmp->next;//видаляємо останній
+			Size--;
+			tmp->next = nullptr;
+			return element;
+		}
 	}
-	return false;
+	return 0;
 }
 

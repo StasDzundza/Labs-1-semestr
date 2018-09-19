@@ -34,7 +34,7 @@ private:
 	int SIZE = 0;//для масиву
 	SQD<T>*impl;
 	void push_back(T a) override;
-	bool pop_back() override;
+	T pop_back() override;
 };
 
 template<typename T>
@@ -111,7 +111,7 @@ void Stack<T>::push_back(T a)
 {
 }
 template<typename T>
-bool Stack<T>::pop_back()
+T Stack<T>::pop_back()
 {
 	return false;
 }

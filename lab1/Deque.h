@@ -22,7 +22,7 @@ public:
 	}
 	void push_back(T a) override;
 	void push_front(T a) override;
-	bool pop_back() override;
+	T pop_back() override;
 	T pop_front() override;
 	void show() override;
 	void set_mode(int mode);
@@ -61,7 +61,7 @@ void Deque<T>::push_back(T a)
 	impl->push_back(a);
 }
 template<typename T>
-bool Deque<T>::pop_back()
+T Deque<T>::pop_back()
 {
 	return impl->pop_back();
 }

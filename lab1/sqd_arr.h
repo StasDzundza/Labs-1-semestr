@@ -19,7 +19,7 @@ public:
 	void push_front(T a)override;
 	void push_back(T a)override;
 	T pop_front()override;
-	bool pop_back()override;
+	T pop_back()override;
 
 
 
@@ -223,14 +223,15 @@ void sqd_arr<T>::push_back(T a)
 	this->add_qu(a);
 }
 template<typename T>
-bool sqd_arr<T>::pop_back()
+T sqd_arr<T>::pop_back()
 {
 	if (Index > 0)
 	{
-		this->erase_from_position(Index);
-		return true;
+		T element = arr[Index - 1];
+		Index--;
+		return element;
 	}
-	return false;
+	return 0;
 }
 template<typename T>
 void sqd_arr<T>::show()

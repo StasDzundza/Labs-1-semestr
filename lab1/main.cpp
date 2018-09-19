@@ -7,7 +7,7 @@ int main()
 {
 	setlocale(LC_ALL, "ukr");
 	Deque<int> s;
-	s.set_mode(2);
+	s.set_mode(1);
 	s.push_back(1);
 	s.push_front(2);
 	s.push_back(3);

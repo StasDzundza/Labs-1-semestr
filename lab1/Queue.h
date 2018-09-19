@@ -33,7 +33,7 @@ private:
 	int SIZE = 0;//для масиву
 	SQD<T>*impl;
 	void push_front(T a) override;
-	bool pop_back() override;
+	T pop_back() override;
 };
 
 template<typename T>
@@ -108,7 +108,7 @@ void Queue<T>::push_front(T a)
 {
 }
 template<typename T>
-bool Queue<T>::pop_back()
+T Queue<T>::pop_back()
 {
 	return false;
 }
