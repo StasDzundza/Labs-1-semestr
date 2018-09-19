@@ -7,11 +7,6 @@ class sqd_vector :public SQD<T>//покищо лише стек і черга
 {
 public:
 	sqd_vector() { }
-	//functions for stack in list
-	void add_stack(T a);
-
-	//functions for queue in list
-	void add_queue(T a);
 
 	//functions for deque in list
 	void push_front(T a)override;
@@ -33,14 +28,6 @@ private:
 
 
 template<typename T>
-void sqd_vector<T>::add_stack(T a)/////////////////
-{
-	auto it = VECTOR.begin();
-	VECTOR.insert(it,a);
-}
-
-
-template<typename T>
 T sqd_vector<T>::back()
 {
 	return VECTOR.back();
@@ -54,37 +41,60 @@ T sqd_vector<T>::front()
 }
 
 template<typename T>
-T sqd_vector<T>::pop_front()/////////////////
+T sqd_vector<T>::pop_front()
 {
-	T tmp = VECTOR.front();
-	//VECTOR.erase(0);
-	return tmp;
+	if (VECTOR.size() > 0)
+	{
+		T tmp = VECTOR.front();
+		VECTOR.erase(VECTOR.begin());
+		return tmp;
+	}
+	else return 0;
 }
 
 
 template<typename T>
-bool sqd_vector<T>::erase_from_position(int position)//////////////////////???????????
+bool sqd_vector<T>::erase_from_position(int position)
 {
-	//deque<T> ::iterator;
-	return true;
+	if (position <= VECTOR.size() && position >= 1)
+	{
+		auto it = VECTOR.begin();
+		advance(it, position - 1);
+		VECTOR.erase(it);
+		return true;
+	}
+	else return false;
 }
 template<typename T>
-bool sqd_vector<T>::delete_data(T data)/////////////////?????????????
+bool sqd_vector<T>::delete_data(T data)
 {
-	return true;
+	if (VECTOR.size() > 0)
+	{
+		int position = -1;
+		for (int i = 0; i < VECTOR.size(); i++)
+		{
+			if (data == VECTOR[i])
+			{
+				position = i;
+				break;
+			}
+		}
+		if (position != -1)//знайшли такий елемент
+		{
+			auto it = VECTOR.begin();
+			advance(it, position);
+			VECTOR.erase(it);
+			return true;
+		}
+		else
+			return false;
+	}
+	else return false;
 }
 template<typename T>
 int sqd_vector<T>::size()
 {
 	return VECTOR.size();
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-template<typename T>
-void sqd_vector<T>::add_queue(T a)
-{
-	VECTOR.push_back(a);
 }
 
 template<typename T>
@@ -109,9 +119,10 @@ void sqd_vector<T>::push_back(T a)
 	VECTOR.push_back(a);
 }
 template<typename T>
-void sqd_vector<T>::push_front(T a)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&????????????
+void sqd_vector<T>::push_front(T a)
 {
-	//VECTOR.push_front(a);
+	auto it = VECTOR.begin();
+	VECTOR.insert(it, a);
 }
 template<typename T>
 T sqd_vector<T>::pop_back()

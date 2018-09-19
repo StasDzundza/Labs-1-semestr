@@ -44,7 +44,7 @@ int main()
 		s.push_front(3);
 		s.push_front(4);
 		s.show();
-		s.delete_data(1);
+		s.delete_data(4);
 		s.show();
 		cout << s.size();
 
