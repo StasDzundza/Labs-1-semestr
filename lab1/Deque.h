@@ -36,6 +36,7 @@ public:
 	bool erase_from_position(int position) override;
 	bool delete_data(T a) override;
 	int size() override;
+	void clear()override;
 private:
 	MODE mode = list;
 	int SIZE = 0;//для масиву
@@ -128,4 +129,8 @@ int Deque<T>::size()
 {
 	return impl->size();
 }
-
+template<typename T>
+void Deque<T>::clear()
+{
+	impl->clear();
+}

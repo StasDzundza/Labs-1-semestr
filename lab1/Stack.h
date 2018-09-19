@@ -33,6 +33,7 @@ public :
 	bool erase_from_position(int position) override;
 	bool delete_data(T a) override;
 	int size() override;
+	void clear()override;
 private:
 	MODE mode = list;
 	int SIZE = 0;//для масиву
@@ -136,6 +137,10 @@ T Stack<T>::pop_back()
 	return false;
 }
 
-
+template<typename T>
+void Stack<T>::clear()
+{
+	impl->clear();
+}
 
 

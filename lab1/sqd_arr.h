@@ -20,7 +20,7 @@ public:
 	void push_back(T a)override;
 	T pop_front()override;
 	T pop_back()override;
-
+	void clear()override;
 
 
 	//same functions for all 
@@ -231,11 +231,14 @@ void sqd_arr<T>::show()
 	{
 		std::cout << arr[i] << " ";
 	}
-	std::cout << arr;
 	std::cout << std::endl;
 }
 
-
+template<typename T>
+void sqd_arr<T>::clear()
+{
+	Index = 0;//псевдоочищення
+}
 template<typename T>
 void sqd_arr<T>::operator =(const sqd_arr&other_class)
 {

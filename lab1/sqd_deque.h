@@ -9,12 +9,6 @@ class sqd_deque :public SQD<T>//покищо лише стек і черга
 {
 public:
 	sqd_deque() { }
-	//functions for stack in list
-	void add_stack(T a);
-
-	//functions for queue in list
-	void add_queue(T a);
-
 	//functions for deque in list
 	void push_front(T a)override;
 	void push_back(T a)override;
@@ -29,18 +23,13 @@ public:
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
+	void clear() override;
 private:
 	deque<T> DEQUE;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-template<typename T>
-void sqd_deque<T>::add_stack(T a)
-{
-	DEQUE.push_front(a);
-}
 
 
 template<typename T>
@@ -109,15 +98,6 @@ int sqd_deque<T>::size()
 	return DEQUE.size();
 }
 
-
-/////////////////////////////////////////////////////////////////////////////////////
-template<typename T>
-void sqd_deque<T>::add_queue(T a)
-{
-	DEQUE.push_back(a);
-}
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename T>
 void sqd_deque<T>::show()
@@ -153,3 +133,8 @@ T sqd_deque<T>::pop_back()
 	return tmp;
 }
 
+template<typename T>
+void sqd_deque<T>::clear()
+{
+	DEQUE.clear();
+}

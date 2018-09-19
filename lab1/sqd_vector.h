@@ -22,6 +22,7 @@ public:
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
+	void clear()override;
 private:
 	vector<T> VECTOR;
 };
@@ -132,3 +133,8 @@ T sqd_vector<T>::pop_back()
 	return tmp;
 }
 
+template<typename T>
+void sqd_vector<T>::clear()
+{
+	VECTOR.clear();
+}

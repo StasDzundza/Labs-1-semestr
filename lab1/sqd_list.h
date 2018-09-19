@@ -8,21 +8,14 @@ public:
 	//functions for stack in list
 	void add_stack(T a);
 	
-	
-	
-	
 	//functions for queue in list
 	void add_queue(T a);
 	
-
-
 	//functions for deque in list
 	void push_front(T a)override;
 	void push_back(T a)override;
 	T pop_front()override;
 	T pop_back()override;
-
-
 
 	//same functions for all 
 	void show()override;
@@ -32,6 +25,7 @@ public:
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
+	void clear();
 private:
 	template<typename T>
 	class Node
@@ -244,3 +238,11 @@ T sqd_list<T>::pop_back()
 	return 0;
 }
 
+template<typename T>
+void sqd_list<T>::clear()
+{
+	while (Size)
+	{
+		this->pop_front();
+	}
+}

@@ -14,4 +14,5 @@ public:
 	virtual bool erase_from_position(int position) = 0;
 	virtual bool delete_data(T a) = 0;
 	virtual int size() = 0;
+	virtual void clear() = 0;
 };

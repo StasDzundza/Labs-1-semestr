@@ -32,6 +32,7 @@ public:
 	int size() override;
 	void push_back(T a) override;
 	T pop_front() override;//delete from begin
+	void clear()override;
 private:
 	MODE mode = list;
 	int SIZE = 0;//для масиву
@@ -125,4 +126,9 @@ template<typename T>
 T Queue<T>::pop_back()
 {
 	return false;
+}
+template<typename T>
+void Queue<T>::clear()
+{
+	impl->clear();
 }

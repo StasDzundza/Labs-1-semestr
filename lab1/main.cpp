@@ -38,13 +38,14 @@ int main()
 	setlocale(LC_ALL, "ukr");
 
 		Stack<int> s;
-		s.set_mode(4);
+		s.set_mode(3);
 		s.push_front(1);
 		s.push_front(2);
 		s.push_front(3);
 		s.push_front(4);
 		s.show();
-		s.delete_data(4);
+		cout << s.size() << endl;
+		s.clear();
 		s.show();
 		cout << s.size();
 
