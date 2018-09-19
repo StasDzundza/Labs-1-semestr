@@ -31,21 +31,11 @@ public:
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
-	void operator =(const sqd_arr&other_class)
-	{
-		if (arr != nullptr)
-			delete arr;
-		arr = new T[other_class.Max];
-		Max = other_class.Max;
-		Index = other_class.Index;
-		for (int i = 0; i < other_class.Index; i++)
-		{
-			arr[i] = other_class.arr[i];
-		}
-	}
+	void operator =(const sqd_arr&other_class);
 	~sqd_arr()
 	{
 		delete[]arr;
+		std::cout << "destructor";
 	}
 
 private:
@@ -241,5 +231,21 @@ void sqd_arr<T>::show()
 	{
 		std::cout << arr[i] << " ";
 	}
+	std::cout << arr;
 	std::cout << std::endl;
+}
+
+
+template<typename T>
+void sqd_arr<T>::operator =(const sqd_arr&other_class)
+{
+	if (arr != nullptr)
+		delete arr;
+	arr = new T[other_class.Max];
+	Max = other_class.Max;
+	Index = other_class.Index;
+	for (int i = 0; i < other_class.Index; i++)
+	{
+		arr[i] = other_class.arr[i];
+	}
 }

@@ -66,15 +66,42 @@ T sqd_deque<T>::pop_front()
 
 
 template<typename T>
-bool sqd_deque<T>::erase_from_position(int position)//??????????????????
+bool sqd_deque<T>::erase_from_position(int position)
 {
-	//deque<T> ::iterator;
-	return true;
+	if (position <= DEQUE.size() && position>=1)
+	{
+		auto it = DEQUE.begin();
+		advance(it, position-1);
+		DEQUE.erase(it);
+		return true;
+	}
+	else return false;
 }
 template<typename T>
 bool sqd_deque<T>::delete_data(T data)//??????????????????????????
 {
-	return true;
+	if (DEQUE.size() > 0)
+	{
+		int position = -1;
+		for (int i = 0; i < DEQUE.size(); i++)
+		{
+			if (data == DEQUE[i])
+			{
+				position = i;
+				break;
+			}
+		}
+		if (position != -1)//знайшли такий елемент
+		{
+			auto it = DEQUE.begin();
+			advance(it, position);
+			DEQUE.erase(it);
+			return true;
+		}
+		else
+			return false;
+	}
+	else return false;
 }
 template<typename T>
 int sqd_deque<T>::size()

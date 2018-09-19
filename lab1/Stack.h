@@ -22,7 +22,7 @@ public :
 		if(size > 0)
 			this->SIZE = size;
 	}
-	
+	Stack(const Stack&other_stack);
 	void push_front(T a) override;
 	void show() override;
 	void set_mode(int mode);
@@ -40,7 +40,11 @@ private:
 	void push_back(T a) override;
 	T pop_back() override;
 };
-
+template<typename T>
+Stack<T>::Stack(const Stack<T>&other_stack)
+{
+	this->impl = other_stack.impl;
+}
 template<typename T>
 void Stack<T>::set_mode(int mode)
 {
@@ -79,21 +83,25 @@ void Stack<T>::show()
 {
 	impl->show();
 }
+
 template<typename T>
 bool Stack<T>::is_empty()
 {
 	return impl->is_empty();
 }
+
 template<typename T>
 T Stack<T>::back()
 {
 	return impl->back();
 }
+
 template<typename T>
 T Stack<T>::front()
 {
 	return impl->front();
 }
+
 template<typename T>
 T Stack<T>::pop_front()
 {
@@ -127,3 +135,7 @@ T Stack<T>::pop_back()
 {
 	return false;
 }
+
+
+
+

@@ -35,7 +35,8 @@ private:
 template<typename T>
 void sqd_vector<T>::add_stack(T a)/////////////////
 {
-	//VECTOR.insert(0);
+	auto it = VECTOR.begin();
+	VECTOR.insert(it,a);
 }
 
 
