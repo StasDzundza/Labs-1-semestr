@@ -4,7 +4,6 @@ template<typename T>
 class sqd_arr:public SQD<T>//покищо лише стек і черга
 {
 public:
-	void push(T a)override;
 	sqd_arr();
 	sqd_arr(int size);
 
@@ -55,11 +54,7 @@ private:
 	int Index;
 	T*arr = nullptr;
 };
-template<typename T>
-void sqd_arr<T>::push(T a)
-{
-	std::cout << "push";
-}
+
 /////////////////////////////////////////////////////
 template<typename T>
 sqd_arr<T>::sqd_arr()

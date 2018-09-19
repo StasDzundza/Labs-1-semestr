@@ -5,7 +5,6 @@ class sqd_list:public SQD<T>//покищо лише стек і черга
 {
 public:
 	sqd_list() { Size = 0; head = nullptr; }
-	void push(T a) override;
 	//functions for stack in list
 	void add_stack(T a);
 	
@@ -53,11 +52,6 @@ private:
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-template<typename T>
-void sqd_list<T>::push(T a)
-{
-	std::cout << "push";
-}
 
 template<typename T>
 void sqd_list<T>::add_stack(T a)

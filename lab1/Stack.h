@@ -30,13 +30,11 @@ public :
 	Stack() {}
 	Stack(int size)
 	{
-		//arrr = sqd_arr<T>(size);
+		if(size > 0)
+			this->SIZE = size;
 	}
-	void push_back(T a) override;
+	
 	void push_front(T a) override;
-	bool pop_back() override;
-	bool pop_front() override;
-	void push(T a) override;
 	void show() override;
 	void set_mode(int st);
 	bool is_empty() override;
@@ -48,30 +46,13 @@ public :
 	int size() override;
 private:
 	MODE mode;
-	//sqd_list<T> lst;
-	//sqd_arr<T> arrr;
+	int SIZE = 0;//для масиву
 	SQD<T>*impl;
+	void push_back(T a) override;
+	bool pop_back() override;
+	bool pop_front() override;
 };
-template<typename T>
-void Stack<T>::push_back(T a)
-{
-	std::cout << "pushb";
-}
-template<typename T>
-void Stack<T>::push_front(T a)
-{
-	std::cout << "pushf";
-}
-template<typename T>
-bool Stack<T>::pop_back()
-{
-	return false;
-}
-template<typename T>
-bool Stack<T>::pop_front()
-{
-	return true;
-}
+
 template<typename T>
 void Stack<T>::set_mode(int mode)
 {
@@ -81,11 +62,14 @@ void Stack<T>::set_mode(int mode)
 	}
 	else
 	{
-		impl = new sqd_arr<T>;
+		if(SIZE > 0)
+			impl = new sqd_arr<T>(SIZE);
+		else
+			impl = new sqd_arr<T>;
 	}	
 }
 template<typename T>
-void Stack<T>::push(T a)
+void Stack<T>::push_front(T a)
 {
 	impl->push_front(a);
 }
@@ -132,4 +116,22 @@ template<typename T>
 int Stack<T>::size()
 {
 	return impl->size();
+}
+
+
+
+
+template<typename T>
+void Stack<T>::push_back(T a)
+{
+}
+template<typename T>
+bool Stack<T>::pop_back()
+{
+	return false;
+}
+template<typename T>
+bool Stack<T>::pop_front()
+{
+	return false;
 }
