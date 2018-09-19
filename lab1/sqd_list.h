@@ -4,8 +4,8 @@ template<typename T>
 class sqd_list:public SQD<T>//покищо лише стек і черга
 {
 public:
-	sqd_list() { Size = 0; }
-
+	sqd_list() { Size = 0; head = nullptr; }
+	void push(T a) override;
 	//functions for stack in list
 	void add_stack(T a);
 	
@@ -18,22 +18,22 @@ public:
 
 
 	//functions for deque in list
-	void push_front(T a);
-	void push_back(T a);
-	bool pop_front();
-	bool pop_back();
+	void push_front(T a)override;
+	void push_back(T a)override;
+	bool pop_front()override;
+	bool pop_back()override;
 
 
 
 	//same functions for all 
-	void show();
-	bool is_empty();
-	T back();
-	T front();
-	T pop();//delete from begin
-	bool erase_position(int position);
-	bool delete_data(T a);
-	int size();
+	void show()override;
+	bool is_empty()override;
+	T back()override;
+	T front()override;
+	T pop()override;//delete from begin
+	bool erase_from_position(int position)override;
+	bool delete_data(T a)override;
+	int size()override;
 private:
 	template<typename T>
 	class Node
@@ -52,6 +52,12 @@ private:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+template<typename T>
+void sqd_list<T>::push(T a)
+{
+	std::cout << "push";
+}
 
 template<typename T>
 void sqd_list<T>::add_stack(T a)
@@ -111,7 +117,7 @@ T sqd_list<T>::pop()
 
 
 template<typename T>
-bool sqd_list<T>::erase_position(int position)
+bool sqd_list<T>::erase_from_position(int position)
 {
 	if (position < Size && head!=nullptr)
 	{
@@ -209,7 +215,7 @@ void sqd_list<T>::show()
 template<typename T>
 bool sqd_list<T>::is_empty()
 {
-	return head == NULL;
+	return head == nullptr;
 }
 
 template<typename T>
@@ -237,7 +243,7 @@ bool sqd_list<T>::pop_back()
 {
 	if (head)
 	{
-		this->erase_position(Size);
+		this->erase_from_position(Size);
 		return true;
 	}
 	return false;

@@ -38,7 +38,7 @@ public :
 	bool pop_front() override;
 	void push(T a) override;
 	void show() override;
-	void set_state(int st);
+	void set_mode(int st);
 	bool is_empty() override;
 	T back() override;
 	T front() override;
@@ -65,21 +65,24 @@ void Stack<T>::push_front(T a)
 template<typename T>
 bool Stack<T>::pop_back()
 {
-	std::cout << "pb";
+	return false;
 }
 template<typename T>
 bool Stack<T>::pop_front()
 {
-	std::cout << "pf";
+	return true;
 }
 template<typename T>
-void Stack<T>::set_state(int state)
+void Stack<T>::set_mode(int mode)
 {
-	if (state == 1)
+	if (mode == 1)
+	{
 		impl = new sqd_list<T>;
+	}
 	else
+	{
 		impl = new sqd_arr<T>;
-	
+	}	
 }
 template<typename T>
 void Stack<T>::push(T a)

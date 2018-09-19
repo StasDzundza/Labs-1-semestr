@@ -6,7 +6,7 @@ int main()
 {
 	setlocale(LC_ALL, "ukr");
 	Stack<int> s;
-	s.set_state(2);
+	s.set_mode(1);
 	s.push(1);
 	s.push(2);
 	s.push(3);

@@ -4,7 +4,7 @@ template<typename T>
 class sqd_arr:public SQD<T>//покищо лише стек і черга
 {
 public:
-
+	void push(T a)override;
 	sqd_arr();
 	sqd_arr(int size);
 
@@ -17,22 +17,22 @@ public:
 	void add_qu(T a);
 
 	//functions for deque in list
-	void push_front(T a);
-	void push_back(T a);
-	bool pop_front();
-	bool pop_back();
+	void push_front(T a)override;
+	void push_back(T a)override;
+	bool pop_front()override;
+	bool pop_back()override;
 
 
 
 	//same functions for all 
-	void show();
-	bool is_empty();
-	T back();
-	T front();
-	T pop();//delete from begin
-	bool erase_position(int position);
-	bool delete_data(T a);
-	int size();
+	void show()override;
+	bool is_empty()override;
+	T back()override;
+	T front()override;
+	T pop()override;//delete from begin
+	bool erase_from_position(int position)override;
+	bool delete_data(T a)override;
+	int size()override;
 	void operator =(const sqd_arr&other_class)
 	{
 		if (arr != nullptr)
@@ -55,6 +55,11 @@ private:
 	int Index;
 	T*arr = nullptr;
 };
+template<typename T>
+void sqd_arr<T>::push(T a)
+{
+	std::cout << "push";
+}
 /////////////////////////////////////////////////////
 template<typename T>
 sqd_arr<T>::sqd_arr()
@@ -139,7 +144,7 @@ T sqd_arr<T>::pop()
 }
 
 template<typename T>
-bool sqd_arr<T>::erase_position(int position)
+bool sqd_arr<T>::erase_from_position(int position)
 {
 	if (Index > 0 && position <= Index)
 	{
@@ -238,7 +243,7 @@ bool sqd_arr<T>::pop_back()
 {
 	if (Index > 0)
 	{
-		this->erase_position(Index);
+		this->erase_from_position(Index);
 		return true;
 	}
 	return false;
