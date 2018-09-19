@@ -21,7 +21,7 @@ public :
 	
 	void push_front(T a) override;
 	void show() override;
-	void set_mode(int st);
+	void set_mode(int mode);
 	bool is_empty() override;
 	T back() override;
 	T front() override;

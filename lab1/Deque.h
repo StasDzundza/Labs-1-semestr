@@ -2,141 +2,116 @@
 #include"sqd_list.h"
 #include"sqd_arr.h"
 #include"SQD.h"
+
+enum MODE
+{
+	list,
+	arr
+};
+
 template<typename T>
 class Deque :public SQD<T>
 {
 public:
 
-	Deque() {}
+	Deque() { impl = new sqd_list<T>; }
 	Deque(int size)
 	{
-		arrr = sqd_arr<T>(size);
+		if (size > 0)
+			this->SIZE = size;
 	}
 	void push_back(T a) override;
 	void push_front(T a) override;
 	bool pop_back() override;
-	bool pop_front() override;
+	T pop_front() override;
 	void show() override;
-	void set_state(int st);
+	void set_mode(int mode);
 	bool is_empty() override;
 	T back() override;
 	T front() override;
-	T pop() override;//delete from begin
 	bool erase_from_position(int position) override;
 	bool delete_data(T a) override;
 	int size() override;
 private:
-	MODE mode;
-	sqd_list<T> lst;
-	sqd_arr<T> arrr;
+	MODE mode = list;
+	int SIZE = 0;//для масиву
+	SQD<T>*impl;
 };
 
 template<typename T>
-void Deque<T>::set_state(int state)
+void Deque<T>::set_mode(int mode)
 {
-	if (state == 1)
-		mode = MODE::list;
+	if (mode == 1)
+		impl = new sqd_list<T>;
+	else if (mode == 2)
+	{
+		if (SIZE > 0)
+			impl = new sqd_arr<T>(SIZE);
+		else
+			impl = new sqd_arr<T>;
+	}
 	else
-		mode = MODE::arr;
+	{
+
+	}
 }
 template<typename T>
 void Deque<T>::push_back(T a)
 {
-	if (mode == MODE::list)
-		lst.push_back(a);
-	else
-		arrr.push_back(a);
+	impl->push_back(a);
 }
 template<typename T>
 bool Deque<T>::pop_back()
 {
-	if (mode == MODE::list)
-		return lst.pop_back();
-	else
-		return arrr.pop_back();
-}
-template<typename T>
-bool Deque<T>::pop_front()
-{
-	if (mode == MODE::list)
-		return lst.pop_front();
-	else
-		return arrr.pop_front();
+	return impl->pop_back();
 }
 template<typename T>
 void Deque<T>::push_front(T a)
 {
-	if (mode == MODE::list)
-		lst.push_front(a);
-	else
-		arrr.push_front(a);
+	impl->push_front(a);
 }
 
 template<typename T>
 void Deque<T>::show()
 {
-	if (mode == MODE::list)
-		lst.show();
-	else
-		arrr.show();
+	impl->show();
 }
 template<typename T>
 bool Deque<T>::is_empty()
 {
-	if (mode == MODE::list)
-		return lst.is_empty();
-	else
-		return arrr.is_empty();
+	return impl->is_empty();
 }
 template<typename T>
 T Deque<T>::back()
 {
-	if (mode == MODE::list)
-		return lst.back();
-	else
-		return arrr.back();
+	return impl->back();
 }
 template<typename T>
 T Deque<T>::front()
 {
-	if (mode == MODE::list)
-		return lst.front();
-	else
-		return arrr.front();
+	return impl->front();
 }
 template<typename T>
-T Deque<T>::pop()
+T Deque<T>::pop_front()
 {
-	if (mode == MODE::list)
-		return lst.pop();
-	else
-		return arrr.pop();
+	return impl->pop_front();
 }
 
 template<typename T>
 bool Deque<T>::erase_from_position(int position)
 {
-	if (mode == MODE::list)
-		return lst.erase_position(position);
-	else
-		return arrr.erase_position(position);
+	return erase_from_position(position);
 }
 
 template<typename T>
 bool Deque<T>::delete_data(T a)
 {
-	if (mode == MODE::list)
-		return lst.delete_data(a);
-	else
-		return arrr.delete_data(a);
+	return impl->delete_data(a);
 }
 
 template<typename T>
 int Deque<T>::size()
 {
-	if (mode == MODE::list)
-		return lst.size();
-	else
-		return arrr.size();
+	return impl->size();
 }
 
