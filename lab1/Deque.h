@@ -2,6 +2,7 @@
 #include"sqd_list.h"
 #include"sqd_arr.h"
 #include"sqd_deque.h"
+#include"sqd_vector.h"
 #include"SQD.h"
 
 enum MODE

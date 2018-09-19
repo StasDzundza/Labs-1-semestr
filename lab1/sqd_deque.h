@@ -66,14 +66,15 @@ T sqd_deque<T>::pop_front()
 
 
 template<typename T>
-bool sqd_deque<T>::erase_from_position(int position)
+bool sqd_deque<T>::erase_from_position(int position)//??????????????????
 {
 	//deque<T> ::iterator;
+	return true;
 }
 template<typename T>
-bool sqd_deque<T>::delete_data(T data)
+bool sqd_deque<T>::delete_data(T data)//??????????????????????????
 {
-	
+	return true;
 }
 template<typename T>
 int sqd_deque<T>::size()
@@ -94,7 +95,11 @@ void sqd_deque<T>::add_queue(T a)
 template<typename T>
 void sqd_deque<T>::show()
 {
-	
+	for (int i = 0; i < DEQUE.size(); i++)
+	{
+		std::cout << DEQUE[i] << " ";
+	}
+	std::cout << endl;
 }
 
 template<typename T>

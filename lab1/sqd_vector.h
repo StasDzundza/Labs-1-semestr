@@ -6,7 +6,7 @@ template<typename T>
 class sqd_vector :public SQD<T>//покищо лише стек і черга
 {
 public:
-	sqd_deque() { }
+	sqd_vector() { }
 	//functions for stack in list
 	void add_stack(T a);
 
@@ -28,94 +28,95 @@ public:
 	bool delete_data(T a)override;
 	int size()override;
 private:
-	deque<T> DEQUE;
+	vector<T> VECTOR;
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 template<typename T>
-void sqd_deque<T>::add_stack(T a)
+void sqd_vector<T>::add_stack(T a)/////////////////
 {
-	DEQUE.push_front(a);
+	//VECTOR.insert(0);
 }
 
 
 template<typename T>
-T sqd_deque<T>::back()
+T sqd_vector<T>::back()
 {
-	return DEQUE.back();
+	return VECTOR.back();
 }
 
 
 template<typename T>
-T sqd_deque<T>::front()
+T sqd_vector<T>::front()
 {
-	return DEQUE.front();
+	return VECTOR.front();
 }
 
 template<typename T>
-T sqd_deque<T>::pop_front()
+T sqd_vector<T>::pop_front()/////////////////
 {
-	T tmp = DEQUE.front();
-	DEQUE.pop_front();
+	T tmp = VECTOR.front();
+	//VECTOR.erase(0);
 	return tmp;
 }
 
 
 template<typename T>
-bool sqd_deque<T>::erase_from_position(int position)
+bool sqd_vector<T>::erase_from_position(int position)//////////////////////???????????
 {
 	//deque<T> ::iterator;
+	return true;
 }
 template<typename T>
-bool sqd_deque<T>::delete_data(T data)
+bool sqd_vector<T>::delete_data(T data)/////////////////?????????????
 {
-
+	return true;
 }
 template<typename T>
-int sqd_deque<T>::size()
+int sqd_vector<T>::size()
 {
-	return DEQUE.size();
+	return VECTOR.size();
 }
 
 
 /////////////////////////////////////////////////////////////////////////////////////
 template<typename T>
-void sqd_deque<T>::add_queue(T a)
+void sqd_vector<T>::add_queue(T a)
 {
-	DEQUE.push_back(a);
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
-template<typename T>
-void sqd_deque<T>::show()
-{
-
+	VECTOR.push_back(a);
 }
 
 template<typename T>
-bool sqd_deque<T>::is_empty()
+void sqd_vector<T>::show()
 {
-	return DEQUE.empty();
+	for (int i = 0; i < VECTOR.size(); i++)
+	{
+		std::cout << VECTOR[i] << " ";
+	}
+	std::cout << endl;
 }
 
 template<typename T>
-void sqd_deque<T>::push_back(T a)
+bool sqd_vector<T>::is_empty()
 {
-	DEQUE.push_back(a);
+	return VECTOR.empty();
+}
+
+template<typename T>
+void sqd_vector<T>::push_back(T a)
+{
+	VECTOR.push_back(a);
 }
 template<typename T>
-void sqd_deque<T>::push_front(T a)
+void sqd_vector<T>::push_front(T a)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&????????????
 {
-	DEQUE.push_front(a);
+	//VECTOR.push_front(a);
 }
 template<typename T>
-T sqd_deque<T>::pop_back()
+T sqd_vector<T>::pop_back()
 {
-	T tmp = DEQUE.back();
-	DEQUE.pop_back();
+	T tmp = VECTOR.back();
+	VECTOR.pop_back();
 	return tmp;
 }
 
