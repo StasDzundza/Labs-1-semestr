@@ -1,6 +1,7 @@
 #pragma once
+#include"SQD.h"
 template<typename T>
-class sqd_list//покищо лише стек і черга
+class sqd_list:public SQD<T>//покищо лише стек і черга
 {
 public:
 	sqd_list() { Size = 0; }

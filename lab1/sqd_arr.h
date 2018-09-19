@@ -1,6 +1,7 @@
 #pragma once
+#include"SQD.h"
 template<typename T>
-class sqd_arr//покищо лише стек і черга
+class sqd_arr:public SQD<T>//покищо лише стек і черга
 {
 public:
 
@@ -14,7 +15,6 @@ public:
 
 	//functions for queue in arr
 	void add_qu(T a);
-
 
 	//functions for deque in list
 	void push_front(T a);
