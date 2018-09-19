@@ -18,7 +18,7 @@ public:
 	//functions for deque in list
 	void push_front(T a)override;
 	void push_back(T a)override;
-	bool pop_front()override;
+	T pop_front()override;
 	bool pop_back()override;
 
 
@@ -28,7 +28,6 @@ public:
 	bool is_empty()override;
 	T back()override;
 	T front()override;
-	T pop()override;//delete from begin
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
@@ -122,7 +121,7 @@ T sqd_arr<T>::front()
 }
 
 template<typename T>
-T sqd_arr<T>::pop()
+T sqd_arr<T>::pop_front()
 {
 	int first_element = arr[0];
 	if (Index > 0)
@@ -145,7 +144,7 @@ bool sqd_arr<T>::erase_from_position(int position)
 	{
 		if (position == 1)
 		{
-			this->pop();
+			this->pop_front();
 			return true;
 		}
 		else
@@ -169,7 +168,7 @@ bool sqd_arr<T>::delete_data(T a)
 	{
 		if (arr[0]==a)
 		{
-			this->pop();
+			this->pop_front();
 			return true;
 		}
 		else
@@ -222,16 +221,6 @@ template<typename T>
 void sqd_arr<T>::push_back(T a)
 {
 	this->add_qu(a);
-}
-template<typename T>
-bool sqd_arr<T>::pop_front()
-{
-	if (Index > 0)
-	{
-		this->pop();
-		return true;
-	}
-	return false;
 }
 template<typename T>
 bool sqd_arr<T>::pop_back()

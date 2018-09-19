@@ -19,7 +19,7 @@ public:
 	//functions for deque in list
 	void push_front(T a)override;
 	void push_back(T a)override;
-	bool pop_front()override;
+	T pop_front()override;
 	bool pop_back()override;
 
 
@@ -29,7 +29,6 @@ public:
 	bool is_empty()override;
 	T back()override;
 	T front()override;
-	T pop()override;//delete from begin
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
@@ -95,7 +94,7 @@ T sqd_list<T>::front()
 }
 
 template<typename T>
-T sqd_list<T>::pop()
+T sqd_list<T>::pop_front()
 {
 	if (head)
 	{
@@ -117,7 +116,7 @@ bool sqd_list<T>::erase_from_position(int position)
 	{
 		if (position == 1)
 		{
-			this->pop();
+			this->pop_front();
 			return true;
 		}
 		else
@@ -145,7 +144,7 @@ bool sqd_list<T>::delete_data(T data)
 	{
 		if (head->data == data)
 		{
-			this->pop();
+			this->pop_front();
 			return true;
 		}
 		else
@@ -221,16 +220,6 @@ template<typename T>
 void sqd_list<T>::push_front(T a)
 {
 	this->add_stack(a);
-}
-template<typename T>
-bool sqd_list<T>::pop_front()
-{
-	if (head)
-	{
-		this->pop();
-		return true;
-	}
-	return false;
 }
 template<typename T>
 bool sqd_list<T>::pop_back()

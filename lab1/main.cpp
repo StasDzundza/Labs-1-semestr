@@ -12,7 +12,7 @@ int main()
 	s.push_front(3);
 	s.push_front(4);
 	s.show();
-	s.push_front(5);
+	s.pop_front();
 	s.show();
 	cout << s.size();
 	system("pause");
