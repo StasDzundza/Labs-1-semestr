@@ -9,11 +9,11 @@ public:
 
 
 	//functions for stack in arr
-	void add_st(T a);
+	void add_stack(T a);
 
 
 	//functions for queue in arr
-	void add_qu(T a);
+	void add_queue(T a);
 
 	//functions for deque in list
 	void push_front(T a)override;
@@ -52,6 +52,7 @@ private:
 	int Max = 1000;
 	int Index;
 	T*arr = nullptr;
+
 };
 
 /////////////////////////////////////////////////////
@@ -82,7 +83,7 @@ sqd_arr<T>::sqd_arr(int size)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename T>
-void sqd_arr<T>::add_st(T a)
+void sqd_arr<T>::add_stack(T a)
 {
 	if (Index < Max)
 	{
@@ -123,7 +124,7 @@ T sqd_arr<T>::front()
 template<typename T>
 T sqd_arr<T>::pop_front()
 {
-	int first_element = arr[0];
+	T first_element = arr[0];
 	if (Index > 0)
 	{
 		Index--;// we delete element
@@ -203,7 +204,7 @@ int sqd_arr<T>::size()
 
 
 template<typename T>
-void sqd_arr<T>::add_qu(T a)
+void sqd_arr<T>::add_queue(T a)
 {
 	if (Index < Max)
 	{
@@ -215,12 +216,12 @@ void sqd_arr<T>::add_qu(T a)
 template<typename T>
 void sqd_arr<T>::push_front(T a)
 {
-	this->add_st(a);
+	this->add_stack(a);
 }
 template<typename T>
 void sqd_arr<T>::push_back(T a)
 {
-	this->add_qu(a);
+	this->add_queue(a);
 }
 template<typename T>
 T sqd_arr<T>::pop_back()

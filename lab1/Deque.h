@@ -1,12 +1,15 @@
 #pragma once
 #include"sqd_list.h"
 #include"sqd_arr.h"
+#include"sqd_deque.h"
 #include"SQD.h"
 
 enum MODE
 {
 	list,
-	arr
+	arr,
+	deque,
+	vector
 };
 
 template<typename T>
@@ -42,17 +45,27 @@ template<typename T>
 void Deque<T>::set_mode(int mode)
 {
 	if (mode == 1)
+	{
 		impl = new sqd_list<T>;
+		this->mode = MODE::list;
+	}
 	else if (mode == 2)
 	{
 		if (SIZE > 0)
 			impl = new sqd_arr<T>(SIZE);
 		else
 			impl = new sqd_arr<T>;
+		this->mode = MODE::arr;
+	}
+	else if(mode == 3)
+	{
+		impl = new sqd_deque<T>;
+		this->mode = MODE::deque;
 	}
 	else
 	{
-
+		impl = new sqd_vector<T>;
+		this->mode = MODE::vector;
 	}
 }
 template<typename T>
