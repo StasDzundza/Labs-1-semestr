@@ -5,6 +5,7 @@ class sqd_list:public SQD<T>//покищо лише стек і черга
 {
 public:
 	sqd_list() { Size = 0; head = nullptr; }
+	T operator[](int index);
 	//functions for stack in list
 	void add_stack(T a);
 	
@@ -245,4 +246,20 @@ void sqd_list<T>::clear()
 	{
 		this->pop_front();
 	}
+}
+
+template<typename T>
+T sqd_list<T>::operator[](int index)
+{
+	if (Size > 0 && index < Size && index >= 0)
+	{
+		Node<T>*tmp = head;
+		while (index)
+		{
+			index--;
+			tmp = tmp->next;
+		}
+		return tmp->data;
+	}
+	else return 0;
 }

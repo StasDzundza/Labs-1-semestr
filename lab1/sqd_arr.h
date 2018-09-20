@@ -6,11 +6,9 @@ class sqd_arr:public SQD<T>//покищо лише стек і черга
 public:
 	sqd_arr();
 	sqd_arr(int size);
-
-
 	//functions for stack in arr
 	void add_stack(T a);
-
+	T operator[](int index);
 
 	//functions for queue in arr
 	void add_queue(T a);
@@ -31,12 +29,8 @@ public:
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
-	void operator =(const sqd_arr&other_class);
-	~sqd_arr()
-	{
-		delete[]arr;
-		std::cout << "destructor";
-	}
+	sqd_arr& operator =(const sqd_arr&other_class);
+	~sqd_arr() { delete[]arr; }
 
 private:
 	int Max = 1000;
@@ -240,7 +234,7 @@ void sqd_arr<T>::clear()
 	Index = 0;//псевдоочищення
 }
 template<typename T>
-void sqd_arr<T>::operator =(const sqd_arr&other_class)
+sqd_arr<T>& sqd_arr<T>::operator =(const sqd_arr&other_class)
 {
 	if (arr != nullptr)
 		delete arr;
@@ -251,4 +245,14 @@ void sqd_arr<T>::operator =(const sqd_arr&other_class)
 	{
 		arr[i] = other_class.arr[i];
 	}
+	return *this;
+}
+template<typename T>
+T sqd_arr<T>::operator[](int index)
+{
+	if (Index > 0 && index < Index && index >= 0)
+	{
+		return arr[index];
+	}
+	else return 0;
 }

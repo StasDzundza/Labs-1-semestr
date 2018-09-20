@@ -22,6 +22,7 @@ public:
 		if (size > 0)
 			this->SIZE = size;
 	}
+	T operator[](int index);
 	void show() override;
 	void set_mode(int mode);
 	bool is_empty() override;
@@ -131,4 +132,10 @@ template<typename T>
 void Queue<T>::clear()
 {
 	impl->clear();
+}
+
+template<typename T>
+T Queue<T>::operator[](int index)
+{
+	return impl->operator[](index);
 }

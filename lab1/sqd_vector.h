@@ -7,7 +7,7 @@ class sqd_vector :public SQD<T>//покищо лише стек і черга
 {
 public:
 	sqd_vector() { }
-
+	T operator[](int index);
 	//functions for deque in list
 	void push_front(T a)override;
 	void push_back(T a)override;
@@ -137,4 +137,15 @@ template<typename T>
 void sqd_vector<T>::clear()
 {
 	VECTOR.clear();
+}
+
+template<typename T>
+T sqd_vector<T>::operator[](int index)
+{
+	int SIZE = VECTOR.size();
+	if (SIZE > 0 && index < SIZE && index >= 0)
+	{
+		return VECTOR[index];
+	}
+	else return 0;
 }

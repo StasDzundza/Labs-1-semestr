@@ -24,6 +24,7 @@ public:
 		if (size > 0)
 			this->SIZE = size;
 	}
+	T operator[](int index);
 	void push_back(T a) override;
 	void push_front(T a) override;
 	T pop_back() override;
@@ -133,4 +134,9 @@ template<typename T>
 void Deque<T>::clear()
 {
 	impl->clear();
+}
+template<typename T>
+T Deque<T>::operator[](int index)
+{
+	return impl->operator[](index);
 }
