@@ -1,38 +1,11 @@
 #include<iostream>
 #include"Stack.h"
 #include<deque>
+#include"Book.h"
+#include"Character.h"
+
 using namespace std;
 
-template<typename T>
-class My
-{
-public:
-	void remove(int pos);
-	void add(T a);
-	void show();
-private:
-	std::deque<T> a;
-};
-template<typename T>
-void My<T>::show()
-{
-	for (int i = 0; i < a.size(); i++)
-	{
-		cout << a[i] << " ";
-	}
-	cout << endl;
-}
-template<typename T>
-void My<T>::add(T b)
-{
-	a.push_back(b);
-}
-template<typename T>
-void My<T>::remove(int pos)
-{
-	std::deque<T>::iterator;
-	std::deque<int>::iterator;
-}
 int main()
 {
 	setlocale(LC_ALL, "ukr");
