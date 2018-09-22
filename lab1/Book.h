@@ -16,6 +16,12 @@ public:
 		characters.push_back(character);
 	}
 	void book_info();
+	void set_name(string book_name);
+	void add_author(string author);
+	void set_date(int date);
+	void set_lists_count(int count);
+	void add_summary(string summary);
+	void add_character(const Character&character);
 	Book& operator=(const Book&other_book);
 	bool operator==(const Book&other_book);
 private:
@@ -26,8 +32,11 @@ private:
 	string summary;
 	std::vector<Character> characters;
 	friend ostream&operator<<(ostream&os, const Book& book);
+	friend istream&operator>>(istream&is, Book&book);
 };
+
 Book::Book() :book_name(""), Date(0), List_count(0), summary("") {}
+
 ostream&operator<<(ostream&os, const Book& book)
 {
 	os << "Назва книги : " << book.book_name << endl;
@@ -52,6 +61,39 @@ ostream&operator<<(ostream&os, const Book& book)
 	return os;
 }
 
+istream&operator>>(istream&is, Book&book)
+{
+	cout << "Введіть назву книги : " << endl;
+	is >> book.book_name;
+	cout << "Вкажіть кількість авторів : ";
+	int count_authors;
+	cin >> count_authors;
+	for (int i = 0; i < count_authors; i++)
+	{
+		cout << "Вкажіть автора книги : " << endl;
+		string author;
+		is >> author;
+		book.authors.push_back(author);
+	}
+	cout << "Вкажіть дату написання : " << endl;
+	is >> book.Date;
+	cout << "Вкажіть  кількість сторінок : " << endl;
+	is >> book.List_count;
+	cout << "Введіть короткий опис : " << endl;
+	is >> book.summary;
+	cout << "Вкажіть кількість персонажів : ";
+	int count_heroes;
+	cin >> count_heroes;
+	for (int i = 0; i < count_heroes; i++)
+	{
+		cout << "№ " << i+1 << endl;
+		Character a;
+		is >> a;
+		book.characters.push_back(a);
+	}
+	return is;
+}
+
 Book& Book::operator=(const Book& other_book)
 {
 	this->book_name = other_book.book_name;
@@ -66,6 +108,7 @@ Book& Book::operator=(const Book& other_book)
 		this->characters.push_back(other_book.characters[i]);
 	return *this;
 }
+
 bool Book::operator==(const Book& other_book)
 {
 	if (this->book_name == other_book.book_name)
@@ -100,6 +143,7 @@ bool Book::operator==(const Book& other_book)
 	}
 	else return false;
 }
+
 void Book::book_info()
 {
 	cout << "Назва книги : " << book_name << endl;
@@ -114,7 +158,7 @@ void Book::book_info()
 	cout << "Кількість сторінок : " << List_count << endl;
 	cout << "Герої : " << endl;
 
-	for (int i = 0; i < authors.size(); i++)
+	for (int i = 0; i < characters.size(); i++)
 	{
 		cout << characters.at(i);
 	}
@@ -122,4 +166,34 @@ void Book::book_info()
 	cout << summary;
 	cout << endl;
 	cout << "----------------------------------------------------------------------------" << endl;
+}
+
+void Book::set_name(string book_name)
+{
+	this->book_name = book_name;
+}
+
+void Book::add_author(string author)
+{
+	this->authors.push_back(author);
+}
+
+void Book::set_date(int date)
+{
+	this->Date = date;
+}
+
+void Book::set_lists_count(int count)
+{
+	this->List_count = count;
+}
+
+void Book::add_summary(string summary)
+{
+	this->summary = summary;
+}
+
+void Book::add_character(const Character & character)
+{
+	this->characters.push_back(character);
 }
