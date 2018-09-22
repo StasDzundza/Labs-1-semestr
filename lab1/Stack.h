@@ -130,7 +130,8 @@ void Stack<T>::push_back(T a)
 template<typename T>
 T Stack<T>::pop_back()
 {
-	return false;
+	T a;
+	return a;
 }
 
 template<typename T>

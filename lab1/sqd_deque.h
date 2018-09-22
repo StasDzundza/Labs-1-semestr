@@ -26,7 +26,7 @@ public:
 	int size()override;
 	void clear() override;
 private:
-	deque<T> DEQUE;
+	std::deque<T> DEQUE;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,5 +148,5 @@ T sqd_deque<T>::operator[](int index)
 	{
 		return DEQUE[index];
 	}
-	else return 0;
+	//else return 0;
 }

@@ -92,8 +92,8 @@ T sqd_arr<T>::back()
 {
 	if (Index > 0)
 		return arr[Index - 1];
-	else
-		return 0;
+	//else
+		//return 0;
 }
 
 template<typename T>
@@ -101,8 +101,8 @@ T sqd_arr<T>::front()
 {
 	if (Index > 0)
 		return arr[0];
-	else
-		return 0;
+	//else
+		//return 0;
 }
 
 template<typename T>
@@ -118,8 +118,8 @@ T sqd_arr<T>::pop_front()
 		}
 		return first_element;
 	}
-	else
-		return 0;
+	//else
+		//return 0;
 }
 
 template<typename T>
@@ -216,7 +216,7 @@ T sqd_arr<T>::pop_back()
 		Index--;
 		return element;
 	}
-	return 0;
+	//return 0;
 }
 template<typename T>
 void sqd_arr<T>::show()
@@ -254,5 +254,5 @@ T sqd_arr<T>::operator[](int index)
 	{
 		return arr[index];
 	}
-	else return 0;
+	//else return 0;
 }

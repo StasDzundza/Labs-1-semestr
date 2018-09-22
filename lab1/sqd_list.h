@@ -74,8 +74,8 @@ T sqd_list<T>::back()
 			tmp = tmp->next;
 		return tmp->data;
 	}
-	else
-		return 0;
+	else {}
+		//return 0;
 }
 
 
@@ -84,8 +84,8 @@ T sqd_list<T>::front()
 {
 	if (head)
 		return head->data;
-	else
-		return 0;
+	else {}
+		//return 0;
 }
 
 template<typename T>
@@ -100,7 +100,7 @@ T sqd_list<T>::pop_front()
 		delete tmp;
 		return a;
 	}
-	else return 0;
+	//else return 0;
 }
 
 
@@ -137,18 +137,18 @@ bool sqd_list<T>::delete_data(T data)
 {
 	if (head)
 	{
-		if (head->data == data)
+		/*if (head->data == data)
 		{
 			this->pop_front();
 			return true;
-		}
-		else
+		}*/
+		//else
 		{
 			Node<T>*tmp = head;
-			while (tmp->next->data!=data)
+			/*while (tmp->next->data!=data)
 			{
 				tmp = tmp->next;
-			}
+			}*/
 			Node<T>*next_el = tmp->next;
 			tmp->next = next_el->next;
 			Size--;
@@ -236,7 +236,7 @@ T sqd_list<T>::pop_back()
 			return element;
 		}
 	}
-	return 0;
+	//return 0;
 }
 
 template<typename T>
@@ -261,5 +261,5 @@ T sqd_list<T>::operator[](int index)
 		}
 		return tmp->data;
 	}
-	else return 0;
+	//else return 0;
 }

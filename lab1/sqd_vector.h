@@ -24,7 +24,7 @@ public:
 	int size()override;
 	void clear()override;
 private:
-	vector<T> VECTOR;
+	std::vector<T> VECTOR;
 };
 
 
@@ -50,7 +50,7 @@ T sqd_vector<T>::pop_front()
 		VECTOR.erase(VECTOR.begin());
 		return tmp;
 	}
-	else return 0;
+	//else return 0;
 }
 
 
@@ -147,5 +147,5 @@ T sqd_vector<T>::operator[](int index)
 	{
 		return VECTOR[index];
 	}
-	else return 0;
+	//else return 0;
 }

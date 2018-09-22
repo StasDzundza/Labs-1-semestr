@@ -3,7 +3,6 @@
 #include<vector>
 #include"Character.h"
 using std::string;
-using std::vector;
 
 class Book
 {
@@ -17,13 +16,14 @@ public:
 		characters.push_back(character);
 	}
 	void book_info();
+	Book& operator=(const Book&other_book);
 private:
 	string book_name;
-	vector <string> authors;
-	const int Date;
-	const int List_count;
+	std::vector <string> authors;
+	int Date;
+	int List_count;
 	string summary;
-	vector<Character> characters;
+	std::vector<Character> characters;
 	friend ostream&operator<<(ostream&os, const Book& book);
 };
 Book::Book() :book_name(""), Date(0), List_count(0), summary("") {}
@@ -48,6 +48,21 @@ ostream&operator<<(ostream&os, const Book& book)
 	os << "Короткий опис : " << endl;
 	os << book.summary;
 	return os;
+}
+
+Book& Book::operator=(const Book& other_book)
+{
+	this->book_name = other_book.book_name;
+	this->authors.clear();
+	for (int i = 0; i < other_book.authors.size(); i++)
+		this->authors[i] = other_book.authors[i];
+	this->Date = other_book.Date;
+	this->List_count = other_book.List_count;
+	this->summary = other_book.summary;
+	this->characters.clear();
+	for (int i = 0; i < other_book.characters.size(); i++)
+		this->characters[i] = other_book.characters[i];
+	return *this;
 }
 void Book::book_info()
 {
