@@ -31,14 +31,18 @@ private:
 template<typename T>
 T sqd_vector<T>::back()
 {
-	return VECTOR.back();
+	if(VECTOR.size() > 0)
+		return VECTOR.back();
+	else exit(1);
 }
 
 
 template<typename T>
 T sqd_vector<T>::front()
 {
-	return VECTOR.front();
+	if (VECTOR.size() > 0)
+		return VECTOR.front();
+	else exit(1);
 }
 
 template<typename T>
@@ -50,7 +54,7 @@ T sqd_vector<T>::pop_front()
 		VECTOR.erase(VECTOR.begin());
 		return tmp;
 	}
-	//else return 0;
+	else exit(1);
 }
 
 
@@ -128,9 +132,13 @@ void sqd_vector<T>::push_front(T a)
 template<typename T>
 T sqd_vector<T>::pop_back()
 {
-	T tmp = VECTOR.back();
-	VECTOR.pop_back();
-	return tmp;
+	if (VECTOR.size() > 0)
+	{
+		T tmp = VECTOR.back();
+		VECTOR.pop_back();
+		return tmp;
+	}
+	else exit(1);
 }
 
 template<typename T>
@@ -147,5 +155,5 @@ T sqd_vector<T>::operator[](int index)
 	{
 		return VECTOR[index];
 	}
-	//else return 0;
+	else exit(1);
 }

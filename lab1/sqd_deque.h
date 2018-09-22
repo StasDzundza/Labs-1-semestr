@@ -36,22 +36,30 @@ private:
 template<typename T>
 T sqd_deque<T>::back()
 {
-	return DEQUE.back();
+	if (DEQUE.size() > 0)
+		return DEQUE.back();
+	else exit(1);
 }
 
 
 template<typename T>
 T sqd_deque<T>::front()
 {
-	return DEQUE.front();
+	if (DEQUE.size() > 0)
+		return DEQUE.front();
+	else exit(1);
 }
 
 template<typename T>
 T sqd_deque<T>::pop_front()
 {
-	T tmp = DEQUE.front();
-	DEQUE.pop_front();
-	return tmp;
+	if (DEQUE.size() > 0)
+	{
+		T tmp = DEQUE.front();
+		DEQUE.pop_front();
+		return tmp;
+	}
+	else exit(1);
 }
 
 
@@ -129,9 +137,13 @@ void sqd_deque<T>::push_front(T a)
 template<typename T>
 T sqd_deque<T>::pop_back()
 {
-	T tmp = DEQUE.back();
-	DEQUE.pop_back();
-	return tmp;
+	if (DEQUE.size() > 0)
+	{
+		T tmp = DEQUE.back();
+		DEQUE.pop_back();
+		return tmp;
+	}
+	else exit(1);
 }
 
 template<typename T>
@@ -148,5 +160,5 @@ T sqd_deque<T>::operator[](int index)
 	{
 		return DEQUE[index];
 	}
-	//else return 0;
+	else exit(1);
 }
