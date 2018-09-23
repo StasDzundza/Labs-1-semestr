@@ -15,8 +15,8 @@ public:
 	//functions for deque in list
 	void push_front(T a)override;
 	void push_back(T a)override;
-	T pop_front()override;
-	T pop_back()override;
+	void pop_front()override;
+	void pop_back()override;
 
 	//same functions for all 
 	void show()override;
@@ -87,18 +87,15 @@ T sqd_list<T>::front()
 }
 
 template<typename T>
-T sqd_list<T>::pop_front()
+void sqd_list<T>::pop_front()
 {
 	if (head)
 	{
 		Node<T>*tmp = head;
-		T a = tmp->data;
 		head = head->next;
 		Size--;
 		delete tmp;
-		return a;
 	}
-	else exit(1);
 }
 
 
@@ -219,7 +216,7 @@ void sqd_list<T>::push_front(T a)
 }
 
 template<typename T>
-T sqd_list<T>::pop_back()
+void sqd_list<T>::pop_back()
 {
 	if (head)
 	{
@@ -227,18 +224,14 @@ T sqd_list<T>::pop_back()
 			return this->pop_front();
 		else
 		{
-			T element;
 			Node<T>*tmp = head;
 			while (tmp->next->next)//шукаємо передостанній
 				tmp = tmp->next;
-			element = tmp->next->data;
 			delete tmp->next;//видаляємо останній
 			Size--;
 			tmp->next = nullptr;
-			return element;
 		}
 	}
-	else exit(1);
 }
 
 template<typename T>

@@ -32,7 +32,7 @@ public:
 	bool delete_data(T a) override;
 	int size() override;
 	void push_back(T a) override;
-	T pop_front() override;//delete from begin
+	void pop_front() override;//delete from begin
 	void clear()override;
 	void sort()override;
 private:
@@ -40,7 +40,7 @@ private:
 	int SIZE = 0;//для масиву
 	SQD<T>*impl;
 	void push_front(T a) override;
-	T pop_back() override;
+	void pop_back() override;
 };
 
 template<typename T>
@@ -70,6 +70,7 @@ void Queue<T>::set_mode(int mode)
 		this->mode = MODE::vector;
 	}
 }
+
 template<typename T>
 void Queue<T>::push_back(T a)
 {
@@ -81,16 +82,19 @@ void Queue<T>::show()
 {
 	impl->show();
 }
+
 template<typename T>
 bool Queue<T>::is_empty()
 {
 	return impl->is_empty();
 }
+
 template<typename T>
 T Queue<T>::back()
 {
 	return impl->back();
 }
+
 template<typename T>
 T Queue<T>::front()
 {
@@ -114,10 +118,11 @@ int Queue<T>::size()
 {
 	return impl->size();
 }
+
 template<typename T>
-T Queue<T>::pop_front()
+void Queue<T>::pop_front()
 {
-	return impl->pop_front();
+	impl->pop_front();
 }
 
 template<typename T>
@@ -143,10 +148,10 @@ template<typename T>
 void Queue<T>::push_front(T a)
 {
 }
+
 template<typename T>
-T Queue<T>::pop_back()
+void Queue<T>::pop_back()
 {
-	return false;
 }
 
 

@@ -5,8 +5,8 @@ class SQD
 public:
 	virtual void push_back(T a) = 0;
 	virtual void push_front(T a) = 0;
-	virtual T pop_back() = 0;
-	virtual T pop_front() = 0;
+	virtual void pop_back() = 0;
+	virtual void pop_front() = 0;
 	virtual void show() = 0;
 	virtual bool is_empty() = 0;
 	virtual T back() = 0;

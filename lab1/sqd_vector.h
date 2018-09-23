@@ -11,8 +11,8 @@ public:
 	//functions for deque in list
 	void push_front(T a)override;
 	void push_back(T a)override;
-	T pop_front()override;
-	T pop_back()override;
+	void pop_front()override;
+	void pop_back()override;
 
 	//same functions for all 
 	void show()override;
@@ -47,15 +47,12 @@ T sqd_vector<T>::front()
 }
 
 template<typename T>
-T sqd_vector<T>::pop_front()
+void sqd_vector<T>::pop_front()
 {
 	if (VECTOR.size() > 0)
 	{
-		T tmp = VECTOR.front();
 		VECTOR.erase(VECTOR.begin());
-		return tmp;
 	}
-	else exit(1);
 }
 
 
@@ -135,15 +132,12 @@ void sqd_vector<T>::push_front(T a)
 }
 
 template<typename T>
-T sqd_vector<T>::pop_back()
+void sqd_vector<T>::pop_back()
 {
 	if (VECTOR.size() > 0)
 	{
-		T tmp = VECTOR.back();
 		VECTOR.pop_back();
-		return tmp;
 	}
-	else exit(1);
 }
 
 template<typename T>

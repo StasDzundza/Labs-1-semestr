@@ -27,8 +27,8 @@ public:
 	T operator[](int index);
 	void push_back(T a) override;
 	void push_front(T a) override;
-	T pop_back() override;
-	T pop_front() override;
+	void pop_back() override;
+	void pop_front() override;
 	void show() override;
 	void set_mode(int mode);
 	bool is_empty() override;
@@ -80,9 +80,9 @@ void Deque<T>::push_back(T a)
 }
 
 template<typename T>
-T Deque<T>::pop_back()
+void Deque<T>::pop_back()
 {
-	return impl->pop_back();
+	impl->pop_back();
 }
 
 template<typename T>
@@ -116,9 +116,9 @@ T Deque<T>::front()
 }
 
 template<typename T>
-T Deque<T>::pop_front()
+void Deque<T>::pop_front()
 {
-	return impl->pop_front();
+	impl->pop_front();
 }
 
 template<typename T>

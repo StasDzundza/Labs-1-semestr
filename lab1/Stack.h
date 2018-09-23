@@ -29,7 +29,7 @@ public :
 	bool is_empty() override;
 	T back() override;
 	T front() override;
-	T pop_front() override;//delete from begin
+	void pop_front() override;//delete from begin
 	bool erase_from_position(int position) override;
 	bool delete_data(T a) override;
 	int size() override;
@@ -40,7 +40,7 @@ private:
 	int SIZE = 0;//для масиву
 	SQD<T>*impl;
 	void push_back(T a) override;
-	T pop_back() override;
+	void pop_back() override;
 };
 
 template<typename T>
@@ -102,9 +102,9 @@ T Stack<T>::front()
 }
 
 template<typename T>
-T Stack<T>::pop_front()
+void Stack<T>::pop_front()
 {
-	return impl->pop_front();
+	impl->pop_front();
 }
 
 template<typename T>
@@ -148,9 +148,7 @@ void Stack<T>::push_back(T a)
 {
 }
 template<typename T>
-T Stack<T>::pop_back()
+void Stack<T>::pop_back()
 {
-	T a;
-	return a;
 }
 
