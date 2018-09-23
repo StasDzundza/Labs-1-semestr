@@ -163,13 +163,13 @@ void sqd_deque<T>::sort()
 {
 	for (int i = 0; i < DEQUE.size(); i++)
 	{
-		for (int j = i + 1; j < DEQUE.size() - i; j++)
+		for (int j = 1; j < DEQUE.size() - i; j++)
 		{
-			if (DEQUE[i - 1] > DEQUE[i])
+			if (DEQUE[j - 1] > DEQUE[j])
 			{
-				T tmp = DEQUE[i - 1];
-				DEQUE[i - 1] = DEQUE[i];
-				DEQUE[i] = tmp;
+				T tmp = DEQUE[j - 1];
+				DEQUE[j - 1] = DEQUE[j];
+				DEQUE[j] = tmp;
 			}
 		}
 	}

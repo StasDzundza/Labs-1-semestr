@@ -162,13 +162,13 @@ void sqd_vector<T>::sort()
 {
 	for (int i = 0; i < VECTOR.size(); i++)
 	{
-		for (int j = i + 1; j < VECTOR.size() - i; j++)
+		for (int j = 1; j < VECTOR.size() - i; j++)
 		{
-			if (VECTOR[i-1] > VECTOR[i])
+			if (VECTOR[j-1] > VECTOR[j])
 			{
-				T tmp = VECTOR[i-1];
-				VECTOR[i-1] = VECTOR[i];
-				VECTOR[i] = tmp;
+				T tmp = VECTOR[j-1];
+				VECTOR[j-1] = VECTOR[j];
+				VECTOR[j] = tmp;
 			}
 		}
 	}

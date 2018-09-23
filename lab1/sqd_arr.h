@@ -264,13 +264,13 @@ void sqd_arr<T>::sort()
 {
 	for (int i = 0; i < Index; i++)
 	{
-		for (int j = i + 1; j < Index - i; j++)
+		for (int j = 1; j < Index - i; j++)
 		{
-			if (arr[i - 1] > arr[i])
+			if (arr[j - 1] > arr[j])
 			{
-				T tmp = arr[i - 1];
-				arr[i - 1] = arr[i];
-				arr[i] = tmp;
+				T tmp = arr[j - 1];
+				arr[j - 1] = arr[j];
+				arr[j] = tmp;
 			}
 		}
 	}
