@@ -43,14 +43,14 @@ ostream&operator<<(ostream&os, const Character& p)
 istream&operator>>(istream&is, Character& p)
 {
 	cout << "¬вед≥ть ≥м'€ персонажа : " << endl;
-	is >> p.name;
+	getline(is, p.name);
 	cout << "¬вед≥ть книгу де в≥н зустр≥чаЇтьс€ : " << endl;
 	string book;
-	is >> book;
+	getline(is, book);
 	p.characters_books.push_back(book);
 	cout << "¬каж≥ть його роль у ц≥й книз≥ : " << endl;
 	string role;
-	is >> role;
+	getline(is, role);
 	p.role_in_book.push_back(role);
 	return is;
 }
@@ -67,26 +67,31 @@ Character& Character::operator=(const Character& other_character)
 }
 bool Character::operator==(const Character& other_character)
 {
+	//if (this->name == other_character.name)
+	//{
+	//	if (this->characters_books.size() == other_character.characters_books.size())
+	//	{
+	//		for (int i = 0; i < this->characters_books.size(); i++)
+	//			if (this->characters_books[i] != other_character.characters_books[i])
+	//				return false;
+	//		if (this->role_in_book.size() == other_character.role_in_book.size())
+	//		{
+	//			for (int i = 0; i < this->role_in_book.size(); i++)
+	//				if (this->role_in_book[i] != other_character.role_in_book[i])
+	//					return false;
+	//			return true;//€кщо все однакове
+	//		}
+	//		else return false;
+	//	}
+	//	else return false;
+	//}
+	//else
+	//	return false;
 	if (this->name == other_character.name)
 	{
-		if (this->characters_books.size() == other_character.characters_books.size())
-		{
-			for (int i = 0; i < this->characters_books.size(); i++)
-				if (this->characters_books[i] != other_character.characters_books[i])
-					return false;
-			if (this->role_in_book.size() == other_character.role_in_book.size())
-			{
-				for (int i = 0; i < this->role_in_book.size(); i++)
-					if (this->role_in_book[i] != other_character.role_in_book[i])
-						return false;
-				return true;//€кщо все однакове
-			}
-			else return false;
-		}
-		else return false;
+		return true;
 	}
-	else
-		return false;
+	else return false;
 }
 void Character::get_info()
 {

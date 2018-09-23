@@ -3,7 +3,7 @@
 #include<vector>
 using namespace std;
 template<typename T>
-class sqd_vector :public SQD<T>//покищо лише стек і черга
+class sqd_vector :public SQD<T>
 {
 public:
 	sqd_vector() { }
@@ -23,6 +23,7 @@ public:
 	bool delete_data(T a)override;
 	int size()override;
 	void clear()override;
+	void sort()override;
 private:
 	std::vector<T> VECTOR;
 };
@@ -70,6 +71,7 @@ bool sqd_vector<T>::erase_from_position(int position)
 	}
 	else return false;
 }
+
 template<typename T>
 bool sqd_vector<T>::delete_data(T data)
 {
@@ -96,6 +98,7 @@ bool sqd_vector<T>::delete_data(T data)
 	}
 	else return false;
 }
+
 template<typename T>
 int sqd_vector<T>::size()
 {
@@ -123,12 +126,14 @@ void sqd_vector<T>::push_back(T a)
 {
 	VECTOR.push_back(a);
 }
+
 template<typename T>
 void sqd_vector<T>::push_front(T a)
 {
 	auto it = VECTOR.begin();
 	VECTOR.insert(it, a);
 }
+
 template<typename T>
 T sqd_vector<T>::pop_back()
 {
@@ -156,4 +161,21 @@ T sqd_vector<T>::operator[](int index)
 		return VECTOR[index];
 	}
 	else exit(1);
+}
+
+template<typename T>
+void sqd_vector<T>::sort()
+{
+	for (int i = 0; i < VECTOR.size(); i++)
+	{
+		for (int j = i + 1; j < VECTOR.size() - i; j++)
+		{
+			if (VECTOR[i-1] > VECTOR[i])
+			{
+				T tmp = VECTOR[i-1];
+				VECTOR[i-1] = VECTOR[i];
+				VECTOR[i] = tmp;
+			}
+		}
+	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include"SQD.h"
 template<typename T>
-class sqd_arr:public SQD<T>//покищо лише стек і черга
+class sqd_arr:public SQD<T>
 {
 public:
 	sqd_arr();
@@ -29,6 +29,7 @@ public:
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
+	void sort()override;
 	sqd_arr& operator =(const sqd_arr&other_class);
 	~sqd_arr() { delete[]arr; }
 
@@ -47,6 +48,7 @@ sqd_arr<T>::sqd_arr()
 	Index = 0;
 	arr = new T[Max];
 }
+
 template<typename T>
 sqd_arr<T>::sqd_arr(int size)
 {
@@ -65,7 +67,10 @@ sqd_arr<T>::sqd_arr(int size)
 		arr = new T[Max];
 	}
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 template<typename T>
 void sqd_arr<T>::add_stack(T a)
 {
@@ -143,6 +148,7 @@ bool sqd_arr<T>::erase_from_position(int position)
 	else
 		return false;
 }
+
 template<typename T>
 bool sqd_arr<T>::delete_data(T a)
 {
@@ -183,7 +189,6 @@ int sqd_arr<T>::size()
 	return Index;
 }
 
-
 template<typename T>
 void sqd_arr<T>::add_queue(T a)
 {
@@ -194,16 +199,19 @@ void sqd_arr<T>::add_queue(T a)
 	else
 		std::cout << "Переповнення." << std::endl;
 }
+
 template<typename T>
 void sqd_arr<T>::push_front(T a)
 {
 	this->add_stack(a);
 }
+
 template<typename T>
 void sqd_arr<T>::push_back(T a)
 {
 	this->add_queue(a);
 }
+
 template<typename T>
 T sqd_arr<T>::pop_back()
 {
@@ -215,6 +223,7 @@ T sqd_arr<T>::pop_back()
 	}
 	else exit(1);
 }
+
 template<typename T>
 void sqd_arr<T>::show()
 {
@@ -230,6 +239,7 @@ void sqd_arr<T>::clear()
 {
 	Index = 0;//псевдоочищення
 }
+
 template<typename T>
 sqd_arr<T>& sqd_arr<T>::operator =(const sqd_arr&other_class)
 {
@@ -244,6 +254,7 @@ sqd_arr<T>& sqd_arr<T>::operator =(const sqd_arr&other_class)
 	}
 	return *this;
 }
+
 template<typename T>
 T sqd_arr<T>::operator[](int index)
 {
@@ -253,3 +264,21 @@ T sqd_arr<T>::operator[](int index)
 	}
 	else exit(1);
 }
+
+template<typename T>
+void sqd_arr<T>::sort()
+{
+	for (int i = 0; i < Index; i++)
+	{
+		for (int j = i + 1; j < Index - i; j++)
+		{
+			if (arr[i - 1] > arr[i])
+			{
+				T tmp = arr[i - 1];
+				arr[i - 1] = arr[i];
+				arr[i] = tmp;
+			}
+		}
+	}
+}
+

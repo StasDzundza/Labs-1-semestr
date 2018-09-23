@@ -16,4 +16,5 @@ public:
 	virtual int size() = 0;
 	virtual void clear() = 0;
 	virtual T operator[](int index) = 0;
+	virtual void sort() = 0;
 };

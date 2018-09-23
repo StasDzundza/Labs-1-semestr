@@ -5,13 +5,13 @@
 #include"sqd_vector.h"
 #include"SQD.h"
 
-enum MODE
-{
-	list,
-	arr,
-	deque,
-	vector
-};
+//enum MODE
+//{
+//	list,
+//	arr,
+//	deque,
+//	vector
+//};
 
 template<typename T>
 class Deque :public SQD<T>
@@ -38,6 +38,7 @@ public:
 	bool delete_data(T a) override;
 	int size() override;
 	void clear()override;
+	void sort()override;
 private:
 	MODE mode = list;
 	int SIZE = 0;//для масиву
@@ -71,16 +72,19 @@ void Deque<T>::set_mode(int mode)
 		this->mode = MODE::vector;
 	}
 }
+
 template<typename T>
 void Deque<T>::push_back(T a)
 {
 	impl->push_back(a);
 }
+
 template<typename T>
 T Deque<T>::pop_back()
 {
 	return impl->pop_back();
 }
+
 template<typename T>
 void Deque<T>::push_front(T a)
 {
@@ -92,21 +96,25 @@ void Deque<T>::show()
 {
 	impl->show();
 }
+
 template<typename T>
 bool Deque<T>::is_empty()
 {
 	return impl->is_empty();
 }
+
 template<typename T>
 T Deque<T>::back()
 {
 	return impl->back();
 }
+
 template<typename T>
 T Deque<T>::front()
 {
 	return impl->front();
 }
+
 template<typename T>
 T Deque<T>::pop_front()
 {
@@ -130,13 +138,21 @@ int Deque<T>::size()
 {
 	return impl->size();
 }
+
 template<typename T>
 void Deque<T>::clear()
 {
 	impl->clear();
 }
+
 template<typename T>
 T Deque<T>::operator[](int index)
 {
 	return impl->operator[](index);
+}
+
+template<typename T>
+void Deque<T>::sort()
+{
+	impl->sort();
 }

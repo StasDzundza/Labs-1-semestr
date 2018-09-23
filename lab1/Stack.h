@@ -34,6 +34,7 @@ public :
 	bool delete_data(T a) override;
 	int size() override;
 	void clear()override;
+	void sort()override;
 private:
 	MODE mode = list;
 	int SIZE = 0;//для масиву
@@ -69,6 +70,7 @@ void Stack<T>::set_mode(int mode)
 		this->mode = MODE::vector;
 	}
 }
+
 template<typename T>
 void Stack<T>::push_front(T a)
 {
@@ -122,6 +124,24 @@ int Stack<T>::size()
 {
 	return impl->size();
 }
+
+template<typename T>
+void Stack<T>::clear()
+{
+	impl->clear();
+}
+
+template<typename T>
+T Stack<T>::operator[](int index)
+{
+	return impl->operator[](index);
+}
+
+template<typename T>
+void Stack<T>::sort()
+{
+	impl->sort();
+}
 ///////////////////////////////////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
 template<typename T>
 void Stack<T>::push_back(T a)
@@ -134,15 +154,3 @@ T Stack<T>::pop_back()
 	return a;
 }
 
-template<typename T>
-void Stack<T>::clear()
-{
-	impl->clear();
-}
-
-
-template<typename T>
-T Stack<T>::operator[](int index)
-{
-	return impl->operator[](index);
-}

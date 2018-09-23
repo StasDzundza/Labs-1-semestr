@@ -1,7 +1,7 @@
 #pragma once
 #include"SQD.h"
 template<typename T>
-class sqd_list:public SQD<T>//покищо лише стек і черга
+class sqd_list:public SQD<T>
 {
 public:
 	sqd_list() { Size = 0; head = nullptr; }
@@ -26,7 +26,8 @@ public:
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
 	int size()override;
-	void clear();
+	void clear()override;
+	void sort()override;
 private:
 	template<typename T>
 	class Node
@@ -62,7 +63,6 @@ void sqd_list<T>::add_stack(T a)
 	}
 	Size++;
 }
-
 
 template<typename T>
 T sqd_list<T>::back()
@@ -130,6 +130,7 @@ bool sqd_list<T>::erase_from_position(int position)
 	else
 		return false;
 }
+
 template<typename T>
 bool sqd_list<T>::delete_data(T data)
 {
@@ -156,6 +157,7 @@ bool sqd_list<T>::delete_data(T data)
 	}
 	return false;
 }
+
 template<typename T>
 int sqd_list<T>::size()
 {
@@ -209,11 +211,13 @@ void sqd_list<T>::push_back(T a)
 {
 	this->add_queue(a);
 }
+
 template<typename T>
 void sqd_list<T>::push_front(T a)
 {
 	this->add_stack(a);
 }
+
 template<typename T>
 T sqd_list<T>::pop_back()
 {
@@ -260,4 +264,25 @@ T sqd_list<T>::operator[](int index)
 		return tmp->data;
 	}
 	else exit(1);
+}
+
+template<typename T>
+void sqd_list<T>::sort()
+{
+	for (int i = 0; i < Size; i++)
+	{
+		Node<T>*t = head;
+		Node<T>*t1 = head->next;
+		for (int j = 1; j < Size - i; j++)
+		{
+			if (t1->data < t->data)
+			{
+				T tmp = t->data;
+				t->data = t1->data;
+				t1->data = tmp;
+			}
+			t = t->next;
+			t1 = t1->next;
+		}
+	}
 }

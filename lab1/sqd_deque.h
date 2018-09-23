@@ -5,7 +5,7 @@
 #include<iterator>
 using namespace std;
 template<typename T>
-class sqd_deque :public SQD<T>//покищо лише стек і черга
+class sqd_deque :public SQD<T>
 {
 public:
 	sqd_deque() { }
@@ -25,13 +25,12 @@ public:
 	bool delete_data(T a)override;
 	int size()override;
 	void clear() override;
+	void sort()override;
 private:
 	std::deque<T> DEQUE;
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 template<typename T>
 T sqd_deque<T>::back()
@@ -40,7 +39,6 @@ T sqd_deque<T>::back()
 		return DEQUE.back();
 	else exit(1);
 }
-
 
 template<typename T>
 T sqd_deque<T>::front()
@@ -62,7 +60,6 @@ T sqd_deque<T>::pop_front()
 	else exit(1);
 }
 
-
 template<typename T>
 bool sqd_deque<T>::erase_from_position(int position)
 {
@@ -75,6 +72,7 @@ bool sqd_deque<T>::erase_from_position(int position)
 	}
 	else return false;
 }
+
 template<typename T>
 bool sqd_deque<T>::delete_data(T data)
 {
@@ -101,6 +99,7 @@ bool sqd_deque<T>::delete_data(T data)
 	}
 	else return false;
 }
+
 template<typename T>
 int sqd_deque<T>::size()
 {
@@ -129,11 +128,13 @@ void sqd_deque<T>::push_back(T a)
 {
 	DEQUE.push_back(a);
 }
+
 template<typename T>
 void sqd_deque<T>::push_front(T a)
 {
 	DEQUE.push_front(a);
 }
+
 template<typename T>
 T sqd_deque<T>::pop_back()
 {
@@ -161,4 +162,21 @@ T sqd_deque<T>::operator[](int index)
 		return DEQUE[index];
 	}
 	else exit(1);
+}
+
+template<typename T>
+void sqd_deque<T>::sort()
+{
+	for (int i = 0; i < DEQUE.size(); i++)
+	{
+		for (int j = i + 1; j < DEQUE.size() - i; j++)
+		{
+			if (DEQUE[i - 1] > DEQUE[i])
+			{
+				T tmp = DEQUE[i - 1];
+				DEQUE[i - 1] = DEQUE[i];
+				DEQUE[i] = tmp;
+			}
+		}
+	}
 }

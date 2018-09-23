@@ -4,13 +4,13 @@
 #include"sqd_deque.h"
 #include"sqd_vector.h"
 #include"SQD.h"
-enum MODE
-{
-	list,
-	arr,
-	deque,
-	vector
-};
+//enum MODE
+//{
+//	list,
+//	arr,
+//	deque,
+//	vector
+//};
 template<typename T>
 class Queue :public SQD<T>
 {
@@ -34,6 +34,7 @@ public:
 	void push_back(T a) override;
 	T pop_front() override;//delete from begin
 	void clear()override;
+	void sort()override;
 private:
 	MODE mode = list;
 	int SIZE = 0;//для масиву
@@ -118,6 +119,25 @@ T Queue<T>::pop_front()
 {
 	return impl->pop_front();
 }
+
+template<typename T>
+T Queue<T>::operator[](int index)
+{
+	return impl->operator[](index);
+}
+
+template<typename T>
+void Queue<T>::sort()
+{
+	impl->sort();
+}
+
+template<typename T>
+void Queue<T>::clear()
+{
+	impl->clear();
+}
+
 ////////////////////////////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
 template<typename T>
 void Queue<T>::push_front(T a)
@@ -128,14 +148,5 @@ T Queue<T>::pop_back()
 {
 	return false;
 }
-template<typename T>
-void Queue<T>::clear()
-{
-	impl->clear();
-}
 
-template<typename T>
-T Queue<T>::operator[](int index)
-{
-	return impl->operator[](index);
-}
+

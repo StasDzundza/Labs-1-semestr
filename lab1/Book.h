@@ -24,6 +24,10 @@ public:
 	void add_character(const Character&character);
 	Book& operator=(const Book&other_book);
 	bool operator==(const Book&other_book);
+	bool operator>=(const Book&other_book);
+	bool operator<=(const Book&other_book);
+	bool operator>(const Book&other_book);
+	bool operator<(const Book&other_book);
 private:
 	string book_name;
 	std::vector <string> authors;
@@ -64,15 +68,16 @@ ostream&operator<<(ostream&os, const Book& book)
 istream&operator>>(istream&is, Book&book)
 {
 	cout << "¬вед≥ть назву книги : " << endl;
-	is >> book.book_name;
+	getline(is, book.book_name);
 	cout << "¬каж≥ть к≥льк≥сть автор≥в : ";
 	int count_authors;
 	cin >> count_authors;
+	cin.get();
 	for (int i = 0; i < count_authors; i++)
 	{
 		cout << "¬каж≥ть автора книги : " << endl;
 		string author;
-		is >> author;
+		getline(is, author);
 		book.authors.push_back(author);
 	}
 	cout << "¬каж≥ть дату написанн€ : " << endl;
@@ -80,7 +85,8 @@ istream&operator>>(istream&is, Book&book)
 	cout << "¬каж≥ть  к≥льк≥сть стор≥нок : " << endl;
 	is >> book.List_count;
 	cout << "¬вед≥ть короткий опис : " << endl;
-	is >> book.summary;
+	cin.get();
+	getline(is, book.summary);
 	cout << "¬каж≥ть к≥льк≥сть персонаж≥в : ";
 	int count_heroes;
 	cin >> count_heroes;
@@ -91,6 +97,7 @@ istream&operator>>(istream&is, Book&book)
 		is >> a;
 		book.characters.push_back(a);
 	}
+	system("cls");
 	return is;
 }
 
@@ -122,18 +129,19 @@ bool Book::operator==(const Book& other_book)
 			{
 				if (this->List_count == other_book.List_count)
 				{
-					if (this->summary == other_book.summary)
-					{
-						if (this->characters.size() == other_book.characters.size())
-						{
-							for (int i = 0; i < this->characters.size(); i++)
-								if (!(this->characters[i] == other_book.characters[i]))//щоб не перегружати !=
-									return false;
-							return true;//€кщо р≥вн≥
-						}
-						else return false;
-					}
-					else return false;
+					//if (this->summary == other_book.summary)
+					//{
+						//if (this->characters.size() == other_book.characters.size())
+						//{
+						//	for (int i = 0; i < this->characters.size(); i++)
+						//		if (!(this->characters[i] == other_book.characters[i]))//щоб не перегружати !=
+						//			return false;
+						//	return true;//€кщо р≥вн≥
+						//}
+						//else return false;
+					//}
+					//else return false;
+					return true;
 				}
 				else return false;
 			}
@@ -142,6 +150,26 @@ bool Book::operator==(const Book& other_book)
 		else return false;
 	}
 	else return false;
+}
+
+bool Book::operator<(const Book&other_book)
+{
+	return this->Date < other_book.Date;
+}
+
+bool Book::operator>(const Book&other_book)
+{
+	return this->Date > other_book.Date;
+}
+
+bool Book::operator<=(const Book&other_book)
+{
+	return this->Date <= other_book.Date;
+}
+
+bool Book::operator>=(const Book&other_book)
+{
+	return this->Date >= other_book.Date;
 }
 
 void Book::book_info()
@@ -197,3 +225,4 @@ void Book::add_character(const Character & character)
 {
 	this->characters.push_back(character);
 }
+
