@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="sqd_vector&lt;T&gt;">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAEACEAABAAgAAAQIEAAAAAEAGAAAAABAEAEAAAAAQ=</HashCode>
+      <FileName>sqd_vector.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Stack&lt;T&gt;">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAACEAABAAgACAAIEAAAAAkAGACAAABAEAEAAAAgU=</HashCode>
+      <FileName>Stack.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sqd_list&lt;T&gt;">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="sqd_list&lt;T&gt;::Node&lt;T&gt;" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>sqd_list.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAACEAgBAAgAAAAIWAAAAAEAGAAAAABAEAEACAAAQ=</HashCode>
+      <FileName>sqd_list.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sqd_deque&lt;T&gt;">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAACGAABAAgAAAAIEAAAAAGAGAAAAABAEAEAAAAAQ=</HashCode>
+      <FileName>sqd_deque.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sqd_arr&lt;T&gt;">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAACEAABAAgAAAAIGAEAAQkAGAAAAABAEgEACAAAQ=</HashCode>
+      <FileName>sqd_arr.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SQD&lt;T&gt;" Collapsed="true">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAACEAABAAgAAAAIEAAAAAEAGAAAAABAEAEAAAAAQ=</HashCode>
+      <FileName>SQD.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Serie">
+    <Position X="18.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAQAAAAAAAAgSAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Serie.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Queue&lt;T&gt;">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAACEAABAAgACAAIEAAAAAUAGACAAABAEAEAAAAgU=</HashCode>
+      <FileName>Queue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Deque&lt;T&gt;">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAACEAABAAgACAAIEAAAAgEAGACAAABAEAEAAAAgU=</HashCode>
+      <FileName>Deque.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Character">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAxAAAAAAAAAAAAAAAQAAAAAEAAAAAAAgCAAACAA=</HashCode>
+      <FileName>Character.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Book">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAACIAAgAEAAhABAAAgQAAAAABAAABQAAgGAAAgAA=</HashCode>
+      <FileName>Book.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

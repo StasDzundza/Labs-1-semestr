@@ -10,14 +10,14 @@ using namespace std;
 
 bool book_in_serie(Book book,Character current)
 {
+	const string role1 = "main";
+	const string role2 = "secondary";
 	for (int i = 0; i < book.get_size_characters(); i++)
 	{
 		Character a = book.get_I_character(i);
 		if (a == current)
 		{
 			string role = a.get_role();
-			string role1 = "main";
-			string role2 = "secondary";
 			if (role == role1 || role == role2)
 			{
 				return true;
@@ -31,6 +31,8 @@ bool book_in_serie(Book book,Character current)
 
 Stack<Serie> create_series(Stack<Book> &books)
 {
+	const string role1 = "main";
+	const string role2 = "secondary";
 	Stack<Serie> series;
 	Queue<Character> characters;
 	int size = books.size();
@@ -42,8 +44,6 @@ Stack<Serie> create_series(Stack<Book> &books)
 		{
 			Character current = books[i].get_I_character(i);
 			string role = current.get_role();
-			string role1 = "main";
-			string role2 = "secondary";
 			if (role == role1 || role == role2)
 			{
 				characters.push_back(current);

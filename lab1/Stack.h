@@ -147,6 +147,7 @@ template<typename T>
 void Stack<T>::push_back(T a)
 {
 }
+
 template<typename T>
 void Stack<T>::pop_back()
 {
