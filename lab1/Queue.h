@@ -22,7 +22,7 @@ public:
 		if (size > 0)
 			this->SIZE = size;
 	}
-	T operator[](int index);
+	T operator[](const int index);
 	void show() override;
 	void set_mode(int mode);
 	bool is_empty() override;
@@ -30,7 +30,7 @@ public:
 	T front() override;
 	bool erase_from_position(int position) override;
 	bool delete_data(T a) override;
-	int size() override;
+	int size()const override;
 	void push_back(T a) override;
 	void pop_front() override;//delete from begin
 	void clear()override;
@@ -114,7 +114,7 @@ bool Queue<T>::delete_data(T a)
 }
 
 template<typename T>
-int Queue<T>::size()
+int Queue<T>::size() const
 {
 	return impl->size();
 }
@@ -126,7 +126,7 @@ void Queue<T>::pop_front()
 }
 
 template<typename T>
-T Queue<T>::operator[](int index)
+T Queue<T>::operator[](const int index)
 {
 	return impl->operator[](index);
 }

@@ -20,6 +20,7 @@ public:
 	bool operator>(const Character&other_character);
 	friend ostream&operator<<(ostream&os, const Character& p);
 	friend istream&operator>>(istream&is, Character& p);
+	string get_role();
 private:
 	string name;
 	//std::string characters_books;
@@ -85,6 +86,10 @@ bool Character::operator<(const Character & other_character)
 bool Character::operator>(const Character & other_character)
 {
 	return this->name > other_character.name;
+}
+string Character::get_role()
+{
+	return role_in_book;
 }
 void Character::get_info()
 {

@@ -28,7 +28,7 @@ public:
 	T front()override;
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
-	int size()override;
+	int size()const override;
 	void sort()override;
 	sqd_arr& operator =(const sqd_arr&other_class);
 	~sqd_arr() { delete[]arr; }
@@ -181,7 +181,7 @@ bool sqd_arr<T>::delete_data(T a)
 }
 
 template<typename T>
-int sqd_arr<T>::size()
+int sqd_arr<T>::size() const
 {
 	return Index;
 }

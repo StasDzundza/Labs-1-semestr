@@ -23,7 +23,7 @@ public:
 	T front()override;
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
-	int size()override;
+	int size()const override;
 	void clear() override;
 	void sort()override;
 private:
@@ -98,7 +98,7 @@ bool sqd_deque<T>::delete_data(T data)
 }
 
 template<typename T>
-int sqd_deque<T>::size()
+int sqd_deque<T>::size() const
 {
 	return DEQUE.size();
 }

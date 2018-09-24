@@ -11,8 +11,8 @@ public:
 	Serie& operator=(Serie& other_serie);
 	bool operator>(const Serie& other_serie);
 	bool operator<(const Serie& other_serie);
-	bool operator==(Serie& other_serie);
-	friend ostream& operator<<(ostream&os,const Serie& SERIE);
+	bool operator==(Serie other_serie);
+	friend ostream& operator<<(ostream&os,Serie& SERIE);
 private:
 	Stack<Book> serie;
 };
@@ -39,7 +39,7 @@ bool Serie::operator<(const Serie & other_serie)
 	return false;
 }
 
-bool Serie::operator==(Serie & other_serie)
+bool Serie::operator==(Serie other_serie)
 {
 	if (this->serie.size() != other_serie.serie.size())
 		return false;
@@ -55,12 +55,12 @@ bool Serie::operator==(Serie & other_serie)
 	return true;
 }
 
-ostream & operator<<(ostream & os, const Serie & SERIE)
+ostream & operator<<(ostream & os,Serie &SERIE)
 {
-	/*for (int i = 0; i < SERIE.serie.size(); i++)
+	for (int i = 0; i < SERIE.serie.size(); i++)
 	{
 		cout << SERIE.serie[i];
-	}*/
+	}
 	return os;
 }
 

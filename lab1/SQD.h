@@ -13,7 +13,7 @@ public:
 	virtual T front() = 0;
 	virtual bool erase_from_position(int position) = 0;
 	virtual bool delete_data(T a) = 0;
-	virtual int size() = 0;
+	virtual int size() const = 0;
 	virtual void clear() = 0;
 	virtual T operator[](int index) = 0;
 	virtual void sort() = 0;

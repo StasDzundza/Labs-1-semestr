@@ -22,7 +22,7 @@ public :
 		if(size > 0)
 			this->SIZE = size;
 	}
-	T operator[](int index);
+	T operator[](const int index);
 	void push_front(T a) override;
 	void show() override;
 	void set_mode(int mode);
@@ -32,7 +32,7 @@ public :
 	void pop_front() override;//delete from begin
 	bool erase_from_position(int position) override;
 	bool delete_data(T a) override;
-	int size() override;
+	int size() const override;
 	void clear()override;
 	void sort()override;
 private:
@@ -120,7 +120,7 @@ bool Stack<T>::delete_data(T a)
 }
 
 template<typename T>
-int Stack<T>::size()
+int Stack<T>::size() const 
 {
 	return impl->size();
 }
@@ -132,7 +132,7 @@ void Stack<T>::clear()
 }
 
 template<typename T>
-T Stack<T>::operator[](int index)
+T Stack<T>::operator[](const int index)
 {
 	return impl->operator[](index);
 }

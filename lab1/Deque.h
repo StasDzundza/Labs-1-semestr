@@ -24,7 +24,7 @@ public:
 		if (size > 0)
 			this->SIZE = size;
 	}
-	T operator[](int index);
+	T operator[](const int index);
 	void push_back(T a) override;
 	void push_front(T a) override;
 	void pop_back() override;
@@ -36,7 +36,7 @@ public:
 	T front() override;
 	bool erase_from_position(int position) override;
 	bool delete_data(T a) override;
-	int size() override;
+	int size() const override;
 	void clear()override;
 	void sort()override;
 private:
@@ -134,7 +134,7 @@ bool Deque<T>::delete_data(T a)
 }
 
 template<typename T>
-int Deque<T>::size()
+int Deque<T>::size() const
 {
 	return impl->size();
 }
@@ -146,7 +146,7 @@ void Deque<T>::clear()
 }
 
 template<typename T>
-T Deque<T>::operator[](int index)
+T Deque<T>::operator[](const int index)
 {
 	return impl->operator[](index);
 }

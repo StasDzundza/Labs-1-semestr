@@ -21,7 +21,7 @@ public:
 	T front()override;
 	bool erase_from_position(int position)override;
 	bool delete_data(T a)override;
-	int size()override;
+	int size()const override;
 	void clear()override;
 	void sort()override;
 private:
@@ -97,7 +97,7 @@ bool sqd_vector<T>::delete_data(T data)
 }
 
 template<typename T>
-int sqd_vector<T>::size()
+int sqd_vector<T>::size() const
 {
 	return VECTOR.size();
 }
