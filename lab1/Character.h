@@ -10,59 +10,44 @@ class Character
 {
 public:
 	Character();
-	Character(string Name, string book, string role) :name(Name)
-	{
-		characters_books.push_back(book);
-		role_in_book.push_back(role);
-	}
+	Character(string Name, string role) :name(Name), role_in_book(role) {}
 	void get_info();
 	void set_name(string name);
-	void add_book_and_role(string book,string role);
+	void set_role(string role);
 	Character& operator=(const Character& other_character);
 	bool operator==(const Character& other_character);
-private:
-	string name;
-	std::vector<string> characters_books;
-	std::vector <string> role_in_book;
-	
+	bool operator<(const Character&other_character);
+	bool operator>(const Character&other_character);
 	friend ostream&operator<<(ostream&os, const Character& p);
 	friend istream&operator>>(istream&is, Character& p);
+private:
+	string name;
+	//std::string characters_books;
+	//std::vector <string> role_in_book;
+	string role_in_book;
+
 };
-Character::Character() :name("") {}
+Character::Character() :name(""),role_in_book(""){}
 ostream&operator<<(ostream&os, const Character& p)
 {
 	os << "≤м'€ персонажу : " << p.name << endl;
-	os << " ниги, де в≥н зустр≥чаЇтьс€ ≥ роль в цих книгах : " << endl;
-
-	for (int i = 0; i < p.characters_books.size(); i++)
-	{
-		os << p.characters_books.at(i) << " -> " << p.role_in_book.at(i) << endl;
-	}
+	os << "…ого роль в ц≥й книз≥ : "<< p.role_in_book << endl;
 	return os;
 }
 istream&operator>>(istream&is, Character& p)
 {
 	cout << "¬вед≥ть ≥м'€ персонажа : " << endl;
 	getline(is, p.name);
-	cout << "¬вед≥ть книгу де в≥н зустр≥чаЇтьс€ : " << endl;
-	string book;
-	getline(is, book);
-	p.characters_books.push_back(book);
 	cout << "¬каж≥ть його роль у ц≥й книз≥ : " << endl;
 	string role;
 	getline(is, role);
-	p.role_in_book.push_back(role);
+	p.role_in_book = role;
 	return is;
 }
 Character& Character::operator=(const Character& other_character)
 {
 	this->name = other_character.name;
-	this->characters_books.clear();
-	for (int i = 0; i < other_character.characters_books.size(); i++)
-		this->characters_books.push_back(other_character.characters_books[i]);
-	this->role_in_book.clear();
-	for (int i = 0; i < other_character.role_in_book.size(); i++)
-		this->role_in_book.push_back(other_character.role_in_book[i]);
+	this->role_in_book = other_character.role_in_book;
 	return *this;
 }
 bool Character::operator==(const Character& other_character)
@@ -93,22 +78,24 @@ bool Character::operator==(const Character& other_character)
 	}
 	else return false;
 }
+bool Character::operator<(const Character & other_character)
+{
+	return this->name < other_character.name;
+}
+bool Character::operator>(const Character & other_character)
+{
+	return this->name > other_character.name;
+}
 void Character::get_info()
 {
 	cout << "≤м'€ персонажу : " << name << endl;
-	cout << " ниги, де в≥н зустр≥чаЇтьс€ ≥ роль в цих книгах : " << endl;
-
-	for (int i = 0; i < characters_books.size(); i++)
-	{
-		cout << characters_books.at(i) << " -> " << role_in_book.at(i) << endl;
-	}
+	cout << "…ого роль в ц≥й книз≥ : " << role_in_book << endl;
 }
 void Character::set_name(string name)
 {
 	this->name = name;
 }
-void Character::add_book_and_role(string book, string role)
+void Character::set_role(string role)
 {
-	this->characters_books.push_back(book);
-	this->role_in_book.push_back(role);
+	this->role_in_book = role;
 }

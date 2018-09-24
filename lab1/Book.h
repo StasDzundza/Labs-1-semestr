@@ -28,6 +28,10 @@ public:
 	bool operator<=(const Book&other_book);
 	bool operator>(const Book&other_book);
 	bool operator<(const Book&other_book);
+	int get_size_characters();
+	Character get_I_character(int i);
+	friend ostream&operator<<(ostream&os, const Book& book);
+	friend istream&operator>>(istream&is, Book&book);
 private:
 	string book_name;
 	std::vector <string> authors;
@@ -35,8 +39,7 @@ private:
 	int List_count;
 	string summary;
 	std::vector<Character> characters;
-	friend ostream&operator<<(ostream&os, const Book& book);
-	friend istream&operator>>(istream&is, Book&book);
+	
 };
 
 Book::Book() :book_name(""), Date(0), List_count(0), summary("") {}
@@ -155,6 +158,16 @@ bool Book::operator==(const Book& other_book)
 bool Book::operator<(const Book&other_book)
 {
 	return this->Date < other_book.Date;
+}
+
+int Book::get_size_characters()
+{
+	return this->characters.size();
+}
+
+Character Book::get_I_character(int i)
+{
+	return characters[i];
 }
 
 bool Book::operator>(const Book&other_book)
