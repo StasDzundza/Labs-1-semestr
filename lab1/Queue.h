@@ -35,6 +35,7 @@ public:
 	void pop_front() override;//delete from begin
 	void clear()override;
 	void sort()override;
+	void random_push(int N);
 private:
 	MODE mode = list;
 	int SIZE = 0;//для масиву
@@ -143,6 +144,31 @@ void Queue<T>::clear()
 	impl->clear();
 }
 
+template<typename T>
+void Queue<T>::random_push(int N)
+{
+	T a;
+	if (typeid(a) == typeid(int))
+	{
+		for (int i = 0; i < N; i++)
+		{
+			int rand_number = rand() % 100;
+			impl->push_front(rand_number);
+		}
+	}
+	else if (typeid(a) == typeid(double))
+	{
+		for (int i = 0; i < N; i++)
+		{
+			int int_part = rand() % 100;
+			int drob_part = rand() % 10;
+			double a = double(drob_part) / 10;//створили рандомну дробову частину
+			double res = double(int_part) + a;
+			impl->push_front(res);
+
+		}
+	}
+}
 ////////////////////////////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
 template<typename T>
 void Queue<T>::push_front(T a)

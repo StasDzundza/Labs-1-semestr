@@ -93,6 +93,7 @@ istream&operator>>(istream&is, Book&book)
 	cout << "¬каж≥ть к≥льк≥сть персонаж≥в : ";
 	int count_heroes;
 	cin >> count_heroes;
+	cin.get();
 	for (int i = 0; i < count_heroes; i++)
 	{
 		cout << "є " << i+1 << endl;
