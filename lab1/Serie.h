@@ -27,13 +27,13 @@ Serie& Serie:: operator=(Serie& other_serie)
 	return *this;
 }
 
-//ми не будемо ніколи використовувати,але мусимо перегрузити,щоб створити стек об'єктів
+//ми не будемо ніколи використовувати,але мусимо перегрузити,щоб створити стек об'єктів цього класу
 bool Serie::operator>(const Serie & other_serie)
 {
 	return false;
 }
 
-//ми не будемо ніколи використовувати,але мусимо перегрузити,щоб створити стек об'єкті
+//ми не будемо ніколи використовувати,але мусимо перегрузити,щоб створити стек об'єктів цього класу
 bool Serie::operator<(const Serie & other_serie)
 {
 	return false;
@@ -59,7 +59,7 @@ ostream & operator<<(ostream & os,Serie &SERIE)
 {
 	for (int i = 0; i < SERIE.serie.size(); i++)
 	{
-		cout << SERIE.serie[i];
+		os << SERIE.serie[i];
 	}
 	return os;
 }

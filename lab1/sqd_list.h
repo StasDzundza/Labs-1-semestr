@@ -102,7 +102,7 @@ void sqd_list<T>::pop_front()
 template<typename T>
 bool sqd_list<T>::erase_from_position(int position)
 {
-	if (position < Size && head!=nullptr)
+	if (position <= Size && head!=nullptr)
 	{
 		if (position == 1)
 		{
