@@ -21,6 +21,7 @@ public:
 	{
 		if (size > 0)
 			this->SIZE = size;
+		impl = new sqd_list<T>;
 	}
 	T operator[](const int index);
 	void show() override;
@@ -32,6 +33,7 @@ public:
 	bool delete_data(T a) override;
 	int size()const override;
 	void push_back(T a) override;
+	void push(T a);
 	void pop_front() override;//delete from begin
 	void clear()override;
 	void sort()override;
@@ -74,6 +76,12 @@ void Queue<T>::set_mode(int mode)
 
 template<typename T>
 void Queue<T>::push_back(T a)
+{
+	impl->push_back(a);
+}
+
+template<typename T>
+void Queue<T>::push(T a)
 {
 	impl->push_back(a);
 }

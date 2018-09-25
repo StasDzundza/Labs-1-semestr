@@ -52,7 +52,7 @@ sqd_arr<T>::sqd_arr()
 template<typename T>
 sqd_arr<T>::sqd_arr(int size)
 {
-	if (size < Max)
+	if (size < Max && size > 0)
 	{
 		Max = 1000;
 		Index = 0;
@@ -61,7 +61,7 @@ sqd_arr<T>::sqd_arr(int size)
 	}
 	else
 	{
-		std::cout << "Завеликий розмір. Виділено масив на 1000 елементів" << std::endl;
+		std::cout << "Завеликий розмір або введене від'ємне число. Виділено масив на 1000 елементів" << std::endl;
 		Max = 1000;
 		Index = 0;
 		arr = new T[Max];
@@ -69,7 +69,6 @@ sqd_arr<T>::sqd_arr(int size)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 template<typename T>
 void sqd_arr<T>::add_stack(T a)
@@ -124,7 +123,7 @@ void sqd_arr<T>::pop_front()
 template<typename T>
 bool sqd_arr<T>::erase_from_position(int position)
 {
-	if (Index > 0 && position <= Index)
+	if (Index > 0 && position <= Index && position > 0)
 	{
 		if (position == 1)
 		{
@@ -264,6 +263,7 @@ void sqd_arr<T>::sort()
 {
 	for (int i = 0; i < Index; i++)
 	{
+		bool swapped = false;
 		for (int j = 1; j < Index - i; j++)
 		{
 			if (arr[j - 1] > arr[j])
@@ -271,8 +271,11 @@ void sqd_arr<T>::sort()
 				T tmp = arr[j - 1];
 				arr[j - 1] = arr[j];
 				arr[j] = tmp;
+				swapped = true;
 			}
 		}
+		if (!swapped)
+			break;
 	}
 }
 

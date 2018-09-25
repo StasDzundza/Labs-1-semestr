@@ -22,7 +22,9 @@ public :
 	{
 		if(size > 0)
 			this->SIZE = size;
+		impl = new sqd_list<T>;
 	}
+	void push(T a);
 	T operator[](const int index);
 	void push_front(T a) override;
 	void show() override;
@@ -131,6 +133,12 @@ template<typename T>
 void Stack<T>::clear()
 {
 	impl->clear();
+}
+
+template<typename T>
+void Stack<T>::push(T a)
+{
+	impl->push_front(a);
 }
 
 template<typename T>

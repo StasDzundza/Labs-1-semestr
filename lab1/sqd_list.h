@@ -102,7 +102,7 @@ void sqd_list<T>::pop_front()
 template<typename T>
 bool sqd_list<T>::erase_from_position(int position)
 {
-	if (position <= Size && head!=nullptr)
+	if (position <= Size && head!=nullptr && position >=1)
 	{
 		if (position == 1)
 		{
@@ -141,10 +141,12 @@ bool sqd_list<T>::delete_data(T data)
 		else
 		{
 			Node<T>*tmp = head;
-			while (!(tmp->next->data==data))//щоб не перегружати !=
+			while ((tmp->next!=nullptr)&&!(tmp->next->data==data))//щоб не перегружати !=
 			{
 				tmp = tmp->next;
 			}
+			if (tmp->next == nullptr)//перев≥р€Їмо чи знайшли елемент чи д≥йшли до к≥нц€ ≥ не знайшли
+				return false;
 			Node<T>*next_el = tmp->next;
 			tmp->next = next_el->next;
 			Size--;

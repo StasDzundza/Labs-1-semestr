@@ -163,6 +163,7 @@ void sqd_deque<T>::sort()
 {
 	for (int i = 0; i < DEQUE.size(); i++)
 	{
+		bool swapped = false;
 		for (int j = 1; j < DEQUE.size() - i; j++)
 		{
 			if (DEQUE[j - 1] > DEQUE[j])
@@ -170,7 +171,10 @@ void sqd_deque<T>::sort()
 				T tmp = DEQUE[j - 1];
 				DEQUE[j - 1] = DEQUE[j];
 				DEQUE[j] = tmp;
+				swapped = true;
 			}
 		}
+		if (!swapped)
+			break;
 	}
 }

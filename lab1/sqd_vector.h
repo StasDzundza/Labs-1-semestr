@@ -162,6 +162,7 @@ void sqd_vector<T>::sort()
 {
 	for (int i = 0; i < VECTOR.size(); i++)
 	{
+		bool swapped = false;
 		for (int j = 1; j < VECTOR.size() - i; j++)
 		{
 			if (VECTOR[j-1] > VECTOR[j])
@@ -169,7 +170,10 @@ void sqd_vector<T>::sort()
 				T tmp = VECTOR[j-1];
 				VECTOR[j-1] = VECTOR[j];
 				VECTOR[j] = tmp;
+				swapped = true;
 			}
 		}
+		if (!swapped)
+			break;
 	}
 }

@@ -2,6 +2,7 @@
 #include<string>
 #include<vector>
 #include"Character.h"
+#include"input_information.h"
 using std::string;
 
 class Book
@@ -72,10 +73,11 @@ istream&operator>>(istream&is, Book&book)
 {
 	cout << "¬вед≥ть назву книги : " << endl;
 	getline(is, book.book_name);
-	cout << "¬каж≥ть к≥льк≥сть автор≥в : ";
+	cout << "¬каж≥ть к≥льк≥сть автор≥в(максимум 5,м≥н≥мум 1) : ";
 	int count_authors;
-	cin >> count_authors;
-	cin.get();
+	do {
+		count_authors = correct_input_positive_int();
+	} while (count_authors > 5 || count_authors == 0);
 	for (int i = 0; i < count_authors; i++)
 	{
 		cout << "¬каж≥ть автора книги : " << endl;
@@ -92,8 +94,9 @@ istream&operator>>(istream&is, Book&book)
 	getline(is, book.summary);
 	cout << "¬каж≥ть к≥льк≥сть персонаж≥в : ";
 	int count_heroes;
-	cin >> count_heroes;
-	cin.get();
+	do {
+		count_heroes = correct_input_positive_int();
+	} while (count_heroes > 10 || count_heroes == 0);
 	for (int i = 0; i < count_heroes; i++)
 	{
 		cout << "є " << i+1 << endl;

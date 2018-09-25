@@ -23,10 +23,12 @@ public:
 	{
 		if (size > 0)
 			this->SIZE = size;
+		impl = new sqd_list<T>;
 	}
 	T operator[](const int index);
 	void push_back(T a) override;
 	void push_front(T a) override;
+	void push(T a);
 	void pop_back() override;
 	void pop_front() override;
 	void show() override;
@@ -90,6 +92,12 @@ template<typename T>
 void Deque<T>::push_front(T a)
 {
 	impl->push_front(a);
+}
+
+template<typename T>
+void Deque<T>::push(T a)
+{
+	impl->push_back(a);
 }
 
 template<typename T>
