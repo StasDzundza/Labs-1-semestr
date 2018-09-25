@@ -39,6 +39,10 @@ public :
 	void clear()override;
 	void sort()override;
 	void random_push(int N);
+	~Stack()
+	{
+		impl->clear();
+	}
 private:
 	MODE mode = list;
 	int SIZE = 0;//для масиву
