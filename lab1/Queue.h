@@ -4,13 +4,7 @@
 #include"sqd_deque.h"
 #include"sqd_vector.h"
 #include"SQD.h"
-//enum MODE
-//{
-//	list,
-//	arr,
-//	deque,
-//	vector
-//};
+
 template<typename T>
 class Queue :public SQD<T>
 {
