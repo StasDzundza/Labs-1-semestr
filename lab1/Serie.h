@@ -2,9 +2,10 @@
 #include"Stack.h"
 #include"Book.h"
 #include<iostream>
-class Serie 
+class Serie
 {
 public:
+	Serie() { }
 	void add_book(Book book);
 	void sort_serie();
 	void show_serie();
@@ -12,7 +13,7 @@ public:
 	bool operator>(const Serie& other_serie);
 	bool operator<(const Serie& other_serie);
 	bool operator==(Serie other_serie);
-	friend ostream& operator<<(ostream&os,Serie& SERIE);
+	friend ostream& operator<<(ostream&os, Serie& SERIE);
 private:
 	Stack<Book> serie;
 };
@@ -43,7 +44,7 @@ bool Serie::operator==(Serie other_serie)
 {
 	if (this->serie.size() != other_serie.serie.size())
 		return false;
-	if (this->serie.size() == 0 && other_serie.serie.size() == 0) 
+	if (this->serie.size() == 0 && other_serie.serie.size() == 0)
 		return true;
 	for (int i = 0; i < serie.size(); i++)
 	{
@@ -55,12 +56,13 @@ bool Serie::operator==(Serie other_serie)
 	return true;
 }
 
-ostream & operator<<(ostream & os,Serie &SERIE)
+ostream & operator<<(ostream & os, Serie &SERIE)
 {
 	for (int i = 0; i < SERIE.serie.size(); i++)
 	{
 		os << SERIE.serie[i];
 	}
+	os << endl;
 	return os;
 }
 

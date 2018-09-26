@@ -35,7 +35,7 @@ private:
 	public:
 		Node*next;
 		T data;
-		Node(T data = T(), Node*next = nullptr)
+		Node(T data , Node*next = nullptr)
 		{
 			this->data = data;
 			this->next = next;

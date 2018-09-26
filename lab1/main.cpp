@@ -16,7 +16,6 @@ using std::endl;
 using std::string;
 
 
-
 bool book_in_serie(Book book,Character current)
 {
 	const string role1 = "main";
@@ -36,12 +35,12 @@ bool book_in_serie(Book book,Character current)
 	return false;
 }
 
-Stack<Serie> create_series(Stack<Book> &books)
+Stack<Serie>& create_series(Stack<Book> &books)
 {
 	const string role1 = "main";
 	const string role2 = "secondary";
-	Stack<Serie> series;
-	Queue<Character> characters;
+	Stack<Serie> *series = new Stack<Serie>;
+	Queue<Character> *characters = new Queue<Character>;
 	int size = books.size();
 
 	//створюємо чергу з головних та другорядних героїв усіх книг
@@ -53,20 +52,20 @@ Stack<Serie> create_series(Stack<Book> &books)
 			string role = current.get_role();
 			if (role == role1 || role == role2)
 			{
-				characters.push_back(current);
+				characters->push_back(current);
 			}
 		}
 	}
 
 	//Видаляємо однакових героїв
-	for (int i = 0; i < characters.size(); i++)
+	for (int i = 0; i < characters->size(); i++)
 	{
-		for (int j = i+1; j < characters.size(); j++)
+		for (int j = i+1; j < characters->size(); j++)
 		{
 			bool deleted = false;
-			if (characters[i] == characters[j])
+			if (characters->operator[](i) == characters->operator[](j))
 			{
-				characters.erase_from_position(j + 1);
+				characters->erase_from_position(j + 1);
 				deleted = true;
 			}
 			if (deleted)
@@ -76,10 +75,10 @@ Stack<Serie> create_series(Stack<Book> &books)
 
 
 	//створили стек серій
-	for (int i = 0; i < characters.size(); i++)
+	for (int i = 0; i < characters->size(); i++)
 	{
 		Serie current_serie;
-		Character current = characters[i];//взяли одного персонажа і проходимося по книгах
+		Character current = characters->operator[](i);//взяли одного персонажа і проходимося по книгах
 		for (int j = 0; j < books.size(); j++)
 		{
 			if (book_in_serie(books[j], current))
@@ -87,19 +86,21 @@ Stack<Serie> create_series(Stack<Book> &books)
 				current_serie.add_book(books[j]);
 			}
 		}
-		series.push_front(current_serie);
+		series->push_front(current_serie);
 	}
 
 
-	//видаляємо однакові серії,якщо вони є
-	for (int i = 0; i < series.size(); i++)
+	//видаляємо серії,які повторюються
+	for (int i = 0; i < series->size(); i++)
 	{
-		for (int j = i + 1; j < series.size(); j++)
+		for (int j = i + 1; j < series->size(); j++)
 		{
 			bool deleted = false;
-			if (series[i]==series[j])
+			Serie a = series->operator[](i);
+			Serie b = series->operator[](j);
+			if (a == b)
 			{
-				series.erase_from_position(j + 1);
+				series->erase_from_position(j + 1);
 				deleted = true;
 			}
 			if (deleted)
@@ -109,11 +110,11 @@ Stack<Serie> create_series(Stack<Book> &books)
 	}
 
 	//сортуємо кожну серію за датою видання книг
-	for (int i = 0; i < series.size(); i++)
+	for (int i = 0; i < series->size(); i++)
 	{
-		series[i].sort_serie();
+		series->operator[](i).sort_serie();
 	}
-	return series;
+	return *series;
 }
 
 
@@ -125,17 +126,27 @@ int main()
 	//тест програми на прикладі власного класу книга зі створенням серій і виводом на екран
 
 	/*Stack<Book> books;
-	Book b1; Book b2; Book b3; Book b4; Book b5;
-	cin >> b1;
-	cin >> b2;
-	cin >> b3;
-	//cin >> b4; 
-	//cin >> b5;
-	books.push_front(b1);
-	books.push_front(b2);
-	books.push_front(b3);
-	//books.push_front(b4);
-	//books.push_front(b5);
+	Character a("a", "main");
+	Character a1("a", "secondary");
+	Character b("b", "main");
+	Character c("c", "secondary");
+	Character d("d", "episodic");
+	Book b1("first","author1",1225,1000,"good book",a); 
+	b1.add_author("Stas Dzundza");
+	Book b2("second", "author2", 1900, 586, "super book", b);
+	Book b3("third", "author3", 2018, 200, "normal book", a);
+	b3.add_character(b);
+	Book b4("four", "author4", 1945, 2000, "info book", a1);
+	b4.add_character(c);
+	Book b5("five", "author5", 2019, 5001, "enciclopedy", b);
+	b5.add_character(c);
+	b5.add_character(d);
+
+	books.push(b1);
+	books.push(b2);
+	books.push(b3);
+	books.push(b4);
+	books.push(b5);
 
 	Stack<Serie> series = create_series(books);
 	for (int i = 0; i < series.size(); i++)
@@ -146,14 +157,57 @@ int main()
 	}*/
 
 
+	//Book *b6 = new Book("first", "author1", 1225, 1000, "good book", a);
+	//Book b7(*b6);
+	//delete b6;
+
+	
+
+	//можна також вводити дані книги вручну
+
+	//Stack<Book> books;
+	//Stack<Book> books;
+	//Book b1; Book b2; Book b3; Book b4; Book b5;
+	//cin >> b1;
+	//cin >> b2;
+	//cin >> b3;
+	//cin >> b4; 
+	//cin >> b5;
+	//books.push_front(b1);
+	//books.push_front(b2);
+	//books.push_front(b3);
+	//books.push_front(b4);
+	//books.push_front(b5);
+	//Stack<Serie> series = create_series(books);
+	//for (int i = 0; i < series.size(); i++)
+	//{
+	//	cout << "SERIE # " << i + 1 << endl;
+	//	series[i].show_serie();
+	//	cout << endl << endl << endl << endl;
+	//}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 	//приклад заповнення структури даних випадковими даними(int or double)
-
-	/*Queue<double> st;
-	st.random_push(10);
-	st.show();*/
+	int precision;
+	do {
+		precision = correct_input_positive_int();
+	} while (precision > 5 || precision == 0);
+	Queue<double> st;
+	st.random_push(10,precision);
+	st.show();
 
 
 

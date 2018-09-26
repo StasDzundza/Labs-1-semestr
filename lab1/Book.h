@@ -4,7 +4,8 @@
 #include"Character.h"
 #include"input_information.h"
 using std::string;
-
+using std::cin;
+using std::cout;
 class Book
 {
 public:
@@ -16,6 +17,7 @@ public:
 		authors.push_back(author);
 		characters.push_back(character);
 	}
+	Book(const Book&other_book);
 	void book_info();
 	void set_name(string book_name);
 	void add_author(string author);
@@ -32,7 +34,12 @@ public:
 	int get_size_characters();
 	Character get_I_character(int i);
 	friend ostream&operator<<(ostream&os, const Book& book);
-	friend istream&operator>>(istream&is, Book&book);
+	friend std::istream&operator>>(std::istream&is, Book&book);
+	~Book()
+	{
+		authors.clear();
+		characters.clear();
+	}
 private:
 	string book_name;
 	std::vector <string> authors;
@@ -57,9 +64,9 @@ ostream&operator<<(ostream&os, const Book& book)
 	os << endl;
 	os << "Дата видання : " << book.Date << endl;
 	os << "Кількість сторінок : " << book.List_count << endl;
-	os << "Герої : "<<endl;
+	os << "Герої : " << endl;
 
-	for (int i = 0; i < book.authors.size(); i++)
+	for (int i = 0; i < book.characters.size(); i++)
 	{
 		os << book.characters.at(i) << "  ";
 	}
@@ -99,7 +106,7 @@ istream&operator>>(istream&is, Book&book)
 	} while (count_heroes > 10 || count_heroes == 0);
 	for (int i = 0; i < count_heroes; i++)
 	{
-		cout << "№ " << i+1 << endl;
+		cout << "№ " << i + 1 << endl;
 		Character a;
 		is >> a;
 		book.characters.push_back(a);
@@ -136,18 +143,6 @@ bool Book::operator==(const Book& other_book)
 			{
 				if (this->List_count == other_book.List_count)
 				{
-					//if (this->summary == other_book.summary)
-					//{
-						//if (this->characters.size() == other_book.characters.size())
-						//{
-						//	for (int i = 0; i < this->characters.size(); i++)
-						//		if (!(this->characters[i] == other_book.characters[i]))//щоб не перегружати !=
-						//			return false;
-						//	return true;//якщо рівні
-						//}
-						//else return false;
-					//}
-					//else return false;
 					return true;
 				}
 				else return false;
@@ -187,6 +182,22 @@ bool Book::operator<=(const Book&other_book)
 bool Book::operator>=(const Book&other_book)
 {
 	return this->Date >= other_book.Date;
+}
+
+Book::Book(const Book & other_book)
+{
+	this->book_name = other_book.book_name;
+	for (int i = 0; i < other_book.authors.size(); i++)
+	{
+		this->authors.push_back(other_book.authors[i]);
+	}
+	this->Date = other_book.Date;
+	this->List_count = other_book.List_count;
+	this->summary = other_book.summary;
+	for (int i = 0; i < other_book.characters.size(); i++)
+	{
+		this->characters.push_back(other_book.characters[i]);
+	}
 }
 
 void Book::book_info()

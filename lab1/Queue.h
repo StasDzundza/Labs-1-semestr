@@ -31,7 +31,7 @@ public:
 	void pop_front() override;//delete from begin
 	void clear()override;
 	void sort()override;
-	void random_push(int N);
+	void random_push(int N,int precision);
 	~Queue()
 	{
 		impl->clear();
@@ -151,7 +151,7 @@ void Queue<T>::clear()
 }
 
 template<typename T>
-void Queue<T>::random_push(int N)
+void Queue<T>::random_push(int N,int precision)
 {
 	T a;
 	if (typeid(a) == typeid(int))
@@ -166,9 +166,10 @@ void Queue<T>::random_push(int N)
 	{
 		for (int i = 0; i < N; i++)
 		{
+			int num = pow(10, precision);
 			int int_part = rand() % 100;
-			int drob_part = rand() % 10;
-			double a = double(drob_part) / 10;//створили рандомну дробову частину
+			int drob_part = rand() % num;
+			double a = double(drob_part) / num;//створили рандомну дробову частину
 			double res = double(int_part) + a;
 			impl->push_front(res);
 
