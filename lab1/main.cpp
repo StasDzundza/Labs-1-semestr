@@ -1,15 +1,17 @@
-#include<iostream>
+#include"input_information.h"
 #include"Stack.h"
 #include"Queue.h"
 #include"Deque.h"
 #include"Book.h"
-#include<Windows.h>
 #include"Serie.h"
+
+#include<iostream>
+#include<Windows.h>
 #include<string>
 #include<cstdlib>
 #include<ctime>
 #include<conio.h>
-#include"input_information.h"
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -125,7 +127,7 @@ int main()
 	SetConsoleCP(1251);
 	//тест програми на прикладі власного класу книга зі створенням серій і виводом на екран
 
-	/*Stack<Book> books;
+	Stack<Book> books;
 	Character a("a", "main");
 	Character a1("a", "secondary");
 	Character b("b", "main");
@@ -154,12 +156,16 @@ int main()
 		cout << "SERIE # " << i + 1 << endl;
 		series[i].show_serie();
 		cout << endl << endl << endl << endl;
-	}*/
+	}
 
 
-	//Book *b6 = new Book("first", "author1", 1225, 1000, "good book", a);
-	//Book b7(*b6);
-	//delete b6;
+
+
+	//Приклад конструктора копіювання класу Книга
+	/*Book *b6 = new Book("first", "author1", 1225, 1000, "good book", a);
+	Book b7(*b6);
+	delete b6;
+	cout << b7;*/
 
 	
 
@@ -201,13 +207,14 @@ int main()
 
 
 	//приклад заповнення структури даних випадковими даними(int or double)
-	int precision;
+	/*int precision;
+	cout << "Введіть к-сть цифр після коми(max 5,min 1) : " << endl;
 	do {
 		precision = correct_input_positive_int();
 	} while (precision > 5 || precision == 0);
 	Queue<double> st;
 	st.random_push(10,precision);
-	st.show();
+	st.show();*/
 
 
 
