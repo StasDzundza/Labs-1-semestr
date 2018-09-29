@@ -132,7 +132,28 @@ void Queue<T>::random_push(int N,int precision)
 		}
 	}
 }
+template<>
+void Queue<int>::random_push(int N, int precision)
+{
+	for (int i = 0; i < N; i++)
+	{
+		int rand_number = rand() % 100;
+		impl->push_front(rand_number);
+	}
+}
 
+template<>
+void Queue<double>::random_push(int N, int precision)
+{
+	for (int i = 0; i < N; i++)
+	{
+		int int_part = rand() % 100;
+		int drob_part = rand() % 10;
+		double a = double(drob_part) / 10;//rand drob_part
+		double res = double(int_part) + a;
+		impl->push_front(res);
+	}
+}
 
 
 

@@ -119,7 +119,7 @@ void Deque<T>::sort()
 }
 
 template<typename T>
-void Deque<T>::random_push(int N)
+void Deque<T>::random_push(int N,int precision)
 {
 	T a;
 	if (typeid(a) == typeid(int))
@@ -141,5 +141,28 @@ void Deque<T>::random_push(int N)
 			impl->push_front(res);
 
 		}
+	}
+}
+
+template<>
+void Deque<int>::random_push(int N, int precision)
+{
+	for (int i = 0; i < N; i++)
+	{
+		int rand_number = rand() % 100;
+		impl->push_front(rand_number);
+	}
+}
+
+template<>
+void Deque<double>::random_push(int N, int precision)
+{
+	for (int i = 0; i < N; i++)
+	{
+		int int_part = rand() % 100;
+		int drob_part = rand() % 10;
+		double a = double(drob_part) / 10;//rand drob_part
+		double res = double(int_part) + a;
+		impl->push_front(res);
 	}
 }
