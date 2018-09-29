@@ -1,13 +1,12 @@
 #pragma once
-#include"Character.h"
-#include"input_information.h"
+#include"character.h"
 
 #include<string>
 #include<vector>
+#include<iostream>
 
 using std::string;
-using std::cin;
-using std::cout;
+
 
 class Book
 {

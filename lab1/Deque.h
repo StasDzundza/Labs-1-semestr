@@ -4,6 +4,7 @@
 #include"sqd_deque.h"
 #include"sqd_vector.h"
 #include"SQD.h"
+#include<typeinfo>
 
 template<typename T>
 class Deque :public SQD<T>
@@ -40,8 +41,8 @@ public:
 	}
 private:
 	MODE mode = list;
-	int SIZE = 0;//для масиву
+	int SIZE = 0;//for array realization
 	SQD<T>*impl;
 };
 
-#include"Deque.inc"
+#include"deque.inc"

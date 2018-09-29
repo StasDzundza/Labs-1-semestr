@@ -1,9 +1,7 @@
 #pragma once
 #include"SQD.h"
 #include<deque>
-#include<vector>
-#include<iterator>
-using namespace std;
+
 template<typename T>
 class sqd_deque :public SQD<T>
 {

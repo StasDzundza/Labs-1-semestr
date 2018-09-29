@@ -1,4 +1,9 @@
-#include"Character.h"
+#include"character.h"
+#include<iostream>
+
+
+using std::endl;
+using std::cout;
 
 Character::Character() :name("character"), role_in_book("episodic") {}
 

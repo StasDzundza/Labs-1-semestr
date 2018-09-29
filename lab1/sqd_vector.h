@@ -1,7 +1,6 @@
 #pragma once
 #include"SQD.h"
 #include<vector>
-using namespace std;
 template<typename T>
 class sqd_vector :public SQD<T>
 {

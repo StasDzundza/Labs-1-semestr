@@ -1,9 +1,9 @@
 #include"input_information.h"
-#include"Stack.h"
-#include"Queue.h"
-#include"Deque.h"
-#include"Book.h"
-#include"Serie.h"
+#include"stack.h"
+#include"queue.h"
+#include"deque.h"
+#include"book.h"
+#include"serie.h"
 
 #include<iostream>
 #include<Windows.h>
@@ -45,7 +45,7 @@ Stack<Serie>& create_series(Stack<Book> &books)
 	Queue<Character> *characters = new Queue<Character>;
 	int size = books.size();
 
-	//створюємо чергу з головних та другорядних героїв усіх книг
+	//create queue with main and secondary characters
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < books[i].get_size_characters(); j++)
@@ -59,7 +59,7 @@ Stack<Serie>& create_series(Stack<Book> &books)
 		}
 	}
 
-	//Видаляємо однакових героїв
+	//delete the same characters
 	for (int i = 0; i < characters->size(); i++)
 	{
 		for (int j = i+1; j < characters->size(); j++)
@@ -76,11 +76,11 @@ Stack<Serie>& create_series(Stack<Book> &books)
 	}
 
 
-	//створили стек серій
+	//creating stack with series
 	for (int i = 0; i < characters->size(); i++)
 	{
 		Serie current_serie;
-		Character current = characters->operator[](i);//взяли одного персонажа і проходимося по книгах
+		Character current = characters->operator[](i);
 		for (int j = 0; j < books.size(); j++)
 		{
 			if (book_in_serie(books[j], current))
@@ -92,7 +92,7 @@ Stack<Serie>& create_series(Stack<Book> &books)
 	}
 
 
-	//видаляємо серії,які повторюються
+	//delete the same series
 	for (int i = 0; i < series->size(); i++)
 	{
 		for (int j = i + 1; j < series->size(); j++)
@@ -111,7 +111,7 @@ Stack<Serie>& create_series(Stack<Book> &books)
 
 	}
 
-	//сортуємо кожну серію за датою видання книг
+	//We are sorting series
 	for (int i = 0; i < series->size(); i++)
 	{
 		series->operator[](i).sort_serie();
@@ -125,7 +125,7 @@ int main()
 	srand(time(NULL));
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
-	//тест програми на прикладі власного класу книга зі створенням серій і виводом на екран
+	//Example with My Class Book
 
 	Stack<Book> books;
 	Character a("a", "main");
@@ -161,7 +161,8 @@ int main()
 
 
 
-	//Приклад конструктора копіювання класу Книга
+
+	//Constructor copy
 	/*Book *b6 = new Book("first", "author1", 1225, 1000, "good book", a);
 	Book b7(*b6);
 	delete b6;
@@ -169,7 +170,7 @@ int main()
 
 	
 
-	//можна також вводити дані книги вручну
+	//You also can input data by yourself
 
 	//Stack<Book> books;
 	//Stack<Book> books;
@@ -206,7 +207,7 @@ int main()
 
 
 
-	//приклад заповнення структури даних випадковими даними(int or double)
+	//Random Example
 	/*int precision;
 	cout << "Введіть к-сть цифр після коми(max 5,min 1) : " << endl;
 	do {
@@ -221,10 +222,9 @@ int main()
 
 
 
-	//приклад роботи програми на примітивних типах даних(deque на списку)
-
+	//Deque by list
 	/*Deque<int> deq;
-	deq.set_mode(1);//список
+	deq.set_mode(1);//list
 	deq.push_back(1);
 	deq.push_back(2);
 	deq.push_front(3);
@@ -244,7 +244,7 @@ int main()
 	deq.show();*/
 
 
-	//приклад роботи на бібліотечному типі даних string(Stack на масиві)
+	//Example with string class
 
 	/*Stack<string> st;
 	st.set_mode(2);
@@ -281,7 +281,7 @@ int main()
 	
 	
 
-	// Приклад переповнення на масиві
+	// Array overflow
 	/*Stack<int> st(5);
 	st.set_mode(2);
 	st.push(1);

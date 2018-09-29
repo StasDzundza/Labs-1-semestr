@@ -1,4 +1,11 @@
 #pragma once
+enum MODE
+{
+	list,
+	arr,
+	deque,
+	vector
+};
 template<typename T>
 class SQD
 {

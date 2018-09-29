@@ -1,5 +1,12 @@
 #include"sqd_deque.h"
 
+#include<iterator>
+#include<cstdlib>//exit
+#include<iostream>
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 template<typename T>
 T sqd_deque<T>::back()

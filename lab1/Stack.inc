@@ -1,5 +1,6 @@
-#include"Stack.h"
-
+#include"stack.h"
+#include<iostream>
+#include<cmath>
 template<typename T>
 void Stack<T>::set_mode(int mode)
 {
@@ -8,15 +9,15 @@ void Stack<T>::set_mode(int mode)
 		impl = new sqd_list<T>;
 		this->mode = MODE::list;
 	}
-	else if(mode == 2)
+	else if (mode == 2)
 	{
-		if(SIZE > 0)
+		if (SIZE > 0)
 			impl = new sqd_arr<T>(SIZE);
 		else
 			impl = new sqd_arr<T>;
 		this->mode = MODE::arr;
-	}	
-	else if(mode == 3)
+	}
+	else if (mode == 3)
 	{
 		impl = new sqd_deque<T>;
 		this->mode = MODE::deque;
@@ -77,7 +78,7 @@ bool Stack<T>::delete_data(T a)
 }
 
 template<typename T>
-int Stack<T>::size() const 
+int Stack<T>::size() const
 {
 	return impl->size();
 }
@@ -107,7 +108,7 @@ void Stack<T>::sort()
 }
 
 template<typename T>
-void Stack<T>::random_push(int N)
+void Stack<T>::random_push(int N,int precision)
 {
 	T a;
 	if (typeid(a) == typeid(int))
@@ -124,14 +125,54 @@ void Stack<T>::random_push(int N)
 		{
 			int int_part = rand() % 100;
 			int drob_part = rand() % 10;
-			double a = double(drob_part) / 10;//створили рандомну дробову частину
+			double a = double(drob_part) / 10;//rand drob_part
 			double res = double(int_part) + a;
 			impl->push_front(res);
 
 		}
 	}
 }
-///////////////////////////////////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
+
+
+template<>
+void Stack<int>::random_push(int N, int precision)
+{
+	for (int i = 0; i < N; i++)
+	{
+		int rand_number = rand() % 100;
+		impl->push_front(rand_number);
+	}
+}
+
+template<>
+void Stack<double>::random_push(int N, int precision)
+{
+	for (int i = 0; i < N; i++)
+	{
+		int int_part = rand() % 100;
+		int drob_part = rand() % 10;
+		double a = double(drob_part) / 10;//rand drob_part
+		double res = double(int_part) + a;
+		impl->push_front(res);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////
 template<typename T>
 void Stack<T>::push_back(T a)
 {

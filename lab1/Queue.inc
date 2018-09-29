@@ -1,5 +1,5 @@
-#include"Queue.h"
-
+#include"queue.h"
+#include<cmath>
 template<typename T>
 void Queue<T>::set_mode(int mode)
 {
@@ -125,14 +125,35 @@ void Queue<T>::random_push(int N,int precision)
 			int num = pow(10, precision);
 			int int_part = rand() % 100;
 			int drob_part = rand() % num;
-			double a = double(drob_part) / num;//створили рандомну дробову частину
+			double a = double(drob_part) / num;//rand drob_part
 			double res = double(int_part) + a;
 			impl->push_front(res);
 
 		}
 	}
 }
-////////////////////////////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 template<typename T>
 void Queue<T>::push_front(T a)
 {

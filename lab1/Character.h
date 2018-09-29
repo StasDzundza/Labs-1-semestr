@@ -1,11 +1,12 @@
 #pragma once
 #include<string>
 #include<iostream>
+
 using std::string;
 using std::ostream;
 using std::istream;
-using std::endl;
-using std::cout;
+
+
 	class Character
 	{
 	public:

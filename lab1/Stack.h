@@ -3,15 +3,9 @@
 #include"sqd_arr.h"
 #include"sqd_deque.h"
 #include"sqd_vector.h"
-#include"SQD.h"
+#include"sqd.h"
 #include<typeinfo>
-enum MODE
-{
-	list,
-	arr,
-	deque,
-	vector
-};
+
 template<typename T>
 class Stack:public SQD<T>
 {
@@ -38,20 +32,19 @@ public :
 	int size() const override;
 	void clear()override;
 	void sort()override;
-	void random_push(int N);
-	virtual~Stack()
-	{
-		//impl->clear();
-	}
+	void random_push(int N,int precision);
+	virtual~Stack(){
+}
 private:
 	MODE mode = list;
-	int SIZE = 0;//для масиву
+	int SIZE = 0;//for array
 	SQD<T>*impl;
 	void push_back(T a) override;
 	void pop_back() override;
 };
 
-#include"Stack.inc"
+
+#include"stack.inc"
 
 
 
@@ -61,7 +54,7 @@ private:
 
 
 
-////////////спеціалізація шаблону на типі int для функції заповнення рандомними числами
+////////////specialization for int type
 //template<>
 //class Stack<int> :public SQD<int>
 //{
@@ -191,8 +184,9 @@ private:
 //		impl->push_front(rand_number);
 //	}
 //}
-/////////////////////////////////////
-////Функції які ми унаслідували і мусили створити реалізацію(але їх не будемо використовувати)
+
+
+
 //void Stack<int>::push_back(int a)
 //{
 //}

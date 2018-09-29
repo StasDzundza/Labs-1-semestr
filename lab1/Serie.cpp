@@ -1,36 +1,30 @@
-#include"Serie.h"
+#include"serie.h"
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 Serie& Serie:: operator=(Serie& other_serie)
 {
-	this->serie.clear();
-	for (int i = 0; i < other_serie.serie.size(); i++)
+	this->serie_of_books.clear();
+	for (int i = 0; i < other_serie.serie_of_books.size(); i++)
 	{
-		this->serie.push_front(other_serie.serie[i]);
+		this->serie_of_books.push_front(other_serie.serie_of_books[i]);
 	}
 	return *this;
 }
 
-//ми не будемо ніколи використовувати,але мусимо перегрузити,щоб створити стек об'єктів цього класу
-bool Serie::operator>(const Serie & other_serie)
-{
-	return false;
-}
 
-//ми не будемо ніколи використовувати,але мусимо перегрузити,щоб створити стек об'єктів цього класу
-bool Serie::operator<(const Serie & other_serie)
-{
-	return false;
-}
 
 bool Serie::operator==(Serie other_serie)
 {
-	if (this->serie.size() != other_serie.serie.size())
+	if (this->serie_of_books.size() != other_serie.serie_of_books.size())
 		return false;
-	if (this->serie.size() == 0 && other_serie.serie.size() == 0)
+	if (this->serie_of_books.size() == 0 && other_serie.serie_of_books.size() == 0)
 		return true;
-	for (int i = 0; i < serie.size(); i++)
+	for (int i = 0; i < serie_of_books.size(); i++)
 	{
-		if (!(this->serie[i] == other_serie.serie[i]))
+		if (!(this->serie_of_books[i] == other_serie.serie_of_books[i]))
 		{
 			return false;
 		}
@@ -38,11 +32,11 @@ bool Serie::operator==(Serie other_serie)
 	return true;
 }
 
-ostream & operator<<(ostream & os, Serie &SERIE)
+ostream & operator<<(ostream & os, Serie &current_serie)
 {
-	for (int i = 0; i < SERIE.serie.size(); i++)
+	for (int i = 0; i < current_serie.serie_of_books.size(); i++)
 	{
-		os << SERIE.serie[i];
+		os << current_serie.serie_of_books[i];
 	}
 	os << endl;
 	return os;
@@ -50,15 +44,38 @@ ostream & operator<<(ostream & os, Serie &SERIE)
 
 void Serie::add_book(Book book)
 {
-	serie.push_front(book);
+	serie_of_books.push_front(book);
 }
 
 void Serie::sort_serie()
 {
-	serie.sort();
+	serie_of_books.sort();
 }
 
 void Serie::show_serie()
 {
-	serie.show();
+	serie_of_books.show();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////
+bool Serie::operator>(const Serie & other_serie)
+{
+	return false;
+}
+
+bool Serie::operator<(const Serie & other_serie)
+{
+	return false;
 }

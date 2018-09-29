@@ -2,6 +2,7 @@
 #include"Stack.h"
 #include"Book.h"
 #include<iostream>
+
 class Serie
 {
 public:
@@ -13,8 +14,8 @@ public:
 	bool operator>(const Serie& other_serie);
 	bool operator<(const Serie& other_serie);
 	bool operator==(Serie other_serie);
-	friend ostream& operator<<(ostream&os, Serie& SERIE);
+	friend ostream& operator<<(ostream&os, Serie& current_serie);
 private:
-	Stack<Book> serie;
+	Stack<Book> serie_of_books;
 };
 

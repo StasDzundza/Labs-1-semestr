@@ -1,4 +1,10 @@
 #include"sqd_list.h"
+#include<cstdlib>//exit
+#include<iostream>
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 template<typename T>
 void sqd_list<T>::add_stack(T a)
@@ -93,11 +99,11 @@ bool sqd_list<T>::delete_data(T data)
 		else
 		{
 			Node<T>*tmp = head;
-			while ((tmp->next != nullptr) && !(tmp->next->data == data))//щоб не перегружати !=
+			while ((tmp->next != nullptr) && !(tmp->next->data == data))//we shouldn`t overload !=
 			{
 				tmp = tmp->next;
 			}
-			if (tmp->next == nullptr)//перев≥р€Їмо чи знайшли елемент чи д≥йшли до к≥нц€ ≥ не знайшли
+			if (tmp->next == nullptr)
 				return false;
 			Node<T>*next_el = tmp->next;
 			tmp->next = next_el->next;
@@ -179,9 +185,9 @@ void sqd_list<T>::pop_back()
 		else
 		{
 			Node<T>*tmp = head;
-			while (tmp->next->next)//шукаЇмо передостанн≥й
+			while (tmp->next->next)
 				tmp = tmp->next;
-			delete tmp->next;//видал€Їмо останн≥й
+			delete tmp->next;//delete last
 			Size--;
 			tmp->next = nullptr;
 		}

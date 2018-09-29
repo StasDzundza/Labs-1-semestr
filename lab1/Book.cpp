@@ -1,5 +1,9 @@
-#include"Book.h"
+#include"book.h"
+#include"input_information.h"
 
+using std::cin;
+using std::cout;
+using std::endl;
 Book::Book() :book_name(""), Date(0), List_count(0), summary("") {}
 
 ostream&operator<<(ostream&os, const Book& book)

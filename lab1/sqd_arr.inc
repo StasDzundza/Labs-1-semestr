@@ -1,5 +1,12 @@
 #include"sqd_arr.h"
 
+#include<cstdlib>//exit
+#include<iostream>
+
+using std::cout;
+using std::cin;
+using std::endl;
+
 template<typename T>
 sqd_arr<T>::sqd_arr()
 {

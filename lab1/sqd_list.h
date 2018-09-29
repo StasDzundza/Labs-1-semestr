@@ -1,7 +1,5 @@
 #pragma once
-
 #include"SQD.h"
-#include<iostream>
 template<typename T>
 class sqd_list:public SQD<T>
 {
@@ -31,13 +29,13 @@ public:
 	void clear()override;
 	void sort()override;
 private:
-	template<typename T>
+	template<typename T1>
 	class Node
 	{
 	public:
 		Node*next;
-		T data;
-		Node(T data , Node*next = nullptr)
+		T1 data;
+		Node(T1 data , Node*next = nullptr)
 		{
 			this->data = data;
 			this->next = next;

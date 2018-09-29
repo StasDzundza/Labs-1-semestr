@@ -1,7 +1,15 @@
-#include<string>
+#include"input_information.h"
+
+#include<cstring>//strlen
 #include<iostream>
-#include<fstream>
-using namespace std;
+#include<cctype>//isalpha
+#include<stdio.h>//gets_s
+#include<cstdlib>//atoi,atof
+
+using std::cout;
+using std::cin;
+using std::endl;
+
 bool correct_name(char*str)
 {
 	int q = strlen(str);
@@ -23,16 +31,7 @@ bool correct_name(char*str)
 	}
 	return true;
 }
-bool correct_open_file(FILE*ptr, const char*name)
-{
-	bool op = false;
-	if (ptr == NULL)
-	{
-		cout << "Не вдалося відкрити файл з назвою " << name << " виправте ситуацію з файлом та повторіть знову.";
-		return false;
-	}
-	return true;
-}
+
 double correct_input_positive_double()
 {
 	bool op = false;
@@ -147,6 +146,30 @@ int correct_input_int()
 	int a = atoi(str);
 	return a;
 }
+void fill_array(int arr[], int limit)
+{
+	bool op = true;
+	int temp; 
+	int i; 
+	for (i = 0; i < limit; i++)
+	{
+		cout << "Enter value #" << (i + 1) <<  " : ";
+		do {
+			cin >> temp;
+			op = true;
+			if (!cin)
+			{
+				op = false;
+				cin.clear();
+				while (cin.get() != '\n')
+					continue;
+				cout << "Некоректний ввід. Введіть ще раз." << endl;
+			}
+		} while (!op);
+		arr[i] = temp;
+	}
+
+}
 double correct_input_double()
 {
 	bool op = false;
@@ -189,29 +212,4 @@ double correct_input_double()
 	}
 	double a = atof(str);
 	return a;
-}
-//template<typename T>
-void fill_array(int arr[], int limit)
-{
-	bool op = true;
-	int temp; 
-	int i; 
-	for (i = 0; i < limit; i++)
-	{
-		cout << "Enter value #" << (i + 1) <<  " : ";
-		do {
-			cin >> temp;
-			op = true;
-			if (!cin)
-			{
-				op = false;
-				cin.clear();
-				while (cin.get() != '\n')
-					continue;
-				cout << "Некоректний ввід. Введіть ще раз." << endl;
-			}
-		} while (!op);
-		arr[i] = temp;
-	}
-
 }

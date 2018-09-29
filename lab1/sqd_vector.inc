@@ -1,5 +1,11 @@
 #include"sqd_vector.h"
+#include<iterator>
+#include<cstdlib>//exit
+#include<iostream>
 
+using std::cout;
+using std::cin;
+using std::endl;
 
 template<typename T>
 T sqd_vector<T>::back()
@@ -55,7 +61,7 @@ bool sqd_vector<T>::delete_data(T data)
 				break;
 			}
 		}
-		if (position != -1)//знайшли такий елемент
+		if (position != -1)//found this element
 		{
 			auto it = VECTOR.begin();
 			advance(it, position);

@@ -1,5 +1,5 @@
-#include"Deque.h"
-
+#include"deque.h"
+#include<cmath>
 template<typename T>
 void Deque<T>::set_mode(int mode)
 {
@@ -136,7 +136,7 @@ void Deque<T>::random_push(int N)
 		{
 			int int_part = rand() % 100;
 			int drob_part = rand() % 10;
-			double a = double(drob_part) / 10;//створили рандомну дробову частину
+			double a = double(drob_part) / 10;//rand drob_part
 			double res = double(int_part) + a;
 			impl->push_front(res);
 

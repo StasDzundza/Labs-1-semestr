@@ -4,6 +4,7 @@
 #include"sqd_deque.h"
 #include"sqd_vector.h"
 #include"SQD.h"
+#include<typeinfo>
 
 template<typename T>
 class Queue :public SQD<T>
@@ -38,11 +39,11 @@ public:
 	}
 private:
 	MODE mode = list;
-	int SIZE = 0;//для масиву
+	int SIZE = 0;//for array
 	SQD<T>*impl;
 	void push_front(T a) override;
 	void pop_back() override;
 };
 
-#include"Queue.inc"
+#include"queue.inc"
 
