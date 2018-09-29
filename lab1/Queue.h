@@ -3,7 +3,7 @@
 #include"sqd_list.h"
 #include"sqd_deque.h"
 #include"sqd_vector.h"
-#include"SQD.h"
+#include"sqd.h"
 #include<typeinfo>
 
 template<typename T>
