@@ -127,7 +127,7 @@ int main()
 	SetConsoleCP(1251);
 	//Example with My Class Book
 
-	Stack<Book> books;
+	/*Stack<Book> books;
 	Character a("a", "main");
 	Character a1("a", "secondary");
 	Character b("b", "main");
@@ -157,7 +157,7 @@ int main()
 		series[i].show_serie();
 		cout << endl << endl << endl << endl;
 	}
-
+*/
 
 
 

@@ -107,33 +107,11 @@ void Queue<T>::clear()
 }
 
 template<typename T>
-void Queue<T>::random_push(int N,int precision)
+inline void Queue<T>::random_push(int N,int precision)
 {
-	T a;
-	if (typeid(a) == typeid(int))
-	{
-		for (int i = 0; i < N; i++)
-		{
-			int rand_number = rand() % 100;
-			impl->push_front(rand_number);
-		}
-	}
-	else if (typeid(a) == typeid(double))
-	{
-		for (int i = 0; i < N; i++)
-		{
-			int num = pow(10, precision);
-			int int_part = rand() % 100;
-			int drob_part = rand() % num;
-			double a = double(drob_part) / num;//rand drob_part
-			double res = double(int_part) + a;
-			impl->push_front(res);
-
-		}
-	}
 }
 template<>
-void Queue<int>::random_push(int N, int precision)
+inline void Queue<int>::random_push(int N, int precision)
 {
 	for (int i = 0; i < N; i++)
 	{
@@ -143,16 +121,17 @@ void Queue<int>::random_push(int N, int precision)
 }
 
 template<>
-void Queue<double>::random_push(int N, int precision)
+inline void Queue<double>::random_push(int N, int precision)
 {
 	for (int i = 0; i < N; i++)
-	{
-		int int_part = rand() % 100;
-		int drob_part = rand() % 10;
-		double a = double(drob_part) / 10;//rand drob_part
-		double res = double(int_part) + a;
-		impl->push_front(res);
-	}
+		{
+			int num = pow(10, precision);
+			int int_part = rand() % 100;
+			int drob_part = rand() % num;
+			double a = double(drob_part) / num;//rand drob_part
+			double res = double(int_part) + a;
+			impl->push_front(res);
+		}
 }
 
 

@@ -1,6 +1,6 @@
 #pragma once
-#include"sqd_arr.h"
 #include"sqd_list.h"
+#include"sqd_arr.h"
 #include"sqd_deque.h"
 #include"sqd_vector.h"
 #include"sqd.h"
@@ -32,7 +32,7 @@ public:
 	void pop_front() override;//delete from begin
 	void clear()override;
 	void sort()override;
-	void random_push(int N,int precision);
+	void random_push(int N,int precision = 2);
 	virtual~Queue()
 	{
 		impl->clear();

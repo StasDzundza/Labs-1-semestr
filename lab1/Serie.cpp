@@ -9,7 +9,7 @@ Serie& Serie:: operator=(Serie& other_serie)
 	this->serie_of_books.clear();
 	for (int i = 0; i < other_serie.serie_of_books.size(); i++)
 	{
-		this->serie_of_books.push_front(other_serie.serie_of_books[i]);
+		this->serie_of_books.push(other_serie.serie_of_books[i]);
 	}
 	return *this;
 }
@@ -44,7 +44,7 @@ ostream & operator<<(ostream & os, Serie &current_serie)
 
 void Serie::add_book(Book book)
 {
-	serie_of_books.push_front(book);
+	serie_of_books.push(book);
 }
 
 void Serie::sort_serie()

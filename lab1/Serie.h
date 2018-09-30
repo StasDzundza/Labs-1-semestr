@@ -1,6 +1,6 @@
 #pragma once
-#include"Stack.h"
-#include"Book.h"
+#include"stack.h"
+#include"book.h"
 #include<iostream>
 
 class Serie

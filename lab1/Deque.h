@@ -34,7 +34,7 @@ public:
 	int size() const override;
 	void clear()override;
 	void sort()override;
-	void random_push(int N,int precision);
+	void random_push(int N,int precision = 2);
 	virtual~Deque()
 	{
 		impl->clear();

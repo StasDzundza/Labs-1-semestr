@@ -32,9 +32,8 @@ public :
 	int size() const override;
 	void clear()override;
 	void sort()override;
-	void random_push(int N,int precision);
-	virtual~Stack(){
-}
+	void random_push(int N,int precision = 2);
+	virtual~Stack() {}
 private:
 	MODE mode = list;
 	int SIZE = 0;//for array
