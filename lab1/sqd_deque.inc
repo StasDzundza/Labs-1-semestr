@@ -1,19 +1,20 @@
 #include"sqd_deque.h"
 
 #include<iterator>
-#include<cstdlib>//exit
 #include<iostream>
+#include<exception>
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::exception;
 
 template<typename T>
 T sqd_deque<T>::back()
 {
 	if (DEQUE.size() > 0)
 		return DEQUE.back();
-	else exit(1);
+	throw exception("There are no such element");
 }
 
 template<typename T>
@@ -21,7 +22,7 @@ T sqd_deque<T>::front()
 {
 	if (DEQUE.size() > 0)
 		return DEQUE.front();
-	else exit(1);
+	throw exception("There are no such element");
 }
 
 template<typename T>
@@ -131,7 +132,7 @@ T sqd_deque<T>::operator[](int index)
 	{
 		return DEQUE[index];
 	}
-	else exit(1);
+	throw exception("Out of range");
 }
 
 template<typename T>

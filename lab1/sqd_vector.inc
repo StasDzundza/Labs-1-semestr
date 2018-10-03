@@ -1,18 +1,19 @@
 #include"sqd_vector.h"
 #include<iterator>
-#include<cstdlib>//exit
+#include<exception>
 #include<iostream>
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::exception;
 
 template<typename T>
 T sqd_vector<T>::back()
 {
 	if(VECTOR.size() > 0)
 		return VECTOR.back();
-	else exit(1);
+	throw exception("No such element");
 }
 
 
@@ -21,7 +22,7 @@ T sqd_vector<T>::front()
 {
 	if (VECTOR.size() > 0)
 		return VECTOR.front();
-	else exit(1);
+	throw exception("No such element");
 }
 
 template<typename T>
@@ -132,7 +133,7 @@ T sqd_vector<T>::operator[](int index)
 	{
 		return VECTOR[index];
 	}
-	else exit(1);
+	throw exception("Out of range");
 }
 
 template<typename T>

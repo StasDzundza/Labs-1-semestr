@@ -1,10 +1,11 @@
 #include"sqd_list.h"
-#include<cstdlib>//exit
+#include<exception>
 #include<iostream>
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::exception;
 
 template<typename T>
 void sqd_list<T>::add_stack(T a)
@@ -32,7 +33,7 @@ T sqd_list<T>::back()
 			tmp = tmp->next;
 		return tmp->data;
 	}
-	else exit(1);
+	throw exception("There are no such element");
 }
 
 
@@ -41,7 +42,7 @@ T sqd_list<T>::front()
 {
 	if (head)
 		return head->data;
-	else exit(1);
+	throw exception("There are no such element");
 }
 
 template<typename T>
@@ -216,7 +217,7 @@ T sqd_list<T>::operator[](int index)
 		}
 		return tmp->data;
 	}
-	else exit(1);
+	throw exception("Out of range");
 }
 
 template<typename T>

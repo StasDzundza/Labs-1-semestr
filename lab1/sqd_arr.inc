@@ -1,11 +1,12 @@
 #include"sqd_arr.h"
 
-#include<cstdlib>//exit
+#include<exception>
 #include<iostream>
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::exception;
 
 template<typename T>
 sqd_arr<T>::sqd_arr()
@@ -62,7 +63,7 @@ T sqd_arr<T>::back()
 {
 	if (Index > 0)
 		return arr[Index - 1];
-	else exit(1);
+	throw exception("There are no such element");
 }
 
 template<typename T>
@@ -70,7 +71,7 @@ T sqd_arr<T>::front()
 {
 	if (Index > 0)
 		return arr[0];
-	else exit(1);
+	throw exception("There are no such element");
 }
 
 template<typename T>
@@ -221,7 +222,7 @@ T sqd_arr<T>::operator[](int index)
 	{
 		return arr[index];
 	}
-	else exit(1);
+	throw exception("Out of range");
 }
 
 template<typename T>

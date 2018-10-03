@@ -25,7 +25,7 @@ public:
 	void pop_back() override;
 	void pop_front() override;
 	void show() override;
-	void set_mode(int mode);
+	void set_mode(MODE mode);
 	bool is_empty() override;
 	T back() override;
 	T front() override;
@@ -35,7 +35,7 @@ public:
 	void clear()override;
 	void sort()override;
 	void random_push(int N,int precision = 2);
-	virtual~Deque()
+	~Deque()
 	{
 		impl->clear();
 	}

@@ -19,3 +19,4 @@ private:
 	Stack<Book> serie_of_books;
 };
 
+Stack<Serie>& create_series(Stack<Book> &books);

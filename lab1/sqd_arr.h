@@ -31,7 +31,7 @@ public:
 	int size()const override;
 	void sort()override;
 	sqd_arr& operator =(const sqd_arr&other_class);
-	virtual~sqd_arr() { delete[]arr; }
+	~sqd_arr() { delete[]arr; }
 
 private:
 	int Max = 1000;

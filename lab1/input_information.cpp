@@ -3,13 +3,13 @@
 #include<cstring>//strlen
 #include<iostream>
 #include<cctype>//isalpha
-#include<stdio.h>//gets_s
+#include<string>
 #include<cstdlib>//atoi,atof
 
 using std::cout;
 using std::cin;
 using std::endl;
-
+using std::getline;
 bool correct_name(char*str)
 {
 	int q = strlen(str);
@@ -40,7 +40,7 @@ double correct_input_positive_double()
 	{
 
 		op = true;
-		gets_s(str);
+		cin.getline(str, 200);
 		int count = 0;
 		int i = 0;
 		do {
@@ -83,7 +83,7 @@ int correct_input_positive_int()
 	while (!op)
 	{
 		op = true;
-		gets_s(str);
+		cin.getline(str, 200);
 		int q = strlen(str);
 		if (q == 0)
 		{
@@ -118,7 +118,7 @@ int correct_input_int()
 	while (!op)
 	{
 		op = true;
-		gets_s(str);
+		cin.getline(str, 200);
 		int q = strlen(str);
 		if (q == 0)
 		{
@@ -178,7 +178,7 @@ double correct_input_double()
 	{
 
 		op = true;
-		gets_s(str);
+		cin.getline(str, 200);
 		int count = 0;
 		int i = 0;
 		do {

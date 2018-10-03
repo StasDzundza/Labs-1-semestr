@@ -22,7 +22,7 @@ public :
 	T operator[](const int index);
 	void push_front(T a) override;
 	void show() override;
-	void set_mode(int mode);
+	void set_mode(MODE mode);
 	bool is_empty() override;
 	T back() override;
 	T front() override;
@@ -33,7 +33,7 @@ public :
 	void clear()override;
 	void sort()override;
 	void random_push(int N,int precision = 2);
-	virtual~Stack() {}
+	~Stack() {}
 private:
 	MODE mode = list;
 	int SIZE = 0;//for array

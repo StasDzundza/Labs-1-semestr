@@ -1,30 +1,37 @@
 #include"deque.h"
 #include<cmath>
+#include<exception>
+
+using std::exception;
 template<typename T>
-void Deque<T>::set_mode(int mode)
+void Deque<T>::set_mode(MODE mode)
 {
-	if (mode == 1)
+	switch(mode)
 	{
-		impl = new sqd_list<T>;
-		this->mode = MODE::list;
-	}
-	else if (mode == 2)
-	{
-		if (SIZE > 0)
-			impl = new sqd_arr<T>(SIZE);
-		else
+		case MODE::list:
+		{
+			impl = new sqd_list<T>;
+			this->mode = MODE::list;
+			break;
+		}
+		case MODE::arr:
+		{
 			impl = new sqd_arr<T>;
-		this->mode = MODE::arr;
-	}
-	else if(mode == 3)
-	{
-		impl = new sqd_deque<T>;
-		this->mode = MODE::deque;
-	}
-	else
-	{
-		impl = new sqd_vector<T>;
-		this->mode = MODE::vector;
+			this->mode = MODE::arr;
+			break;
+		}
+		case MODE::deque:
+		{
+			impl = new sqd_deque<T>;
+			this->mode = MODE::deque;
+			break;
+		}
+		case MODE::vector:
+		{
+			impl = new sqd_vector<T>;
+			this->mode = MODE::vector;
+			break;
+		}
 	}
 }
 
@@ -136,9 +143,9 @@ inline void Deque<int>::random_push(int N, int precision)
 template<>
 inline void Deque<double>::random_push(int N, int precision)
 {
+	int num = pow(10, precision);
 		for (int i = 0; i < N; i++)
 		{
-			int num = pow(10, precision);
 			int int_part = rand() % 100;
 			int drob_part = rand() % num;
 			double a = double(drob_part) / num;//rand drob_part
