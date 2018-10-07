@@ -4,6 +4,8 @@ x64/
 *.user
 *.filters
 
+build-LAB2-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug/
+
 *.log
 *.idb
 *.pdb
