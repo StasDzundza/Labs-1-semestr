@@ -14,6 +14,45 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="open_stopwatch_button">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open new stopwatch</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="open_alarm_button">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>110</y>
+      <width>141</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open new alarm clock</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="open_timer_button">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>230</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open new timer</string>
+    </property>
+   </widget>
    <widget class="QLabel" name="date_text">
     <property name="geometry">
      <rect>
@@ -45,38 +84,15 @@
      <string>Time</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QLineEdit" name="clock_time">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>191</width>
-      <height>181</height>
+      <x>30</x>
+      <y>190</y>
+      <width>121</width>
+      <height>22</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="open_stopwatch_button">
-       <property name="text">
-        <string>Open new stopwatch</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="open_alarm_button">
-       <property name="text">
-        <string>Open new alarm clock</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="open_timer_button">
-       <property name="text">
-        <string>Open new timer</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

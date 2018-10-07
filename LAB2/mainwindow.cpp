@@ -37,3 +37,9 @@ void MainWindow::change_time()
     ui->time_text->setText(time_text);
 
 }
+
+void MainWindow::on_open_alarm_button_clicked()
+{
+    a_clock = new alarm_clock;
+    a_clock->show();
+}

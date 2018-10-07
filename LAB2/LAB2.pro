@@ -25,15 +25,18 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    stopwatch.cpp
+    stopwatch.cpp \
+    alarm_clock.cpp
 
 HEADERS += \
         mainwindow.h \
-    stopwatch.h
+    stopwatch.h \
+    alarm_clock.h
 
 FORMS += \
         mainwindow.ui \
-    stopwatch.ui
+    stopwatch.ui \
+    alarm_clock.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
