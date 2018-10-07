@@ -1,0 +1,48 @@
+x64/
+.vs/
+*.vcxproj
+*.user
+*.filters
+
+build-LAB2-Desktop_Qt_5_11_1_MSVC2017_64bit-Debug
+
+*.log
+*.idb
+*.pdb
+*.tlog
+*.lastbuildstate
+*.sln
+
+### C++ ###
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
