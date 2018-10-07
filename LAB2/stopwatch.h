@@ -24,12 +24,16 @@ private slots:
 
     void on_hide_button_clicked();
 
+    void on_lap_button_clicked();
+
 private:
+    int count_laps = 0;
+    QTime last_lap = QTime::fromMSecsSinceStartOfDay(0);
     Ui::stopwatch *ui;
     bool running;
     QTimer timer;
-    QTime time_left;
-    QTime last_start;
+    QTime time_on_stopwatch;//time which is on the stopwatch
+    QTime last_start;//time of last start stopwatch
 };
 
 #endif // STOPWATCH_H

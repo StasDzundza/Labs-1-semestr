@@ -17,9 +17,9 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>50</y>
+     <y>20</y>
      <width>281</width>
-     <height>131</height>
+     <height>121</height>
     </rect>
    </property>
    <property name="font">
@@ -30,36 +30,55 @@
     </font>
    </property>
    <property name="text">
-    <string/>
+    <string>00:00:000</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="lap_results">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>150</y>
+     <width>332</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Myanmar Text</family>
+     <pointsize>11</pointsize>
+    </font>
    </property>
   </widget>
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>260</y>
-     <width>221</width>
-     <height>161</height>
+     <y>300</y>
+     <width>201</width>
+     <height>135</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="start_stop">
-        <property name="text">
-         <string>Start</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="Reset">
-        <property name="text">
-         <string>Reset</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QPushButton" name="start_stop">
+      <property name="text">
+       <string>Start</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Reset">
+      <property name="text">
+       <string>Reset</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="lap_button">
+      <property name="text">
+       <string>Lap</string>
+      </property>
+     </widget>
     </item>
     <item>
      <widget class="QPushButton" name="hide_button">

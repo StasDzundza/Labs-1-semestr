@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->
     current_date = QDate::currentDate();
     ui->date_text->setText(current_date.toString("dd/MM/yy"));//set current date on main window
     connect(&current_time,SIGNAL(timeout()),this,SLOT(change_time()));
