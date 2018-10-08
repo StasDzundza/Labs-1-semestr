@@ -53,7 +53,7 @@ alarm_clock::~alarm_clock()
 void alarm_clock::OkClicked()
 {
     alarm_time_text = line->text();
-    alarm_time_text = alarm_time_text+":00";//alarm time
+    alarm_time_text = alarm_time_text+":00";//alarm time        //+00 because we put oly hh and mm but not ss
     *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");//take Qtime object from string
     lbl->setText("Alarm will start at " + alarm_time_text);
     if(QTime::currentTime()<*alarm_time_Time)//if alarm will be on this day

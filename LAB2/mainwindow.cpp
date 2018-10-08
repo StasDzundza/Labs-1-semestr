@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include"stopwatch.h"
 #include<QString>
+#include<QApplication>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -18,12 +19,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_open_stopwatch_button_clicked()
-{
-    timer = new stopwatch;
-    timer->show();
-}
-
 void MainWindow::change_time()
 {
 
@@ -37,11 +32,22 @@ void MainWindow::change_time()
     ui->time_text->setText(time_text);
 
 }
+void MainWindow::on_open_stopwatch_button_clicked()
+{
+    stop_watch = new stopwatch;
+    stop_watch->show();
+}
 
 void MainWindow::on_open_alarm_button_clicked()
 {
     a_clock = new alarm_clock;
     a_clock->show();
+}
+
+void MainWindow::on_open_timer_button_clicked()
+{
+    Timer = new timer_widget;
+    Timer->show();
 }
 
 void MainWindow::on_exit_button_clicked()
