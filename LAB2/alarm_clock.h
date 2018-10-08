@@ -10,6 +10,8 @@
 #include<QWidget>
 #include<QLayout>
 #include<QString>
+#include<QTimer>
+#include<QTime>
 
 namespace Ui {
 class alarm_clock;
@@ -26,13 +28,25 @@ public:
 private slots:
 void OkClicked();
 void TextChanged(QString str);
+void check_alarm();
+void turn_off_on();
 private:
     Ui::alarm_clock *ui;
     int id;
+    QVBoxLayout*layout;
+    QVBoxLayout*main;
+
     QLabel*lbl;
+    QLabel*time_left;
+    QLabel*status;
     QLineEdit*line;
     QPushButton*ok;
     QPushButton*close;
+    QPushButton*start_stop;
+
+    QString alarm_time_text;
+    QTimer*timer;
+    QTime*alarm_time_Time;
 };
 
 #endif // ALARM_CLOCK_H

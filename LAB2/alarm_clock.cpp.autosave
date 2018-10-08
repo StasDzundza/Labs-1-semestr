@@ -92,6 +92,9 @@ void alarm_clock::check_alarm()
     QString current_time = QTime::currentTime().toString("hh:mm:ss");
     if(current_time == alarm_time_text)
     {
+        start_stop->setText("Turn on");
+        status->setText("Status : Turned off");
+        time_left->setText("Left to the signal : Turned off");
         QMessageBox::information(this,"Wake up time!!!","WAKE UP!!!");
         //sound
         //clear window

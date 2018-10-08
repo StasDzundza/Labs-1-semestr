@@ -43,3 +43,8 @@ void MainWindow::on_open_alarm_button_clicked()
     a_clock = new alarm_clock;
     a_clock->show();
 }
+
+void MainWindow::on_exit_button_clicked()
+{
+    QApplication::quit();
+}

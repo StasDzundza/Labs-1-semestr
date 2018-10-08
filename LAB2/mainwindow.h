@@ -25,6 +25,8 @@ private slots:
     void change_time();
 
     void on_open_alarm_button_clicked();
+    void on_exit_button_clicked();
+
 signals:
     void time_for_clock(const QString &str);
 private:
