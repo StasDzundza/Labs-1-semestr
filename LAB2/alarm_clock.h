@@ -29,6 +29,7 @@ private slots:
 void OkClicked();
 void TextChanged(QString str);
 void check_alarm();
+void check_alarm_on_other_day();
 void turn_off_on();
 private:
     Ui::alarm_clock *ui;

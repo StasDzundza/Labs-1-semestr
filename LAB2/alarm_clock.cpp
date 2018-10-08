@@ -39,7 +39,7 @@ alarm_clock::alarm_clock(QWidget *parent) :
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(close,SIGNAL(clicked()),this,SLOT(close()));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
-    connect(timer,SIGNAL(timeout()),this,SLOT(check_alarm()));
+
 
 
 }
@@ -52,12 +52,19 @@ alarm_clock::~alarm_clock()
 
 void alarm_clock::OkClicked()
 {
-    timer->start(1000);//start time checking every second
     alarm_time_text = line->text();
-    alarm_time_text = alarm_time_text+":00";
-    *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");
+    alarm_time_text = alarm_time_text+":00";//alarm time
+    *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");//take Qtime object from string
     lbl->setText("Alarm will start at " + alarm_time_text);
-
+    if(QTime::currentTime()<*alarm_time_Time)//if alarm will be on this day
+    {
+        connect(timer,SIGNAL(timeout()),this,SLOT(check_alarm()));
+    }
+    else
+    {
+        connect(timer,SIGNAL(timeout()),this,SLOT(check_alarm_on_other_day()));   //if alarm will be on the other day
+    }
+    timer->start(1000);//start time checking every second
     QFont font;
     font.setPixelSize(15);
     font.setBold(true);
@@ -92,6 +99,9 @@ void alarm_clock::check_alarm()
     QString current_time = QTime::currentTime().toString("hh:mm:ss");
     if(current_time == alarm_time_text)
     {
+        start_stop->setText("Turn on");
+        status->setText("Status : Turned off");
+        time_left->setText("Left to the signal : Turned off");
         QMessageBox::information(this,"Wake up time!!!","WAKE UP!!!");
         //sound
         //clear window
@@ -104,6 +114,25 @@ void alarm_clock::check_alarm()
         time_left->setText("Left to the signal : " + remaining_time.toString("hh:mm:ss"));//set on label time_left
     }
 
+}
+
+void alarm_clock::check_alarm_on_other_day()
+{
+    if(QTime::currentTime() < *alarm_time_Time)//new day is olready here
+    {
+        timer->stop();
+        disconnect(timer,SIGNAL(timeout()),this,SLOT(check_alarm_on_other_day()));
+        connect(timer,SIGNAL(timeout()),this,SLOT(check_alarm()));
+        timer->start();
+    }
+    else
+    {
+        QTime ms_to_23_59 = QTime::fromString("23:59:59","hh:mm:ss");
+        QTime ms_00_00(0,0,0,0);
+        int remain_msec = QTime::currentTime().msecsTo(ms_to_23_59) + ms_00_00.msecsTo(*alarm_time_Time) ;//find msec to alarm
+        QTime remaining_time = QTime::fromMSecsSinceStartOfDay(remain_msec);//convert to Qtime
+        time_left->setText("Left to the signal : " + remaining_time.toString("hh:mm:ss"));//set on label time_left
+    }
 }
 
 void alarm_clock::turn_off_on()
