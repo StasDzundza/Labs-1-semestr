@@ -33,9 +33,13 @@ alarm_clock::alarm_clock(QWidget *parent) :
     main->addLayout(layout);
     setLayout(main);//main layout
 
+    alarm_sound = new QSound(":/res/music/eminem.wav");
 
     timer = new QTimer;
     alarm_time_Time = new QTime;
+    time_player = new QTimer;
+
+    connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(close,SIGNAL(clicked()),this,SLOT(close()));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
@@ -99,13 +103,20 @@ void alarm_clock::check_alarm()
     QString current_time = QTime::currentTime().toString("hh:mm:ss");
     if(current_time == alarm_time_text)
     {
+        timer->stop();
         start_stop->setText("Turn on");
         status->setText("<center>Status : Turned off<\center>");
         time_left->setText("<center>Left to the signal : Turned off<\center>");
-        QMessageBox::information(this,"Wake up time!!!","WAKE UP!!!");
-        //sound
-        //clear window
-        //
+
+        alarm_sound->play();
+        time_player->start(11000);
+
+        QMessageBox::StandardButton answer = QMessageBox::information(this,"Wake up time!!!","WAKE UP!!!",QMessageBox::Close);
+        if(answer == QMessageBox::Close)
+        {
+            alarm_sound->stop();
+            time_player->stop();
+        }
     }
     else
     {
@@ -154,5 +165,10 @@ void alarm_clock::turn_off_on()
         time_left->setText("<center>Left to the signal : Turned off<\center>");
         status->setText("<center>Status : Turned off<\center>");
     }
+}
+
+void alarm_clock::replay_sound()
+{
+    alarm_sound->play();
 }
 

@@ -12,7 +12,7 @@
 #include<QString>
 #include<QTimer>
 #include<QTime>
-
+#include<QtMultimedia/QSound>
 namespace Ui {
 class alarm_clock;
 }
@@ -31,6 +31,7 @@ void TextChanged(QString str);
 void check_alarm();
 void check_alarm_on_other_day();
 void turn_off_on();
+void replay_sound();
 private:
     Ui::alarm_clock *ui;
     int id;
@@ -48,6 +49,9 @@ private:
     QString alarm_time_text;
     QTimer*timer;
     QTime*alarm_time_Time;
+
+    QTimer*time_player;
+    QSound*alarm_sound;
 };
 
 #endif // ALARM_CLOCK_H
