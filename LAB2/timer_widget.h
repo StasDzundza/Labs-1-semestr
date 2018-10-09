@@ -1,13 +1,14 @@
 #ifndef TIMER_WIDGET_H
 #define TIMER_WIDGET_H
 
-#include <QDialog>
+#include<QDialog>
 #include<QVBoxLayout>
 #include<QLabel>
 #include<QLineEdit>
 #include<QPushButton>
 #include<QTimer>
 #include<QTime>
+#include<QtMultimedia/QSound>
 namespace Ui {
 class timer_widget;
 }
@@ -25,6 +26,7 @@ void TextChanged(QString str);
 void check_timer();
 void turn_off_on();
 void reset_clicked();
+void replay_sound();
 private:
     Ui::timer_widget *ui;
 
@@ -46,6 +48,9 @@ private:
 
     QTime time_on_stopwatch;//time which is on the stopwatch
     QTime last_start;//time of last start stopwatch
+
+    QTimer*time_player;//for sound
+    QSound*alarm_sound;
 
 
 };

@@ -6,6 +6,7 @@ stopwatch::stopwatch(QWidget *parent) :
     ui(new Ui::stopwatch)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Stopwatch");
     running = false;
     timer.setInterval(20);//start always will be start(20)
     connect(&timer,SIGNAL(timeout()),this,SLOT(onTimer()));

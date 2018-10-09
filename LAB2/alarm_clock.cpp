@@ -7,6 +7,7 @@ alarm_clock::alarm_clock(QWidget *parent) :
     ui(new Ui::alarm_clock)
 {
     ui->setupUi(this);
+    this->setWindowTitle("ALARM CLOCK");
     lbl = new QLabel("<center>Enter time<\center>");
     line = new QLineEdit;
     lbl->setBuddy(line);

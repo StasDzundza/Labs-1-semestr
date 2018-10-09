@@ -7,6 +7,7 @@ timer_widget::timer_widget(QWidget *parent) :
     ui(new Ui::timer_widget)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Timer");
     lbl = new QLabel("Enter time for start Timer");//амсперсант для партнера(треба натискати alt+перша буква після амперсанта)hot key
     line = new QLineEdit;
     lbl->setBuddy(line);//партнер
@@ -100,6 +101,11 @@ void timer_widget::OkClicked()
     layout->addWidget(reset);
     layout->addWidget(close);
 
+    alarm_sound = new QSound(":/res/music/eminem.wav");
+
+    time_player = new QTimer;
+
+    connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
     time_count->start(500);
     delete line;
@@ -119,9 +125,18 @@ void timer_widget::check_timer()
     {
         time_count->stop();
         start_stop->setText("Start");
-        QMessageBox::information(this,"Timer","TIME");
         time_left->setText("<center>Left to the signal : 00:00:00<\center>");
         time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(0);
+
+        alarm_sound->play();
+        time_player->start(11000);
+
+        QMessageBox::StandardButton answer = QMessageBox::information(this,"Timer","TIME OUT",QMessageBox::Close);
+        if(answer = QMessageBox::Close)
+        {
+            alarm_sound->stop();
+            time_player->stop();
+        }
     }
     else
     {
@@ -152,4 +167,9 @@ void timer_widget::reset_clicked()
     start_stop->setText("Start");
     time_left->setText("<center>Left to the signal : NONE<\center>");
     time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(0);
+}
+
+void timer_widget::replay_sound()
+{
+    alarm_sound->play();
 }
