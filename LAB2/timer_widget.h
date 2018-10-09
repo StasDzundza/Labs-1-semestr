@@ -24,8 +24,12 @@ void OkClicked();
 void TextChanged(QString str);
 void check_timer();
 void turn_off_on();
+void reset_clicked();
 private:
     Ui::timer_widget *ui;
+
+    int timer_time_msec = 0;
+
     QVBoxLayout*layout;
     QVBoxLayout*main;
 
@@ -35,10 +39,14 @@ private:
     QPushButton*ok;
     QPushButton*close;
     QPushButton*start_stop;
-    QTime endTime;
+    QPushButton*reset;
 
     QString alarm_time_text;
-    QTimer*time_count;
+    QTimer*time_count;//the main timer which checking time
+
+    QTime time_on_stopwatch;//time which is on the stopwatch
+    QTime last_start;//time of last start stopwatch
+
 
 };
 

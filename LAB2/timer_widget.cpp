@@ -1,6 +1,7 @@
 #include "timer_widget.h"
 #include "ui_timer_widget.h"
 #include<QMessageBox>
+#include<QDebug>
 timer_widget::timer_widget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::timer_widget)
@@ -34,9 +35,12 @@ timer_widget::timer_widget(QWidget *parent) :
 
 
     time_count = new QTimer;
+    connect(time_count,SIGNAL(timeout()),this,SLOT(check_timer()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(close,SIGNAL(clicked()),this,SLOT(close()));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
+
+
 }
 
 timer_widget::~timer_widget()
@@ -46,7 +50,9 @@ timer_widget::~timer_widget()
 
 void timer_widget::OkClicked()
 {
+    delete close;
     QString time = line->text();
+    //we are finding msec from string to int
     QString h;
     QString m;
     QString s;
@@ -62,28 +68,40 @@ void timer_widget::OkClicked()
     ss = s.toInt();
     ss*=1000;
     mm*=60*1000;
-    hh = 3600*1000;
-    int ms = QTime::currentTime().msecsSinceStartOfDay() + ss+mm+hh;
-    endTime = QTime::fromMSecsSinceStartOfDay(ms);
-    connect(time_count,SIGNAL(timeout()),this,SLOT(check_timer()));
-    time_count->start();
+    hh*= 3600*1000;
+    timer_time_msec = ss+mm+hh;//timer time in mseconds
+
+    last_start = QTime::currentTime();
+
     alarm_time_text = line->text();
-    lbl->setText("Timer time " + alarm_time_text);
-    time_count->start(1000);//start time checking every second
-    QFont font;
-    font.setPixelSize(15);
+    lbl->setText("<center>Timer time <\center>" + alarm_time_text);
+
+    QFont font;//font for text
+    font.setPixelSize(18);
     font.setBold(true);
+
     time_left = new QLabel;//remaining time
     time_left->setFont(font);
-    time_left->setText("Left to the signal : ");
+    time_left->setText("<center>Left to the signal : <\center>");
 
     start_stop = new QPushButton;//turn_on/turn_off button
     start_stop->setText("Pause");
 
+    close = new QPushButton;//close window button
+    close->setText("Close and delete Timer");
+    connect(close,SIGNAL(clicked()),this,SLOT(close()));
+
+    reset = new QPushButton;
+    reset->setText("Reset");
+    connect(reset,SIGNAL(clicked()),this,SLOT(reset_clicked()));
+
     layout->addWidget(time_left);
     layout->addWidget(start_stop);
-    connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
+    layout->addWidget(reset);
+    layout->addWidget(close);
 
+    connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
+    time_count->start(500);
     delete line;
     delete ok;
 }
@@ -95,29 +113,43 @@ void timer_widget::TextChanged(QString str)
 
 void timer_widget::check_timer()
 {
-    QString current_time = QTime::currentTime().toString("hh:mm:ss");
-    if(current_time == alarm_time_text)
+    int on_stopwatch = time_on_stopwatch.msecsSinceStartOfDay() + QTime::currentTime().msecsSinceStartOfDay() - last_start.msecsSinceStartOfDay();
+    QString time_on_sw_string = QTime::fromMSecsSinceStartOfDay(on_stopwatch).toString("hh:mm:ss");
+    if(time_on_sw_string == alarm_time_text)
     {
+        time_count->stop();
         start_stop->setText("Start");
-        QMessageBox::information(this,"Timer!!!","Timer!!!");
+        QMessageBox::information(this,"Timer","TIME");
+        time_left->setText("<center>Left to the signal : 00:00:00<\center>");
+        time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(0);
     }
     else
     {
-        int remain_msec = QTime::currentTime().msecsTo(endTime);//find msec to alarm
-        QTime remaining_time = QTime::fromMSecsSinceStartOfDay(remain_msec);//convert to Qtime
-        time_left->setText("Left to the end : " + remaining_time.toString("hh:mm:ss"));//set on label time_left
+        int remine  = timer_time_msec-on_stopwatch;
+        time_left->setText("<center>Left to the signal : <\center>" + QTime::fromMSecsSinceStartOfDay(remine).toString("hh:mm:ss") );
+
     }
 }
 void timer_widget::turn_off_on()
 {
-    if(start_stop->text() != "Pause")
+    if(time_count->isActive())
     {
-        time_count->start();
-        start_stop->setText("Pause");
+        time_count->stop();
+        time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(time_on_stopwatch.msecsSinceStartOfDay()+QTime::currentTime().msecsSinceStartOfDay()- last_start.msecsSinceStartOfDay());
+        start_stop->setText("Continue");
     }
     else
     {
-        time_count->stop();
-        start_stop->setText("Continue");
+        last_start = QTime::currentTime();
+        time_count->start(100);
+        start_stop->setText("Pause");
     }
+}
+
+void timer_widget::reset_clicked()
+{
+    time_count->stop();
+    start_stop->setText("Start");
+    time_left->setText("<center>Left to the signal : NONE<\center>");
+    time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(0);
 }

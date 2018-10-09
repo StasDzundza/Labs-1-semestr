@@ -36,6 +36,7 @@ void MainWindow::on_open_stopwatch_button_clicked()
 {
     stop_watch = new stopwatch;
     stop_watch->show();
+    hide();
 }
 
 void MainWindow::on_open_alarm_button_clicked()
