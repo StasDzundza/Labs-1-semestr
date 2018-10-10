@@ -46,6 +46,18 @@ timer_widget::timer_widget(QWidget *parent) :
 
 timer_widget::~timer_widget()
 {
+    time_count->stop();
+    time_player->stop();
+    delete layout;
+    delete main;
+    delete lbl;
+    delete time_left;
+    delete line;
+    delete ok;
+    delete start_stop;
+    delete time_count;
+    delete alarm_sound;
+    delete time_player;
     delete ui;
 }
 

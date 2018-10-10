@@ -9,6 +9,7 @@
 #include <QDate>
 #include <QTimer>
 #include<QString>
+#include<QVector>
 namespace Ui {
 class MainWindow;
 }
@@ -30,15 +31,21 @@ private slots:
 
     void on_open_timer_button_clicked();
 
+    void on_delete_stopwatch_button_clicked();
+
 signals:
     void time_for_clock(const QString &str);
 private:
+
+    int count_stopwatches = 0;
     Ui::MainWindow *ui;
     QDate current_date;
     QTimer current_time;
-    stopwatch *stop_watch;
+    //stopwatch *stop_watch;
     alarm_clock*a_clock;
     timer_widget*Timer;
+
+    QVector<stopwatch*> stopwatch_vector;
 };
 
 

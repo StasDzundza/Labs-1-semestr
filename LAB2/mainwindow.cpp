@@ -3,6 +3,9 @@
 #include"stopwatch.h"
 #include<QString>
 #include<QApplication>
+#include<QListWidget>
+#include<QListWidgetItem>
+#include<QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -35,7 +38,10 @@ void MainWindow::change_time()
 }
 void MainWindow::on_open_stopwatch_button_clicked()
 {
-    stop_watch = new stopwatch;
+    stopwatch *stop_watch = new stopwatch;
+    stopwatch_vector.push_back(stop_watch);
+    QListWidgetItem *st_w = new QListWidgetItem("Timer № " + QString::number(++count_stopwatches));
+    ui->stopwatch_list->addItem(st_w);
     stop_watch->show();
 
 }
@@ -55,4 +61,20 @@ void MainWindow::on_open_timer_button_clicked()
 void MainWindow::on_exit_button_clicked()
 {
     QApplication::quit();
+}
+
+void MainWindow::on_delete_stopwatch_button_clicked()
+{
+   int a = ui->stopwatch_list->currentRow();
+   delete ui->stopwatch_list->currentItem();//delete element from list
+   stopwatch*w = stopwatch_vector[a];
+   delete w;//delete window
+   QVector<stopwatch*>::Iterator it = stopwatch_vector.begin();//delete element from vector
+   it = it+a;
+   stopwatch_vector.erase(it);
+   count_stopwatches--;
+   //QModelIndex i = ui->stopwatch_list->currentIndex();
+   //int a = i.row();
+   qDebug()<<a;
+
 }

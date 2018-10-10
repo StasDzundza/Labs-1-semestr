@@ -51,8 +51,22 @@ alarm_clock::alarm_clock(QWidget *parent) :
 int alarm_clock::clock_id = 0;
 alarm_clock::~alarm_clock()
 {
-    delete ui;
+    timer->stop();
+    time_player->stop();
+    delete layout;
+    delete main;
+    delete lbl;
+    delete time_left;
+    delete status;
+    delete line;
+    delete ok;
+    delete start_stop;
     delete timer;
+    delete alarm_time_Time;
+    delete alarm_sound;
+    delete time_player;
+    delete ui;
+
 }
 
 void alarm_clock::OkClicked()

@@ -14,6 +14,7 @@ stopwatch::stopwatch(QWidget *parent) :
 
 stopwatch::~stopwatch()
 {
+    timer.stop();
     delete ui;
 }
 
