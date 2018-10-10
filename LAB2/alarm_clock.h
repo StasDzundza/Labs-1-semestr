@@ -27,6 +27,7 @@ public:
     static int clock_id;
 private slots:
 void OkClicked();
+void on_hide_button_clicked();
 void TextChanged(QString str);
 void check_alarm();
 void check_alarm_on_other_day();
@@ -45,7 +46,7 @@ private:
     QPushButton*ok;
     QPushButton*close;
     QPushButton*start_stop;
-
+    QPushButton*hide;
     QString alarm_time_text;
     QTimer*timer;
     QTime*alarm_time_Time;

@@ -94,11 +94,16 @@ void alarm_clock::OkClicked()
     start_stop = new QPushButton;//turn_on/turn_off button
     start_stop->setText("Turn off");
 
+    hide = new QPushButton;
+    hide->setText("Hide");
+    connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
+
     status = new QLabel;
     status->setText("<center>Status : Turned on<\center>");
     status->setFont(font);
 
     layout->addWidget(start_stop);
+    layout->addWidget(hide);
     layout->addWidget(time_left);
     layout->addWidget(status);
 
@@ -106,6 +111,11 @@ void alarm_clock::OkClicked()
 
     delete line;
     delete ok;
+}
+
+void alarm_clock::on_hide_button_clicked()
+{
+    this->setVisible(false);
 }
 
 void alarm_clock::TextChanged(QString str)
@@ -118,6 +128,10 @@ void alarm_clock::check_alarm()
     QString current_time = QTime::currentTime().toString("hh:mm:ss");
     if(current_time == alarm_time_text)
     {
+        if(!this->isVisible())
+        {
+            this->setVisible(true);
+        }
         timer->stop();
         start_stop->setText("Turn on");
         status->setText("<center>Status : Turned off<\center>");

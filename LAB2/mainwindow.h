@@ -33,19 +33,29 @@ private slots:
 
     void on_delete_stopwatch_button_clicked();
 
+    void on_show_stopwatch_button_clicked();
+
+    void on_delete_alarm_button_clicked();
+
+    void on_show_alarm_button_clicked();
+
 signals:
     void time_for_clock(const QString &str);
 private:
 
     int count_stopwatches = 0;
+    int count_alarm_clocks = 0;
+    int count_timers = 0;
+    const int max_count_of_time_widgets = 5;
     Ui::MainWindow *ui;
     QDate current_date;
     QTimer current_time;
-    //stopwatch *stop_watch;
     alarm_clock*a_clock;
     timer_widget*Timer;
 
     QVector<stopwatch*> stopwatch_vector;
+    QVector<alarm_clock*> alarm_clock_vector;
+    QVector<timer_widget*> timer_vector;
 };
 
 

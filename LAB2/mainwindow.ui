@@ -30,7 +30,7 @@
    <widget class="QPushButton" name="open_alarm_button">
     <property name="geometry">
      <rect>
-      <x>410</x>
+      <x>420</x>
       <y>30</y>
       <width>141</width>
       <height>71</height>

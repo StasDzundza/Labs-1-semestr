@@ -54,7 +54,7 @@ void stopwatch::on_Reset_clicked()
 }
 void stopwatch::on_hide_button_clicked()
 {
-    this->setVisible(!this->isVisible());
+    this->setVisible(false);
 }
 
 void stopwatch::on_lap_button_clicked()
