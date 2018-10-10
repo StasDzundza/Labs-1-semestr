@@ -43,22 +43,25 @@ void MainWindow::on_open_stopwatch_button_clicked()
     QListWidgetItem *st_w = new QListWidgetItem("Stopwatch №" + QString::number(++count_stopwatches));
     ui->stopwatch_list->addItem(st_w);
     stop_watch->show();
-
 }
 
 void MainWindow::on_open_alarm_button_clicked()
 {
-    a_clock = new alarm_clock;
+    alarm_clock *a_clock = new alarm_clock;
     alarm_clock_vector.push_back(a_clock);
-    QListWidgetItem *clock = new QListWidgetItem("Alarm Clock №" + QString::number(++count_stopwatches));
+    QListWidgetItem *clock = new QListWidgetItem("Alarm Clock №" + QString::number(++count_alarm_clocks));
     ui->alarm_list->addItem(clock);
     a_clock->show();
 }
 
 void MainWindow::on_open_timer_button_clicked()
 {
-    Timer = new timer_widget;
+    timer_widget *Timer = new timer_widget;
+    timer_vector.push_back(Timer);
+    QListWidgetItem *t = new QListWidgetItem("Timer №" + QString::number(++count_timers));
+    ui->timer_list->addItem(t);
     Timer->show();
+
 }
 
 void MainWindow::on_exit_button_clicked()
@@ -99,6 +102,7 @@ void MainWindow::on_show_stopwatch_button_clicked()
 void MainWindow::on_delete_alarm_button_clicked()
 {
     int current = ui->alarm_list->currentRow();
+    qDebug()<<current;
     delete ui->alarm_list->currentItem();//delete element from list
     alarm_clock*w = alarm_clock_vector[current];
     delete w;//delete window
@@ -108,10 +112,10 @@ void MainWindow::on_delete_alarm_button_clicked()
     count_alarm_clocks--;
     //QModelIndex i = ui->stopwatch_list->currentIndex();//other variant of taking index of element in list
     //int a = i.row();
-     for(int i = 0; i < count_alarm_clocks;i++)//changing names of stopwatches
+     for(int i = 0; i < count_alarm_clocks;i++)//changing names of alarms
      {
          int number = i;
-         ui->alarm_list->item(i)->setText("Stopwatch №" + QString::number(++number));
+         ui->alarm_list->item(i)->setText("Alarm Clock №" + QString::number(++number));
      }
 }
 
@@ -123,4 +127,23 @@ void MainWindow::on_show_alarm_button_clicked()
     {
         window->setVisible(true);
     }
+}
+
+void MainWindow::on_delete_timer_button_clicked()
+{
+    int current = ui->timer_list->currentRow();
+    delete ui->timer_list->currentItem();//delete element from list
+    timer_widget*wnd = timer_vector[current];
+    delete wnd;//delete window
+    QVector<timer_widget*>::Iterator iter = timer_vector.begin();//delete element from vector
+    iter = iter+current;
+    timer_vector.erase(iter);
+    count_timers--;
+    //QModelIndex i = ui->stopwatch_list->currentIndex();//other variant of taking index of element in list
+    //int a = i.row();
+     for(int i = 0; i < count_timers;i++)//changing names of timers
+     {
+         int number = i;
+         ui->timer_list->item(i)->setText("Stopwatch №" + QString::number(++number));
+     }
 }

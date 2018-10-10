@@ -38,9 +38,8 @@ private slots:
     void on_delete_alarm_button_clicked();
 
     void on_show_alarm_button_clicked();
+    void on_delete_timer_button_clicked();
 
-signals:
-    void time_for_clock(const QString &str);
 private:
 
     int count_stopwatches = 0;
