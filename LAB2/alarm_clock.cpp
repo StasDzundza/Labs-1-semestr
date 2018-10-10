@@ -67,8 +67,7 @@ alarm_clock::~alarm_clock()
     delete lbl;
     delete time_left;
     delete status;
-    delete line;
-    delete ok;
+    delete close;
     delete start_stop;
     delete timer;
     delete alarm_time_Time;

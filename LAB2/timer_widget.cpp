@@ -59,8 +59,6 @@ timer_widget::~timer_widget()
     delete main;
     delete lbl;
     delete time_left;
-    delete line;
-    delete ok;
     delete start_stop;
     delete time_count;
     delete alarm_sound;

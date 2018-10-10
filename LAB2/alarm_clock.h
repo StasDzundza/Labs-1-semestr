@@ -35,7 +35,7 @@ void turn_off_on();
 void replay_sound();
 private:
     Ui::alarm_clock *ui;
-    int id;
+    int id = 0;
     QVBoxLayout*layout;
     QVBoxLayout*main;
 
