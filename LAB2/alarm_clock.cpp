@@ -40,6 +40,14 @@ alarm_clock::alarm_clock(QWidget *parent) :
     alarm_time_Time = new QTime;
     time_player = new QTimer;
 
+
+    time_left = new QLabel;//remaining time
+    start_stop = new QPushButton;//turn_on/turn_off button
+    hide = new QPushButton;
+    status = new QLabel;
+
+
+
     connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(close,SIGNAL(clicked()),this,SLOT(close()));
@@ -53,6 +61,7 @@ alarm_clock::~alarm_clock()
 {
     timer->stop();
     time_player->stop();
+    alarm_sound->stop();
     delete layout;
     delete main;
     delete lbl;
@@ -87,18 +96,19 @@ void alarm_clock::OkClicked()
     QFont font;
     font.setPixelSize(15);
     font.setBold(true);
-    time_left = new QLabel;//remaining time
+   //
     time_left->setFont(font);
     time_left->setText("<center>Left to the signal : <\center>");
 
-    start_stop = new QPushButton;//turn_on/turn_off button
+    //
     start_stop->setText("Turn off");
+    connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
 
-    hide = new QPushButton;
+
     hide->setText("Hide");
     connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
 
-    status = new QLabel;
+
     status->setText("<center>Status : Turned on<\center>");
     status->setFont(font);
 
@@ -107,7 +117,7 @@ void alarm_clock::OkClicked()
     layout->addWidget(time_left);
     layout->addWidget(status);
 
-    connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
+
 
     delete line;
     delete ok;

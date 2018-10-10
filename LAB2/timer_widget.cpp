@@ -36,11 +36,17 @@ timer_widget::timer_widget(QWidget *parent) :
 
 
     time_count = new QTimer;
+    hide = new QPushButton;
+    time_left = new QLabel;//remaining time
+    start_stop = new QPushButton;//turn_on/turn_off button
+    reset = new QPushButton;
+    time_player = new QTimer;
+    alarm_sound = new QSound(":/res/music/eminem.wav");
     connect(time_count,SIGNAL(timeout()),this,SLOT(check_timer()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(close,SIGNAL(clicked()),this,SLOT(close()));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
-    hide = new QPushButton;
+
 
 }
 
@@ -98,14 +104,11 @@ void timer_widget::OkClicked()
     font.setPixelSize(18);
     font.setBold(true);
 
-    time_left = new QLabel;//remaining time
     time_left->setFont(font);
     time_left->setText("<center>Left to the signal : <\center>");
 
-    start_stop = new QPushButton;//turn_on/turn_off button
     start_stop->setText("Pause");
 
-    reset = new QPushButton;
     reset->setText("Reset");
     connect(reset,SIGNAL(clicked()),this,SLOT(reset_clicked()));
 
@@ -117,9 +120,9 @@ void timer_widget::OkClicked()
     layout->addWidget(hide);
     layout->addWidget(close);
 
-    alarm_sound = new QSound(":/res/music/eminem.wav");
 
-    time_player = new QTimer;
+
+
 
     connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
