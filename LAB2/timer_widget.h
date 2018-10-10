@@ -22,6 +22,7 @@ public:
     ~timer_widget();
 private slots:
 void OkClicked();
+void on_hide_button_clicked();
 void TextChanged(QString str);
 void check_timer();
 void turn_off_on();
@@ -42,6 +43,7 @@ private:
     QPushButton*close;
     QPushButton*start_stop;
     QPushButton*reset;
+    QPushButton*hide;
 
     QString alarm_time_text;
     QTimer*time_count;//the main timer which checking time

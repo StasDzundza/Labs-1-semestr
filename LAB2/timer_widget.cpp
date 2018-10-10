@@ -40,7 +40,7 @@ timer_widget::timer_widget(QWidget *parent) :
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(close,SIGNAL(clicked()),this,SLOT(close()));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
-
+    hide = new QPushButton;
 
 }
 
@@ -48,6 +48,7 @@ timer_widget::~timer_widget()
 {
     time_count->stop();
     time_player->stop();
+    delete hide;
     delete layout;
     delete main;
     delete lbl;
@@ -58,12 +59,12 @@ timer_widget::~timer_widget()
     delete time_count;
     delete alarm_sound;
     delete time_player;
+    delete close;
     delete ui;
 }
 
 void timer_widget::OkClicked()
 {
-    delete close;
     QString time = line->text();
     //we are finding msec from string to int
     QString h;
@@ -88,6 +89,10 @@ void timer_widget::OkClicked()
 
     alarm_time_text = line->text();
     lbl->setText("<center>Timer time <\center>" + alarm_time_text);
+    disconnect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
+    disconnect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
+    delete line;
+    delete ok;
 
     QFont font;//font for text
     font.setPixelSize(18);
@@ -100,17 +105,16 @@ void timer_widget::OkClicked()
     start_stop = new QPushButton;//turn_on/turn_off button
     start_stop->setText("Pause");
 
-    close = new QPushButton;//close window button
-    close->setText("Close and delete Timer");
-    connect(close,SIGNAL(clicked()),this,SLOT(close()));
-
     reset = new QPushButton;
     reset->setText("Reset");
     connect(reset,SIGNAL(clicked()),this,SLOT(reset_clicked()));
 
+    hide->setText("Hide");
+    connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
     layout->addWidget(time_left);
     layout->addWidget(start_stop);
     layout->addWidget(reset);
+    layout->addWidget(hide);
     layout->addWidget(close);
 
     alarm_sound = new QSound(":/res/music/eminem.wav");
@@ -120,8 +124,12 @@ void timer_widget::OkClicked()
     connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
     time_count->start(500);
-    delete line;
-    delete ok;
+
+}
+
+void timer_widget::on_hide_button_clicked()
+{
+    this->setVisible(false);
 }
 
 void timer_widget::TextChanged(QString str)
@@ -135,6 +143,8 @@ void timer_widget::check_timer()
     QString time_on_sw_string = QTime::fromMSecsSinceStartOfDay(on_stopwatch).toString("hh:mm:ss");
     if(time_on_sw_string == alarm_time_text)
     {
+        if(!this->isVisible())
+            this->setVisible(true);
         time_count->stop();
         start_stop->setText("Start");
         time_left->setText("<center>Left to the signal : 00:00:00<\center>");

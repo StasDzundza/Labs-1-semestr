@@ -40,6 +40,8 @@ private slots:
     void on_show_alarm_button_clicked();
     void on_delete_timer_button_clicked();
 
+    void on_show_timer_button_clicked();
+
 private:
 
     int count_stopwatches = 0;

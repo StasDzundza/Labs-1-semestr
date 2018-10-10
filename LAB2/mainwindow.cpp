@@ -144,6 +144,16 @@ void MainWindow::on_delete_timer_button_clicked()
      for(int i = 0; i < count_timers;i++)//changing names of timers
      {
          int number = i;
-         ui->timer_list->item(i)->setText("Stopwatch №" + QString::number(++number));
+         ui->timer_list->item(i)->setText("Timer №" + QString::number(++number));
      }
+}
+
+void MainWindow::on_show_timer_button_clicked()
+{
+    int current = ui->timer_list->currentRow();
+    timer_widget*window = timer_vector[current];
+    if(!window->isVisible())
+    {
+        window->setVisible(true);
+    }
 }
