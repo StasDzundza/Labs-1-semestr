@@ -31,7 +31,9 @@ public:
     ~alarm_clock();
     static int clock_id;
 
-    friend QString change_from_12_to_24_format(const QString& time,const alarm_clock*clock);
+friend QString change_from_12_to_24_format(const QString& time,const alarm_clock*clock);
+signals:
+void my_textChanged(QString);
 private slots:
 void on_12_hours_clicked();
 void on_24_hours_clicked();

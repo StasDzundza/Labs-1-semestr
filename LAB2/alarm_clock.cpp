@@ -74,6 +74,8 @@ alarm_clock::alarm_clock(QWidget *parent) :
 
     connect(hour12,SIGNAL(clicked()),this,SLOT(on_12_hours_clicked()));
     connect(hour24,SIGNAL(clicked()),this,SLOT(on_24_hours_clicked()));
+    connect(this,SIGNAL(my_textChanged(QString)),this,SLOT(TextChanged(QString)));//my exeption
+    connect(this,SIGNAL(my_textChanged(QString)),this,SLOT(TextChanged(QString)));//my exeption
     connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
@@ -84,7 +86,7 @@ QString change_from_12_to_24_format(const QString& time,const alarm_clock*clock)
 {
     if(clock->hour24->isChecked())
     {
-        QString time_text = clock->alarm_time_text + ":00";
+        QString time_text = time + ":00";
         return time_text;
     }
     else if(clock->hour12->isChecked())
@@ -154,23 +156,44 @@ alarm_clock::~alarm_clock()
 
 void alarm_clock::on_12_hours_clicked()
 {
+    emit my_textChanged(line->text());
     group_box_am_pm->setEnabled(true);
 }
 
 void alarm_clock::on_24_hours_clicked()
 {
+    emit my_textChanged(line->text());
     group_box_am_pm->setEnabled(false);
 }
 
 void alarm_clock::OkClicked()
 {
-    alarm_time_text = line->text();
+    alarm_time_text = change_from_12_to_24_format(line->text(),this);
+    *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");//take Qtime object from string
+    if(hour24->isChecked())
+    {
+        lbl->setText("<center>Alarm will start at <\center>" + alarm_time_text);
+    }
+    else
+    {
+        if(am->isChecked())
+        {
+            lbl->setText("<center>Alarm will start at <\center>" + line->text() + " am");
+        }
+        else if(pm->isChecked())
+        {
+            lbl->setText("<center>Alarm will start at <\center>" + line->text() + " pm");
+        }
+    }
+    disconnect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
+    disconnect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
     delete line;
     delete ok;
-//delete radio
-    alarm_time_text = change_from_12_to_24_format(line->text(),this);//alarm_time_text+":00";
-    *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");//take Qtime object from string
-    lbl->setText("<center>Alarm will start at <\center>" + alarm_time_text);
+    disconnect(hour12,SIGNAL(clicked()),this,SLOT(on_12_hours_clicked()));
+    disconnect(hour24,SIGNAL(clicked()),this,SLOT(on_24_hours_clicked()));
+    delete hour24; delete hour12; delete am; delete pm; delete for_am_pm; delete for_formats;
+    delete group_box_am_pm; delete group_box_format; delete format_and_am_pm;
+
     if(QTime::currentTime()<*alarm_time_Time)//if alarm will be on this day
     {
         connect(timer,SIGNAL(timeout()),this,SLOT(check_alarm()));
