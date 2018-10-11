@@ -2,6 +2,7 @@
 #include "ui_alarm_clock.h"
 #include<QFont>
 #include<QMessageBox>
+#include<QDebug>
 alarm_clock::alarm_clock(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::alarm_clock)
@@ -78,7 +79,60 @@ alarm_clock::alarm_clock(QWidget *parent) :
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
     connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
 }
-int alarm_clock::clock_id = 0;
+//int alarm_clock::clock_id = 0;
+QString change_from_12_to_24_format(const QString& time,const alarm_clock*clock)
+{
+    if(clock->hour24->isChecked())
+    {
+        QString time_text = clock->alarm_time_text + ":00";
+        return time_text;
+    }
+    else if(clock->hour12->isChecked())
+    {
+        QString time_text;
+        if(time.size() == 4)
+        {
+            if(clock->pm->isChecked())
+            {
+                time_text = time_text + '0' + time + ":00";
+                return time_text;
+            }
+            else if(clock->am->isChecked())
+            {
+                QString h = time[0];
+                int hh = h.toInt();
+                hh +=12;
+                time_text = time_text + QString::number(hh)+':'+ time[2]+time[3]+":00";
+                return time_text;
+            }
+        }
+        else if(time.size() == 5)
+        {
+            if(clock->pm->isChecked())
+            {
+                time_text = time_text +time+":00";
+                return time_text;
+            }
+            else if(clock->am->isChecked())
+            {
+               QString h;
+               h = (QString)time[0]+(QString)time[1];
+               int hh = h.toInt();
+               if(hh == 10 || hh == 11)
+               {
+                   hh+=12;
+                   time_text = time_text + QString::number(hh)+':'+ time[3]+time[4]+":00";
+                   return time_text;
+               }
+               else if(hh == 12)
+               {
+                   time_text = time_text +"00:" + time[3]+time[4]+":00";
+                   return time_text;
+               }
+            }
+        }
+    }
+}
 alarm_clock::~alarm_clock()
 {
     timer->stop();
@@ -102,6 +156,7 @@ void alarm_clock::on_12_hours_clicked()
 {
     group_box_am_pm->setEnabled(true);
 }
+
 void alarm_clock::on_24_hours_clicked()
 {
     group_box_am_pm->setEnabled(false);
@@ -113,7 +168,7 @@ void alarm_clock::OkClicked()
     delete line;
     delete ok;
 //delete radio
-    alarm_time_text = alarm_time_text+":00";//alarm time        //+00 because we put oly hh and mm but not ss
+    alarm_time_text = change_from_12_to_24_format(line->text(),this);//alarm_time_text+":00";
     *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");//take Qtime object from string
     lbl->setText("<center>Alarm will start at <\center>" + alarm_time_text);
     if(QTime::currentTime()<*alarm_time_Time)//if alarm will be on this day

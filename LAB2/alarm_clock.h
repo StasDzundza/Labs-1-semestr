@@ -30,6 +30,8 @@ public:
     explicit alarm_clock(QWidget *parent = nullptr);
     ~alarm_clock();
     static int clock_id;
+
+    friend QString change_from_12_to_24_format(const QString& time,const alarm_clock*clock);
 private slots:
 void on_12_hours_clicked();
 void on_24_hours_clicked();
