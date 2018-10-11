@@ -1,10 +1,11 @@
 #ifndef ALARM_CLOCK_H
 #define ALARM_CLOCK_H
 
-#include <QDialog>
+#include<QDialog>
 #include<QLabel>
 #include<QLineEdit>
 #include<QPushButton>
+#include<QHBoxLayout>
 #include<QHBoxLayout>
 #include<QVBoxLayout>
 #include<QWidget>
@@ -14,6 +15,8 @@
 #include<QTime>
 #include<QtMultimedia/QSound>
 #include<QCheckBox>
+#include<QGroupBox>
+#include<QRadioButton>
 
 namespace Ui {
 class alarm_clock;
@@ -28,6 +31,8 @@ public:
     ~alarm_clock();
     static int clock_id;
 private slots:
+void on_12_hours_clicked();
+void on_24_hours_clicked();
 void OkClicked();
 void on_hide_button_clicked();
 void TextChanged(QString str);
@@ -39,8 +44,17 @@ private:
     Ui::alarm_clock *ui;
     int id = 0;
     bool was_alarm = false;
+    QGroupBox *group_box_format;
+    QGroupBox *group_box_am_pm;
+    QRadioButton*hour12;
+    QRadioButton*hour24;
+    QRadioButton*am;
+    QRadioButton*pm;
+    QHBoxLayout*format_and_am_pm;
     QVBoxLayout*layout;
     QVBoxLayout*main;
+    QVBoxLayout*for_formats;
+    QVBoxLayout*for_am_pm;
 
     QLabel*lbl;
     QLabel*time_left;

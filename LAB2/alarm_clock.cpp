@@ -9,6 +9,30 @@ alarm_clock::alarm_clock(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("ALARM CLOCK");
     lbl = new QLabel("<center>Enter time<\center>");
+
+    group_box_format = new QGroupBox;
+    group_box_am_pm = new QGroupBox;
+    format_and_am_pm  =new QHBoxLayout;
+    hour12 = new QRadioButton("12-hour");
+    hour24  = new QRadioButton("24-hour");
+    am = new QRadioButton("am");
+    pm = new QRadioButton("pm");
+    format_and_am_pm->addWidget(group_box_format);
+    format_and_am_pm->addWidget(group_box_am_pm);
+    for_formats = new QVBoxLayout;
+    for_am_pm = new QVBoxLayout;
+    for_formats->addWidget(hour12);
+    for_formats->addWidget(hour24);
+    for_am_pm->addWidget(am);
+    for_am_pm->addWidget(pm);
+    group_box_format->setLayout(for_formats);
+    group_box_am_pm->setLayout(for_am_pm);
+    group_box_am_pm->setEnabled(false);
+    hour24->setChecked(true);
+    am->setChecked(true);
+
+
+
     line = new QLineEdit;
     lbl->setBuddy(line);
     QFont font;
@@ -25,6 +49,7 @@ alarm_clock::alarm_clock(QWidget *parent) :
 
     layout = new QVBoxLayout;
     layout->addWidget(lbl);
+    layout->addLayout(format_and_am_pm);
     layout->addWidget(line);
     layout->addWidget(ok);
     layout->addWidget(hide);
@@ -46,6 +71,8 @@ alarm_clock::alarm_clock(QWidget *parent) :
     status = new QLabel;
     do_not_distrub = new QCheckBox;
 
+    connect(hour12,SIGNAL(clicked()),this,SLOT(on_12_hours_clicked()));
+    connect(hour24,SIGNAL(clicked()),this,SLOT(on_24_hours_clicked()));
     connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
@@ -71,11 +98,21 @@ alarm_clock::~alarm_clock()
 
 }
 
+void alarm_clock::on_12_hours_clicked()
+{
+    group_box_am_pm->setEnabled(true);
+}
+void alarm_clock::on_24_hours_clicked()
+{
+    group_box_am_pm->setEnabled(false);
+}
+
 void alarm_clock::OkClicked()
 {
     alarm_time_text = line->text();
     delete line;
     delete ok;
+//delete radio
     alarm_time_text = alarm_time_text+":00";//alarm time        //+00 because we put oly hh and mm but not ss
     *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");//take Qtime object from string
     lbl->setText("<center>Alarm will start at <\center>" + alarm_time_text);

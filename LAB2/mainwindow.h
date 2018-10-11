@@ -8,8 +8,8 @@
 #include <QMainWindow>
 #include <QDate>
 #include <QTimer>
-#include<QString>
-#include<QVector>
+#include <QString>
+#include <QVector>
 namespace Ui {
 class MainWindow;
 }

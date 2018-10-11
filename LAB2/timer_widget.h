@@ -10,6 +10,7 @@
 #include<QTime>
 #include<QCheckBox>
 #include<QtMultimedia/QSound>
+
 namespace Ui {
 class timer_widget;
 }
@@ -33,7 +34,6 @@ private:
     Ui::timer_widget *ui;
 
     int timer_time_msec = 0;
-
     QVBoxLayout*layout;
     QVBoxLayout*main;
 
