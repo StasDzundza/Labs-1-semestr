@@ -129,6 +129,7 @@ void alarm_clock::check_alarm()
     QString current_time = QTime::currentTime().toString("hh:mm:ss");
     if(current_time == alarm_time_text)
     {
+        was_alarm = true;
         if(!this->isVisible())
         {
             this->setVisible(true);
@@ -182,11 +183,29 @@ void alarm_clock::turn_off_on()
 {
     if(!timer->isActive())
     {
-        timer->start();
         start_stop->setText("Turn off");
-        int remain_msec = QTime::currentTime().msecsTo(*alarm_time_Time);//find msec to alarm
-        QTime remaining_time = QTime::fromMSecsSinceStartOfDay(remain_msec);//convert to Qtime
-        time_left->setText("Left to the signal : " + remaining_time.toString("hh:mm:ss"));//set on label time_left
+        if(QTime::currentTime() < *alarm_time_Time)//new day is olready here
+        {
+            int remain_msec = QTime::currentTime().msecsTo(*alarm_time_Time);//find msec to alarm
+            QTime remaining_time = QTime::fromMSecsSinceStartOfDay(remain_msec);//convert to Qtime
+            time_left->setText("Left to the signal : " + remaining_time.toString("hh:mm:ss"));//set on label time_left
+            timer->start();
+        }
+        else
+        {
+            QTime ms_to_23_59 = QTime::fromString("23:59:59","hh:mm:ss");
+            QTime ms_00_00(0,0,0,0);
+            int remain_msec = QTime::currentTime().msecsTo(ms_to_23_59) + ms_00_00.msecsTo(*alarm_time_Time) ;//finding msec to alarm
+            QTime remaining_time = QTime::fromMSecsSinceStartOfDay(remain_msec);//convert to Qtime
+            time_left->setText("<center>Left to the signal : <\center>" + remaining_time.toString("hh:mm:ss"));//set on label time_left
+            if(was_alarm)//we must recconect timer because was signal and other signal will be on the next day
+            {
+                was_alarm = false;
+                disconnect(timer,SIGNAL(timeout()),this,SLOT(check_alarm()));
+                connect(timer,SIGNAL(timeout()),this,SLOT(check_alarm_on_other_day()));
+            }
+            timer->start();
+        }
 
         status->setText("<center>Status : Turned on<\center>");
     }
