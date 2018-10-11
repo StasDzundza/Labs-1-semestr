@@ -62,7 +62,6 @@ alarm_clock::~alarm_clock()
     delete lbl;
     delete time_left;
     delete status;
-    //delete close;
     delete start_stop;
     delete timer;
     delete alarm_time_Time;
@@ -121,7 +120,35 @@ void alarm_clock::on_hide_button_clicked()
 
 void alarm_clock::TextChanged(QString str)
 {
-    ok->setEnabled(!str.isEmpty());
+    //ok->setEnabled(!str.isEmpty());
+    if(str.size()!=5)
+    {
+        ok->setEnabled(false);
+    }
+    else
+    {
+        if(str[2]!=':')
+        {
+            ok->setEnabled(false);
+        }
+        else
+        {
+            QString h1,h2;
+            h1 = str[0];h2 = str[1];
+            int hh = h1.toInt()*10+h2.toInt();
+            QString m1,m2;
+            m1 = str[3];m2 = str[4];
+            int mm = m1.toInt()*10+m2.toInt();
+            if(hh >=0 && hh<24 && mm>=0&&mm<60)
+            {
+                ok->setEnabled(true);
+            }
+            else
+            {
+                ok->setEnabled(false);
+            }
+        }
+    }
 }
 
 void alarm_clock::check_alarm()
