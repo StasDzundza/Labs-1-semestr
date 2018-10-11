@@ -8,7 +8,7 @@ timer_widget::timer_widget(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Timer");
-    lbl = new QLabel("Enter time for start Timer");//амсперсант для партнера(треба натискати alt+перша буква після амперсанта)hot key
+    lbl = new QLabel("&Enter time for start Timer");//ampersant for hot key alt+E
     line = new QLineEdit;
     lbl->setBuddy(line);//партнер
     QFont font;
@@ -20,13 +20,14 @@ timer_widget::timer_widget(QWidget *parent) :
     ok->setDefault(true);//Enter Button
     ok->setEnabled(false);//not enabled
 
-    close = new QPushButton("Close and delete Timer");
+    hide = new QPushButton;
+    hide->setText("Hide");
 
     layout = new QVBoxLayout;
     layout->addWidget(lbl);
     layout->addWidget(line);
     layout->addWidget(ok);
-    layout->addWidget(close);
+    layout->addWidget(hide);
 
 
 
@@ -36,7 +37,6 @@ timer_widget::timer_widget(QWidget *parent) :
 
 
     time_count = new QTimer;
-    hide = new QPushButton;
     time_left = new QLabel;//remaining time
     start_stop = new QPushButton;//turn_on/turn_off button
     reset = new QPushButton;
@@ -46,8 +46,8 @@ timer_widget::timer_widget(QWidget *parent) :
 
     connect(time_count,SIGNAL(timeout()),this,SLOT(check_timer()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
-    connect(close,SIGNAL(clicked()),this,SLOT(close()));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
+    connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
 }
 
 timer_widget::~timer_widget()
@@ -63,7 +63,6 @@ timer_widget::~timer_widget()
     delete time_count;
     delete alarm_sound;
     delete time_player;
-    delete close;
     delete ui;
 }
 
@@ -110,22 +109,15 @@ void timer_widget::OkClicked()
     reset->setText("Reset");
     connect(reset,SIGNAL(clicked()),this,SLOT(reset_clicked()));
 
-    hide->setText("Hide");
-    connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
-
     do_not_distrub->setText("Do not distrub");
     do_not_distrub->setFont(font);
 
+    layout->removeWidget(hide);
     layout->addWidget(time_left);
     layout->addWidget(start_stop);
     layout->addWidget(reset);
     layout->addWidget(hide);
-    layout->addWidget(close);
     layout->addWidget(do_not_distrub);
-
-
-
-
 
     connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));

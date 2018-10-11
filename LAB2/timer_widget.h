@@ -41,7 +41,6 @@ private:
     QLabel*time_left;
     QLineEdit*line;
     QPushButton*ok;
-    QPushButton*close;
     QPushButton*start_stop;
     QPushButton*reset;
     QPushButton*hide;

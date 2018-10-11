@@ -20,6 +20,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    for(int i = 0; i < count_stopwatches;i++)
+    {
+        stopwatch_vector.erase(stopwatch_vector.begin());
+    }
+    for(int i = 0; i < count_alarm_clocks;i++)
+    {
+        alarm_clock_vector.erase(alarm_clock_vector.begin());
+    }
+    for(int i = 0; i < count_timers;i++)
+    {
+        timer_vector.erase(timer_vector.begin());
+    }
     delete ui;
 }
 

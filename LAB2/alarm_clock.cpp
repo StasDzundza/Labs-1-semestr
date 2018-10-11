@@ -20,15 +20,14 @@ alarm_clock::alarm_clock(QWidget *parent) :
     ok->setDefault(true);//Enter push
     ok->setEnabled(false);
 
-    close = new QPushButton("Close and delete alarm");
+    hide = new QPushButton;
+    hide->setText("Hide");
 
     layout = new QVBoxLayout;
     layout->addWidget(lbl);
     layout->addWidget(line);
     layout->addWidget(ok);
-    layout->addWidget(close);
-
-
+    layout->addWidget(hide);
 
     main = new QVBoxLayout;
     main->addLayout(layout);
@@ -43,19 +42,14 @@ alarm_clock::alarm_clock(QWidget *parent) :
 
     time_left = new QLabel;//remaining time
     start_stop = new QPushButton;//turn_on/turn_off button
-    hide = new QPushButton;
+
     status = new QLabel;
     do_not_distrub = new QCheckBox;
 
-
-
     connect(time_player,SIGNAL(timeout()),this,SLOT(replay_sound()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
-    connect(close,SIGNAL(clicked()),this,SLOT(close()));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
-
-
-
+    connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
 }
 int alarm_clock::clock_id = 0;
 alarm_clock::~alarm_clock()
@@ -68,7 +62,7 @@ alarm_clock::~alarm_clock()
     delete lbl;
     delete time_left;
     delete status;
-    delete close;
+    //delete close;
     delete start_stop;
     delete timer;
     delete alarm_time_Time;
@@ -81,6 +75,8 @@ alarm_clock::~alarm_clock()
 void alarm_clock::OkClicked()
 {
     alarm_time_text = line->text();
+    delete line;
+    delete ok;
     alarm_time_text = alarm_time_text+":00";//alarm time        //+00 because we put oly hh and mm but not ss
     *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");//take Qtime object from string
     lbl->setText("<center>Alarm will start at <\center>" + alarm_time_text);
@@ -93,20 +89,15 @@ void alarm_clock::OkClicked()
         connect(timer,SIGNAL(timeout()),this,SLOT(check_alarm_on_other_day()));   //if alarm will be on the other day
     }
     timer->start(1000);//start time checking every second
+
     QFont font;
     font.setPixelSize(15);
     font.setBold(true);
-   //
     time_left->setFont(font);
     time_left->setText("<center>Left to the signal : <\center>");
 
-    //
     start_stop->setText("Turn off");
     connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
-
-
-    hide->setText("Hide");
-    connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
 
 
     status->setText("<center>Status : Turned on<\center>");
@@ -115,14 +106,12 @@ void alarm_clock::OkClicked()
     do_not_distrub->setText("Do not distrub");
     do_not_distrub->setFont(font);
 
-    layout->addWidget(start_stop);
-    layout->addWidget(hide);
+    layout->removeWidget(hide);
     layout->addWidget(time_left);
     layout->addWidget(status);
+    layout->addWidget(start_stop);
+    layout->addWidget(hide);
     layout->addWidget(do_not_distrub);
-
-    delete line;
-    delete ok;
 }
 
 void alarm_clock::on_hide_button_clicked()

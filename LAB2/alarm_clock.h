@@ -46,7 +46,7 @@ private:
     QLabel*status;
     QLineEdit*line;
     QPushButton*ok;
-    QPushButton*close;
+    //QPushButton*close;
     QPushButton*start_stop;
     QPushButton*hide;
     QString alarm_time_text;
