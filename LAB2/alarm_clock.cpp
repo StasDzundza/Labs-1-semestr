@@ -157,32 +157,92 @@ void alarm_clock::on_hide_button_clicked()
 
 void alarm_clock::TextChanged(QString str)
 {
-    //ok->setEnabled(!str.isEmpty());
-    if(str.size()!=5)
+    if(hour24->isChecked())
     {
-        ok->setEnabled(false);
-    }
-    else
-    {
-        if(str[2]!=':')
+        if(str.size()!=5)
         {
             ok->setEnabled(false);
         }
         else
         {
-            QString h1,h2;
-            h1 = str[0];h2 = str[1];
-            int hh = h1.toInt()*10+h2.toInt();
-            QString m1,m2;
-            m1 = str[3];m2 = str[4];
-            int mm = m1.toInt()*10+m2.toInt();
-            if(hh >=0 && hh<24 && mm>=0&&mm<60)
+            if(str[2]!=':')
             {
-                ok->setEnabled(true);
+                ok->setEnabled(false);
             }
             else
             {
-                ok->setEnabled(false);
+                QString h1,h2;
+                h1 = str[0];h2 = str[1];
+                int hh = h1.toInt()*10+h2.toInt();
+                QString m1,m2;
+                m1 = str[3];m2 = str[4];
+                int mm = m1.toInt()*10+m2.toInt();
+                if(hh >=0 && hh<24 && mm>=0&&mm<60)
+                {
+                    ok->setEnabled(true);
+                }
+                else
+                {
+                    ok->setEnabled(false);
+                }
+            }
+        }
+    }
+    else
+    {
+        if(str.size() > 5 || str.size() < 4) //12:00 or 1:00
+        {
+            ok->setEnabled(false);
+        }
+        else
+        {
+            if(str.size() == 5)//12:00
+            {
+                if(str[2]!=':' || str[0] == '0')
+                {
+                    ok->setEnabled(false);
+                }
+                else
+                {
+                    QString h1,h2;
+                    h1 = str[0];h2 = str[1];
+                    int hh = h1.toInt()*10+h2.toInt();
+                    QString m1,m2;
+                    m1 = str[3];m2 = str[4];
+                    int mm = m1.toInt()*10+m2.toInt();
+                    if(hh >=1 && hh<=12 && mm>=0&&mm<60)
+                    {
+                        ok->setEnabled(true);
+                    }
+                    else
+                    {
+                        ok->setEnabled(false);
+                    }
+                }
+            }
+            else if(str.size()==4)//1:00
+            {
+                if(str[1]!=':')
+                {
+                    ok->setEnabled(false);
+                }
+                else
+                {
+                    QString h1;
+                    h1 = str[0];
+                    int hh = h1.toInt();
+                    QString m1,m2;
+                    m1 = str[2];m2 = str[3];
+                    int mm = m1.toInt()*10+m2.toInt();
+                    if(hh >=1 && hh<=9 && mm>=0&&mm<60)
+                    {
+                        ok->setEnabled(true);
+                    }
+                    else
+                    {
+                        ok->setEnabled(false);
+                    }
+                }
             }
         }
     }
