@@ -13,6 +13,8 @@
 #include<QTimer>
 #include<QTime>
 #include<QtMultimedia/QSound>
+#include<QCheckBox>
+
 namespace Ui {
 class alarm_clock;
 }
@@ -50,6 +52,7 @@ private:
     QString alarm_time_text;
     QTimer*timer;
     QTime*alarm_time_Time;
+    QCheckBox *do_not_distrub;
 
     QTimer*time_player;
     QSound*alarm_sound;

@@ -45,6 +45,7 @@ alarm_clock::alarm_clock(QWidget *parent) :
     start_stop = new QPushButton;//turn_on/turn_off button
     hide = new QPushButton;
     status = new QLabel;
+    do_not_distrub = new QCheckBox;
 
 
 
@@ -111,12 +112,14 @@ void alarm_clock::OkClicked()
     status->setText("<center>Status : Turned on<\center>");
     status->setFont(font);
 
+    do_not_distrub->setText("Do not distrub");
+    do_not_distrub->setFont(font);
+
     layout->addWidget(start_stop);
     layout->addWidget(hide);
     layout->addWidget(time_left);
     layout->addWidget(status);
-
-
+    layout->addWidget(do_not_distrub);
 
     delete line;
     delete ok;
@@ -145,15 +148,17 @@ void alarm_clock::check_alarm()
         start_stop->setText("Turn on");
         status->setText("<center>Status : Turned off<\center>");
         time_left->setText("<center>Left to the signal : Turned off<\center>");
-
-        alarm_sound->play();
-        time_player->start(11000);
-
-        QMessageBox::StandardButton answer = QMessageBox::information(this,"Wake up time!!!","WAKE UP!!!",QMessageBox::Close);
-        if(answer == QMessageBox::Close)
+        if(!do_not_distrub->isChecked())
         {
-            alarm_sound->stop();
-            time_player->stop();
+            alarm_sound->play();
+            time_player->start(11000);
+
+            QMessageBox::StandardButton answer = QMessageBox::information(this,alarm_time_text,"WAKE UP!!!",QMessageBox::Close);
+            if(answer == QMessageBox::Close)
+            {
+                alarm_sound->stop();
+                time_player->stop();
+            }
         }
     }
     else

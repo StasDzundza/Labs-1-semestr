@@ -17,8 +17,8 @@ timer_widget::timer_widget(QWidget *parent) :
     lbl->setFont(font);
 
     ok = new QPushButton("OK");
-    ok->setDefault(true);//при нажатті ентер вона буде виконуватись
-    ok->setEnabled(false);//недоступна
+    ok->setDefault(true);//Enter Button
+    ok->setEnabled(false);//not enabled
 
     close = new QPushButton("Close and delete Timer");
 
@@ -42,12 +42,12 @@ timer_widget::timer_widget(QWidget *parent) :
     reset = new QPushButton;
     time_player = new QTimer;
     alarm_sound = new QSound(":/res/music/eminem.wav");
+    do_not_distrub = new QCheckBox;
+
     connect(time_count,SIGNAL(timeout()),this,SLOT(check_timer()));
     connect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));
     connect(close,SIGNAL(clicked()),this,SLOT(close()));
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
-
-
 }
 
 timer_widget::~timer_widget()
@@ -112,11 +112,16 @@ void timer_widget::OkClicked()
 
     hide->setText("Hide");
     connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
+
+    do_not_distrub->setText("Do not distrub");
+    do_not_distrub->setFont(font);
+
     layout->addWidget(time_left);
     layout->addWidget(start_stop);
     layout->addWidget(reset);
     layout->addWidget(hide);
     layout->addWidget(close);
+    layout->addWidget(do_not_distrub);
 
 
 
@@ -145,20 +150,24 @@ void timer_widget::check_timer()
     if(time_on_sw_string == alarm_time_text)
     {
         if(!this->isVisible())
+        {
             this->setVisible(true);
+        }
         time_count->stop();
         start_stop->setText("Start");
         time_left->setText("<center>Left to the signal : 00:00:00<\center>");
         time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(0);
-
-        alarm_sound->play();
-        time_player->start(11000);
-
-        QMessageBox::StandardButton answer = QMessageBox::information(this,"Timer","TIME OUT",QMessageBox::Close);
-        if(answer = QMessageBox::Close)
+        if(!do_not_distrub->isChecked())
         {
-            alarm_sound->stop();
-            time_player->stop();
+            alarm_sound->play();
+            time_player->start(11000);
+
+            QMessageBox::StandardButton answer = QMessageBox::information(this,"Timer","TIME OUT",QMessageBox::Close);
+            if(answer = QMessageBox::Close)
+            {
+                alarm_sound->stop();
+                time_player->stop();
+            }
         }
     }
     else

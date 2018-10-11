@@ -8,6 +8,7 @@
 #include<QPushButton>
 #include<QTimer>
 #include<QTime>
+#include<QCheckBox>
 #include<QtMultimedia/QSound>
 namespace Ui {
 class timer_widget;
@@ -44,7 +45,7 @@ private:
     QPushButton*start_stop;
     QPushButton*reset;
     QPushButton*hide;
-
+    QCheckBox*do_not_distrub;
     QString alarm_time_text;
     QTimer*time_count;//the main timer which checking time
 
