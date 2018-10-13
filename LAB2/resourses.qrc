@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/res">
         <file>music/eminem.wav</file>
+        <file>images/body.jpg</file>
+        <file>images/body2.jpg</file>
+        <file>images/body3.jpg</file>
+        <file>images/body4.jpg</file>
     </qresource>
 </RCC>

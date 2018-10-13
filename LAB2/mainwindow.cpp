@@ -11,6 +11,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QBrush br(Qt::TexturePattern);
+    br.setTextureImage(QImage(":/res/images/body.jpg"));
+    QPalette plt(palette());
+    plt.setBrush(QPalette::Background, br);
+    this->setPalette(plt);
     this->setWindowTitle("LAB2");
     current_date = QDate::currentDate();
     ui->date_text->setText(current_date.toString("dd/MM/yy"));//set current date on main window
@@ -28,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ctrl_plus_t = new QShortcut(this);
     ctrl_plus_t->setKey(Qt::CTRL+Qt::Key_T);
     connect(ctrl_plus_t,SIGNAL(activated()),this,SLOT(on_open_timer_button_clicked()));
+
+    connect(ui->actionNew_stopwatch,SIGNAL(triggered()),this,SLOT(on_open_stopwatch_button_clicked()));
+    connect(ui->actionNew_alarm_clock_2,SIGNAL(triggered()),this,SLOT(on_open_alarm_button_clicked()));
+    connect(ui->actionNew_timer,SIGNAL(triggered()),this,SLOT(on_open_timer_button_clicked()));
 }
 
 MainWindow::~MainWindow()
