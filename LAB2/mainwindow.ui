@@ -10,18 +10,48 @@
     <height>597</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>995</width>
+    <height>597</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>995</width>
+    <height>597</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="open_stopwatch_button">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>40</x>
       <y>30</y>
-      <width>141</width>
-      <height>71</height>
+      <width>211</width>
+      <height>81</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Algerian</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#26ff26;
+border-radius:30px;</string>
     </property>
     <property name="text">
      <string>Open new stopwatch</string>
@@ -30,11 +60,21 @@
    <widget class="QPushButton" name="open_alarm_button">
     <property name="geometry">
      <rect>
-      <x>420</x>
+      <x>380</x>
       <y>30</y>
-      <width>141</width>
-      <height>71</height>
+      <width>221</width>
+      <height>81</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Algerian</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#26ff26;
+border-radius:30px;</string>
     </property>
     <property name="text">
      <string>Open new alarm clock</string>
@@ -43,11 +83,23 @@
    <widget class="QPushButton" name="open_timer_button">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>710</x>
       <y>30</y>
-      <width>141</width>
-      <height>71</height>
+      <width>221</width>
+      <height>81</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Algerian</family>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#26ff26;
+border-radius:30px;</string>
     </property>
     <property name="text">
      <string>Open new timer</string>
@@ -80,6 +132,9 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
      <string>Time</string>
     </property>
@@ -87,11 +142,26 @@
    <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>510</y>
-      <width>93</width>
-      <height>28</height>
+      <x>10</x>
+      <y>520</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Papyrus</family>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+      <underline>false</underline>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:red;
+border-radius:20px;</string>
     </property>
     <property name="text">
      <string>Exit</string>
@@ -127,83 +197,143 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QPushButton" name="show_stopwatch_button">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>380</y>
-      <width>95</width>
-      <height>65</height>
+      <x>91</x>
+      <y>419</y>
+      <width>93</width>
+      <height>41</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QPushButton" name="delete_alarm_button">
-       <property name="text">
-        <string>Delete</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="show_alarm_button">
-       <property name="text">
-        <string>Show</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="font">
+     <font>
+      <family>Jokerman</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#ffe413;</string>
+    </property>
+    <property name="text">
+     <string>Show</string>
+    </property>
    </widget>
-   <widget class="QWidget" name="layoutWidget_2">
+   <widget class="QPushButton" name="delete_stopwatch_button">
+    <property name="geometry">
+     <rect>
+      <x>91</x>
+      <y>380</y>
+      <width>93</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Jokerman</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#ff685d;</string>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="show_alarm_button">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>419</y>
+      <width>93</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Jokerman</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#ffe413;</string>
+    </property>
+    <property name="text">
+     <string>Show</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="delete_alarm_button">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>380</y>
+      <width>93</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Jokerman</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#ff685d;</string>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="delete_timer_button">
     <property name="geometry">
      <rect>
       <x>780</x>
       <y>380</y>
-      <width>95</width>
-      <height>65</height>
+      <width>93</width>
+      <height>41</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QPushButton" name="delete_timer_button">
-       <property name="text">
-        <string>Delete</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="show_timer_button">
-       <property name="text">
-        <string>Show</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="font">
+     <font>
+      <family>Jokerman</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#ff685d;</string>
+    </property>
+    <property name="text">
+     <string>Delete</string>
+    </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QPushButton" name="show_timer_button">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>380</y>
-      <width>95</width>
-      <height>65</height>
+      <x>780</x>
+      <y>419</y>
+      <width>93</width>
+      <height>41</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="delete_stopwatch_button">
-       <property name="text">
-        <string>Delete</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="show_stopwatch_button">
-       <property name="text">
-        <string>Show</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="font">
+     <font>
+      <family>Jokerman</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#ffe413;</string>
+    </property>
+    <property name="text">
+     <string>Show</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

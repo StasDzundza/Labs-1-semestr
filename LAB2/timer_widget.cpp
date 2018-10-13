@@ -105,6 +105,7 @@ void timer_widget::OkClicked()
     time_left->setText("<center>Left to the signal : <\center>");
 
     start_stop->setText("Pause");
+    start_stop->setStyleSheet("background-color:#ff2b1c");
 
     reset->setText("Reset");
     connect(reset,SIGNAL(clicked()),this,SLOT(reset_clicked()));
@@ -147,6 +148,7 @@ void timer_widget::check_timer()
         }
         time_count->stop();
         start_stop->setText("Start");
+        start_stop->setStyleSheet("background-color:#89ff0b");
         time_left->setText("<center>Left to the signal : 00:00:00<\center>");
         time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(0);
         if(!do_not_distrub->isChecked())
@@ -176,12 +178,14 @@ void timer_widget::turn_off_on()
         time_count->stop();
         time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(time_on_stopwatch.msecsSinceStartOfDay()+QTime::currentTime().msecsSinceStartOfDay()- last_start.msecsSinceStartOfDay());
         start_stop->setText("Continue");
+        start_stop->setStyleSheet("background-color:#89ff0b");
     }
     else
     {
         last_start = QTime::currentTime();
         time_count->start(100);
         start_stop->setText("Pause");
+        start_stop->setStyleSheet("background-color:#ff2b1c");
     }
 }
 
@@ -189,6 +193,7 @@ void timer_widget::reset_clicked()
 {
     time_count->stop();
     start_stop->setText("Start");
+    start_stop->setStyleSheet("background-color:#89ff0b");
     time_left->setText("<center>Left to the signal : NONE<\center>");
     time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(0);
 }

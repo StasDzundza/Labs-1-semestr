@@ -81,7 +81,7 @@ alarm_clock::alarm_clock(QWidget *parent) :
     connect(ok,SIGNAL(clicked()),this,SLOT(OkClicked()));
     connect(hide,SIGNAL(clicked()),this,SLOT(on_hide_button_clicked()));
 }
-//int alarm_clock::clock_id = 0;
+
 QString change_from_12_to_24_format(const QString& time,const alarm_clock*clock)
 {
     if(clock->hour24->isChecked())
@@ -211,6 +211,7 @@ void alarm_clock::OkClicked()
     time_left->setText("<center>Left to the signal : <\center>");
 
     start_stop->setText("Turn off");
+    start_stop->setStyleSheet("background-color:#ff2b1c");
     connect(start_stop,SIGNAL(clicked()),this,SLOT(turn_off_on()));
 
 
@@ -338,6 +339,7 @@ void alarm_clock::check_alarm()
         }
         timer->stop();
         start_stop->setText("Turn on");
+        start_stop->setStyleSheet("background-color:#89ff0b");
         status->setText("<center>Status : Turned off<\center>");
         time_left->setText("<center>Left to the signal : Turned off<\center>");
         if(!do_not_distrub->isChecked())
@@ -386,6 +388,7 @@ void alarm_clock::turn_off_on()
     if(!timer->isActive())
     {
         start_stop->setText("Turn off");
+        start_stop->setStyleSheet("background-color:#ff2b1c");
         if(QTime::currentTime() < *alarm_time_Time)//new day is olready here
         {
             int remain_msec = QTime::currentTime().msecsTo(*alarm_time_Time);//find msec to alarm
@@ -415,6 +418,7 @@ void alarm_clock::turn_off_on()
     {
         timer->stop();
         start_stop->setText("Turn on");
+        start_stop->setStyleSheet("background-color:#89ff0b");
         time_left->setText("<center>Left to the signal : Turned off<\center>");
         status->setText("<center>Status : Turned off<\center>");
     }
