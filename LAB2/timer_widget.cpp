@@ -8,7 +8,7 @@ timer_widget::timer_widget(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Timer");
-    lbl = new QLabel("&Enter time for start Timer");//ampersant for hot key alt+E
+    lbl = new QLabel("<center>Enter time for start Timer</center> \n <center>(hh:mm:ss)</center>");
     line = new QLineEdit;
     lbl->setBuddy(line);//партнер
     QFont font;

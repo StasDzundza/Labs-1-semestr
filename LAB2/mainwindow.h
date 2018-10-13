@@ -10,6 +10,7 @@
 #include <QTimer>
 #include <QString>
 #include <QVector>
+#include <QShortcut>
 namespace Ui {
 class MainWindow;
 }
@@ -57,6 +58,10 @@ private:
     QVector<stopwatch*> stopwatch_vector;
     QVector<alarm_clock*> alarm_clock_vector;
     QVector<timer_widget*> timer_vector;
+
+    QShortcut *ctrl_plus_s;//new stopwatch
+    QShortcut *ctrl_plus_a;//new alarm clock
+    QShortcut *ctrl_plus_t;//new timer
 };
 
 

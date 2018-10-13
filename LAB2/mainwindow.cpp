@@ -16,21 +16,42 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->date_text->setText(current_date.toString("dd/MM/yy"));//set current date on main window
     connect(&current_time,SIGNAL(timeout()),this,SLOT(change_time()));
     current_time.start(1000);//every second we chande time on main window
+
+    ctrl_plus_s = new QShortcut(this);
+    ctrl_plus_s->setKey(Qt::CTRL+Qt::Key_S);
+    connect(ctrl_plus_s,SIGNAL(activated()),this,SLOT(on_open_stopwatch_button_clicked()));
+
+    ctrl_plus_a = new QShortcut(this);
+    ctrl_plus_a->setKey(Qt::CTRL+Qt::Key_A);
+    connect(ctrl_plus_a,SIGNAL(activated()),this,SLOT(on_open_alarm_button_clicked()));
+
+    ctrl_plus_t = new QShortcut(this);
+    ctrl_plus_t->setKey(Qt::CTRL+Qt::Key_T);
+    connect(ctrl_plus_t,SIGNAL(activated()),this,SLOT(on_open_timer_button_clicked()));
 }
 
 MainWindow::~MainWindow()
 {
     for(int i = 0; i < count_stopwatches;i++)
     {
+        stopwatch *tmp = stopwatch_vector[0];
+        delete tmp;
         stopwatch_vector.erase(stopwatch_vector.begin());
+        count_stopwatches--;
     }
     for(int i = 0; i < count_alarm_clocks;i++)
     {
+        alarm_clock *tmp = alarm_clock_vector[0];
+        delete tmp;
         alarm_clock_vector.erase(alarm_clock_vector.begin());
+        count_alarm_clocks--;
     }
     for(int i = 0; i < count_timers;i++)
     {
+        timer_widget*tmp = timer_vector[0];
+        delete tmp;
         timer_vector.erase(timer_vector.begin());
+        count_timers--;
     }
     delete ui;
 }

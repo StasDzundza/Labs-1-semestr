@@ -9,7 +9,7 @@ alarm_clock::alarm_clock(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("ALARM CLOCK");
-    lbl = new QLabel("<center>Enter time<\center>");
+    lbl = new QLabel("<center>Enter time<\center> \n <center>(hours:minutes)</center>");
 
     group_box_format = new QGroupBox;
     group_box_am_pm = new QGroupBox;
