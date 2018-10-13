@@ -133,7 +133,35 @@ void timer_widget::on_hide_button_clicked()
 
 void timer_widget::TextChanged(QString str)
 {
-    ok->setEnabled(!str.isEmpty());
+    if(str.size()!=8)//00:00:00
+    {
+        ok->setEnabled(false);
+    }
+    else
+    {
+        if(str[2]!=':'||str[5]!=':')//position of ':'
+        {
+            ok->setEnabled(false);
+        }
+        else
+        {
+            QString hours,minutes,seconds;
+            hours = (QString)str[0] + (QString)str[1];
+            int hh = hours.toInt();
+            minutes = (QString)str[3] + (QString)str[4];
+            int mm = minutes.toInt();
+            seconds = (QString)str[6] + (QString)str[7];
+            int ss = seconds.toInt();
+            if(hh>=0&&hh<=23&&mm>=0&&mm<=59&&ss>=0&&ss<=59)
+            {
+                ok->setEnabled(true);
+            }
+            else
+            {
+                ok->setEnabled(false);
+            }
+        }
+    }
 }
 
 void timer_widget::check_timer()
