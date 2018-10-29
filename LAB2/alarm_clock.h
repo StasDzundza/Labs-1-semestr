@@ -31,9 +31,10 @@ public:
     ~alarm_clock();
 
 friend QString change_from_12_to_24_format(const QString& time,const alarm_clock*clock);
-
+int get_id();
 signals:
 void my_textChanged(QString);
+void current_time_signal(const QString&str,alarm_clock*current_timer);
 
 private slots:
 void on_12_hours_clicked();
@@ -48,6 +49,8 @@ void replay_sound();
 
 private:
     Ui::alarm_clock *ui;
+    static int index;
+    int id;
     bool was_alarm = false;
     QGroupBox *group_box_format;
     QGroupBox *group_box_am_pm;

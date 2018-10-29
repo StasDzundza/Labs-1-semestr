@@ -15,6 +15,7 @@ class stopwatch : public QDialog
 public:
     explicit stopwatch(QWidget *parent = nullptr);
     ~stopwatch();
+    int get_id();
 private slots:
     void onTimer();
 
@@ -26,8 +27,13 @@ private slots:
 
     void on_lap_button_clicked();
 
+signals:
+void current_time_signal(const QString&str,stopwatch*current_timer);
+
 private:
     int count_laps = 0;
+    static int index;
+    int id;
     QTime last_lap = QTime::fromMSecsSinceStartOfDay(0);
     Ui::stopwatch *ui;
     bool running;

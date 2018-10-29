@@ -1,11 +1,14 @@
 #include "stopwatch.h"
 #include "ui_stopwatch.h"
 
+int stopwatch::index = 1;
 stopwatch::stopwatch(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::stopwatch)
 {
     ui->setupUi(this);
+    id = index;
+    index++;
     this->setWindowTitle("Stopwatch");
     running = false;
     timer.setInterval(20);//start always will be start(20)
@@ -18,11 +21,17 @@ stopwatch::~stopwatch()
     delete ui;
 }
 
+int stopwatch::get_id()
+{
+    return id;
+}
+
 void stopwatch::onTimer()
 {
     //we finding current time on stopwatch
     int ms = time_on_stopwatch.msecsSinceStartOfDay() + QTime::currentTime().msecsSinceStartOfDay() - last_start.msecsSinceStartOfDay();
     ui->time_text->setText(QTime::fromMSecsSinceStartOfDay(ms).toString("mm:ss:zzz"));
+    emit current_time_signal(QTime::fromMSecsSinceStartOfDay(ms).toString("mm:ss:zzz"),this);
 }
 
 void stopwatch::on_start_stop_clicked()
@@ -57,6 +66,7 @@ void stopwatch::on_Reset_clicked()
     ui->time_text->setStyleSheet("color:black");
     time_on_stopwatch = QTime::fromMSecsSinceStartOfDay(0);
     ui->lap_results->clear();
+    emit current_time_signal("00:00:000",this);
 
 }
 void stopwatch::on_hide_button_clicked()

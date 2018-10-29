@@ -39,9 +39,16 @@ private slots:
     void on_delete_alarm_button_clicked();
 
     void on_show_alarm_button_clicked();
+
     void on_delete_timer_button_clicked();
 
     void on_show_timer_button_clicked();
+
+    void change_text_in_timer_list(const QString& time,timer_widget*current_timer);
+
+    void change_text_in_alarm_list(const QString &time, alarm_clock *current_alarm);
+
+    void change_text_in_stopwatch_list(const QString &time, stopwatch *current_stopwatch);
 
 private:
 

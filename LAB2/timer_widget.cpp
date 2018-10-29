@@ -2,11 +2,16 @@
 #include "ui_timer_widget.h"
 #include<QMessageBox>
 #include<QDebug>
+
+int timer_widget::index = 1;
+
 timer_widget::timer_widget(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::timer_widget)
 {
     ui->setupUi(this);
+    id = index;
+    index++;
     this->setWindowTitle("Timer");
     lbl = new QLabel("<center>Enter time for start Timer</center> \n <center>(hh:mm:ss)</center>");
     line = new QLineEdit;
@@ -64,6 +69,11 @@ timer_widget::~timer_widget()
     delete alarm_sound;
     delete time_player;
     delete ui;
+}
+
+int timer_widget::get_id()
+{
+    return id;
 }
 
 void timer_widget::OkClicked()
@@ -139,26 +149,33 @@ void timer_widget::TextChanged(QString str)
     }
     else
     {
-        if(str[2]!=':'||str[5]!=':')//position of ':'
+        if(!str[0].isDigit()||!str[1].isDigit()||!str[3].isDigit()||!str[4].isDigit()||!str[6].isDigit()||!str[7].isDigit())
         {
             ok->setEnabled(false);
         }
         else
         {
-            QString hours,minutes,seconds;
-            hours = (QString)str[0] + (QString)str[1];
-            int hh = hours.toInt();
-            minutes = (QString)str[3] + (QString)str[4];
-            int mm = minutes.toInt();
-            seconds = (QString)str[6] + (QString)str[7];
-            int ss = seconds.toInt();
-            if(hh>=0&&hh<=23&&mm>=0&&mm<=59&&ss>=0&&ss<=59)
+            if(str[2]!=':'||str[5]!=':')//position of ':'
             {
-                ok->setEnabled(true);
+                ok->setEnabled(false);
             }
             else
             {
-                ok->setEnabled(false);
+                QString hours,minutes,seconds;
+                hours = (QString)str[0] + (QString)str[1];
+                int hh = hours.toInt();
+                minutes = (QString)str[3] + (QString)str[4];
+                int mm = minutes.toInt();
+                seconds = (QString)str[6] + (QString)str[7];
+                int ss = seconds.toInt();
+                if(hh>=0&&hh<=23&&mm>=0&&mm<=59&&ss>=0&&ss<=59)
+                {
+                    ok->setEnabled(true);
+                }
+                else
+                {
+                    ok->setEnabled(false);
+                }
             }
         }
     }
@@ -166,14 +183,18 @@ void timer_widget::TextChanged(QString str)
 
 void timer_widget::check_timer()
 {
+
     int on_stopwatch = time_on_stopwatch.msecsSinceStartOfDay() + QTime::currentTime().msecsSinceStartOfDay() - last_start.msecsSinceStartOfDay();
     QString time_on_sw_string = QTime::fromMSecsSinceStartOfDay(on_stopwatch).toString("hh:mm:ss");
+    int remine  = timer_time_msec-on_stopwatch;
+    emit current_time_signal(QTime::fromMSecsSinceStartOfDay(remine).toString("hh:mm:ss"),this);
     if(time_on_sw_string == alarm_time_text)
     {
         if(!this->isVisible())
         {
             this->setVisible(true);
         }
+        emit current_time_signal("Time Out",this);
         time_count->stop();
         start_stop->setText("Start");
         start_stop->setStyleSheet("background-color:#89ff0b");
@@ -185,7 +206,7 @@ void timer_widget::check_timer()
             time_player->start(11000);
 
             QMessageBox::StandardButton answer = QMessageBox::information(this,"Timer","TIME OUT",QMessageBox::Close);
-            if(answer = QMessageBox::Close)
+            if(answer == QMessageBox::Close)
             {
                 alarm_sound->stop();
                 time_player->stop();
@@ -194,11 +215,11 @@ void timer_widget::check_timer()
     }
     else
     {
-        int remine  = timer_time_msec-on_stopwatch;
+        remine  = timer_time_msec-on_stopwatch;
         time_left->setText("<center>Left to the signal : <\center>" + QTime::fromMSecsSinceStartOfDay(remine).toString("hh:mm:ss") );
-
     }
 }
+
 void timer_widget::turn_off_on()
 {
     if(time_count->isActive())
@@ -219,6 +240,7 @@ void timer_widget::turn_off_on()
 
 void timer_widget::reset_clicked()
 {
+    emit current_time_signal("00:00:00",this);
     time_count->stop();
     start_stop->setText("Start");
     start_stop->setStyleSheet("background-color:#89ff0b");

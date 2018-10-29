@@ -22,6 +22,7 @@ class timer_widget : public QDialog
 public:
     explicit timer_widget(QWidget *parent = nullptr);
     ~timer_widget();
+    int get_id();
 private slots:
 void OkClicked();
 void on_hide_button_clicked();
@@ -30,9 +31,12 @@ void check_timer();
 void turn_off_on();
 void reset_clicked();
 void replay_sound();
+signals:
+void current_time_signal(const QString&str,timer_widget*current_timer);
 private:
     Ui::timer_widget *ui;
-
+    static int index;
+    int id;
     int timer_time_msec = 0;
     QVBoxLayout*layout;
     QVBoxLayout*main;

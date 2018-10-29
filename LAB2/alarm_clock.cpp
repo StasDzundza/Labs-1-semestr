@@ -3,11 +3,17 @@
 #include<QFont>
 #include<QMessageBox>
 #include<QDebug>
+#include<cctype>
+
+int alarm_clock::index = 1;
+
 alarm_clock::alarm_clock(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::alarm_clock)
 {
     ui->setupUi(this);
+    id = index;
+    index++;
     this->setWindowTitle("ALARM CLOCK");
     lbl = new QLabel("<center>Enter time<\center> \n <center>(hours:minutes)</center>");
 
@@ -154,6 +160,11 @@ alarm_clock::~alarm_clock()
 
 }
 
+int alarm_clock::get_id()
+{
+    return id;
+}
+
 void alarm_clock::on_12_hours_clicked()
 {
     emit my_textChanged(line->text());
@@ -244,25 +255,32 @@ void alarm_clock::TextChanged(QString str)
         }
         else
         {
-            if(str[2]!=':')
+            if(!str[0].isDigit()||!str[1].isDigit()||!str[3].isDigit()||!str[4].isDigit())
             {
                 ok->setEnabled(false);
             }
             else
             {
-                QString h1,h2;
-                h1 = str[0];h2 = str[1];
-                int hh = h1.toInt()*10+h2.toInt();
-                QString m1,m2;
-                m1 = str[3];m2 = str[4];
-                int mm = m1.toInt()*10+m2.toInt();
-                if(hh >=0 && hh<24 && mm>=0&&mm<60)
+                if(str[2]!=':')
                 {
-                    ok->setEnabled(true);
+                    ok->setEnabled(false);
                 }
                 else
                 {
-                    ok->setEnabled(false);
+                    QString h1,h2;
+                    h1 = str[0];h2 = str[1];
+                    int hh = h1.toInt()*10+h2.toInt();
+                    QString m1,m2;
+                    m1 = str[3];m2 = str[4];
+                    int mm = m1.toInt()*10+m2.toInt();
+                    if(hh >=0 && hh<24 && mm>=0&&mm<60)
+                    {
+                        ok->setEnabled(true);
+                    }
+                    else
+                    {
+                        ok->setEnabled(false);
+                    }
                 }
             }
         }
@@ -277,49 +295,63 @@ void alarm_clock::TextChanged(QString str)
         {
             if(str.size() == 5)//12:00
             {
-                if(str[2]!=':' || str[0] == '0')
+                if(!str[0].isDigit()||!str[1].isDigit()||!str[3].isDigit()||!str[4].isDigit())
                 {
                     ok->setEnabled(false);
                 }
                 else
                 {
-                    QString h1,h2;
-                    h1 = str[0];h2 = str[1];
-                    int hh = h1.toInt()*10+h2.toInt();
-                    QString m1,m2;
-                    m1 = str[3];m2 = str[4];
-                    int mm = m1.toInt()*10+m2.toInt();
-                    if(hh >=1 && hh<=12 && mm>=0&&mm<60)
+                    if(str[2]!=':' || str[0] == '0')
                     {
-                        ok->setEnabled(true);
+                        ok->setEnabled(false);
                     }
                     else
                     {
-                        ok->setEnabled(false);
+                        QString h1,h2;
+                        h1 = str[0];h2 = str[1];
+                        int hh = h1.toInt()*10+h2.toInt();
+                        QString m1,m2;
+                        m1 = str[3];m2 = str[4];
+                        int mm = m1.toInt()*10+m2.toInt();
+                        if(hh >=1 && hh<=12 && mm>=0&&mm<60)
+                        {
+                            ok->setEnabled(true);
+                        }
+                        else
+                        {
+                            ok->setEnabled(false);
+                        }
                     }
                 }
             }
             else if(str.size()==4)//1:00
             {
-                if(str[1]!=':')
+                if(!str[0].isDigit()||!str[2].isDigit()||!str[3].isDigit())
                 {
                     ok->setEnabled(false);
                 }
                 else
                 {
-                    QString h1;
-                    h1 = str[0];
-                    int hh = h1.toInt();
-                    QString m1,m2;
-                    m1 = str[2];m2 = str[3];
-                    int mm = m1.toInt()*10+m2.toInt();
-                    if(hh >=1 && hh<=9 && mm>=0&&mm<60)
+                    if(str[1]!=':')
                     {
-                        ok->setEnabled(true);
+                        ok->setEnabled(false);
                     }
                     else
                     {
-                        ok->setEnabled(false);
+                        QString h1;
+                        h1 = str[0];
+                        int hh = h1.toInt();
+                        QString m1,m2;
+                        m1 = str[2];m2 = str[3];
+                        int mm = m1.toInt()*10+m2.toInt();
+                        if(hh >=1 && hh<=9 && mm>=0&&mm<60)
+                        {
+                            ok->setEnabled(true);
+                        }
+                        else
+                        {
+                            ok->setEnabled(false);
+                        }
                     }
                 }
             }
@@ -332,6 +364,7 @@ void alarm_clock::check_alarm()
     QString current_time = QTime::currentTime().toString("hh:mm:ss");
     if(current_time == alarm_time_text)
     {
+        emit current_time_signal("Turned Off",this);
         was_alarm = true;
         if(!this->isVisible())
         {
@@ -360,6 +393,7 @@ void alarm_clock::check_alarm()
         int remain_msec = QTime::currentTime().msecsTo(*alarm_time_Time);//find msec to alarm
         QTime remaining_time = QTime::fromMSecsSinceStartOfDay(remain_msec);//convert to Qtime
         time_left->setText("<center>Left to the signal : <\center>" + remaining_time.toString("hh:mm:ss"));//set on label time_left
+        emit current_time_signal(remaining_time.toString("hh:mm:ss"),this);
     }
 
 }
@@ -380,6 +414,7 @@ void alarm_clock::check_alarm_on_other_day()
         int remain_msec = QTime::currentTime().msecsTo(ms_to_23_59) + ms_00_00.msecsTo(*alarm_time_Time) ;//finding msec to alarm
         QTime remaining_time = QTime::fromMSecsSinceStartOfDay(remain_msec);//convert to Qtime
         time_left->setText("<center>Left to the signal : <\center>" + remaining_time.toString("hh:mm:ss"));//set on label time_left
+        emit current_time_signal(remaining_time.toString("hh:mm:ss"),this);
     }
 }
 
@@ -421,6 +456,7 @@ void alarm_clock::turn_off_on()
         start_stop->setStyleSheet("background-color:#89ff0b");
         time_left->setText("<center>Left to the signal : Turned off<\center>");
         status->setText("<center>Status : Turned off<\center>");
+        emit current_time_signal("Turned Off",this);
     }
 }
 
@@ -428,4 +464,5 @@ void alarm_clock::replay_sound()
 {
     alarm_sound->play();
 }
+
 
