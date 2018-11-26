@@ -15,7 +15,7 @@ alarm_clock::alarm_clock(QWidget *parent) :
     id = index;
     index++;
     this->setWindowTitle("ALARM CLOCK");
-    lbl = new QLabel("<center>Enter time<\center> \n <center>(hours:minutes)</center>");
+    lbl = new QLabel("<center>Enter time</center> \n <center>(hours:minutes)</center>");
 
     group_box_format = new QGroupBox;
     group_box_am_pm = new QGroupBox;
@@ -183,17 +183,17 @@ void alarm_clock::OkClicked()
     *alarm_time_Time = QTime::fromString(alarm_time_text, "hh:mm:ss");//take Qtime object from string
     if(hour24->isChecked())
     {
-        lbl->setText("<center>Alarm will start at <\center>" + alarm_time_text);
+        lbl->setText("<center>Alarm will start at </center>" + alarm_time_text);
     }
     else
     {
         if(am->isChecked())
         {
-            lbl->setText("<center>Alarm will start at <\center>" + line->text() + " am");
+            lbl->setText("<center>Alarm will start at </center>" + line->text() + " am");
         }
         else if(pm->isChecked())
         {
-            lbl->setText("<center>Alarm will start at <\center>" + line->text() + " pm");
+            lbl->setText("<center>Alarm will start at </center>" + line->text() + " pm");
         }
     }
     disconnect(line,SIGNAL(textChanged(QString)),this,SLOT(TextChanged(QString)));

@@ -3,7 +3,7 @@
 int main()
 {
 	VideoEditor myVideo;
-	myVideo.track_red_color_objects();
+	myVideo.track_different_colors_in_hsv();
 
 	return 0;
 }
