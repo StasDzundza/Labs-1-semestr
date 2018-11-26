@@ -95,5 +95,6 @@ int PhotoEditor::display_dst(int delay)
 	imshow(window_name, dst);
 	int c = waitKey(delay);
 	if (c >= 0) { return -1; }//if anyone key has been pressed,program execution breaks;
+	imwrite(path + std::to_string(++count_changed_images) + ".jpg", dst);
 	return 0;
 }
