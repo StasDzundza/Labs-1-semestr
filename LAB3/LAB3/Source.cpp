@@ -6,6 +6,6 @@ int main()
 	VideoEditor myVideo;
 	PhotoEditor myPhoto;
 	//myVideo.track_different_colors_in_hsv();
-	myPhoto.show_image_in_3_colors("bob.jpg");
+	myVideo.camera_with_different_effects();
 	return 0;
 }

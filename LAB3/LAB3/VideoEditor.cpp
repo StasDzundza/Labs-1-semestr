@@ -127,3 +127,67 @@ void VideoEditor::track_red_color_objects()
 		}
 	}
 }
+
+void VideoEditor::camera_with_different_effects()
+{
+	namedWindow("Control", CV_WINDOW_KEEPRATIO); //create a window called "Control"
+	int Color = 1;
+	cvCreateTrackbar("Color", "Control", &Color, 3);
+	VideoCapture cap(0); //capture the video from web cam
+
+	if (!cap.isOpened())  // if not success, exit program
+	{
+		cout << "Cannot open the web cam" << endl;
+		throw std::exception("Cannot open the web cam");
+	}
+
+	namedWindow("Original Window", CV_WINDOW_AUTOSIZE);
+	namedWindow("Changed Window", CV_WINDOW_AUTOSIZE);
+	cout << "Press \"Esc\" to exit" << endl;
+	while (true)
+	{
+		Mat OriginalImg;
+
+		bool ReadIsSuccess = cap.read(OriginalImg); // read a new frame from video
+		imshow("Original Window", OriginalImg);
+
+		if (!ReadIsSuccess) //if not success, break loop
+		{
+			cout << "Cannot read a frame from video stream" << endl;
+			break;
+		}
+
+		Mat ChangedImg;
+		if (Color == 0)
+		{
+			Canny(OriginalImg, ChangedImg, 10, 100, 3, true);
+		}
+		else if (Color == 1)
+		{
+			Mat splitChannels[3];
+			split(OriginalImg, splitChannels);
+			splitChannels[0] = Mat::zeros(splitChannels[0].size(), CV_8UC1);
+			merge(splitChannels, 3, ChangedImg);
+		}
+		else if (Color == 2)
+		{
+			Mat splitChannels[3];
+			split(OriginalImg, splitChannels);
+			splitChannels[1] = Mat::zeros(splitChannels[1].size(), CV_8UC1);
+			merge(splitChannels, 3, ChangedImg);
+		}
+		else if (Color == 3)
+		{
+			Mat splitChannels[3];
+			split(OriginalImg, splitChannels);
+			splitChannels[1] = Mat::zeros(splitChannels[1].size(), CV_8UC1);
+			merge(splitChannels, 3, ChangedImg);
+		}
+		imshow("Changed Window", ChangedImg);
+		if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+		{
+			cout << "esc key is pressed by user" << endl;
+			break;
+		}
+	}
+}
