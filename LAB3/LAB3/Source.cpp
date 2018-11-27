@@ -6,7 +6,7 @@ int main()
 {
 	VideoEditor myVideo;
 	PhotoEditor myPhoto;
-	
-	myVideo.track_different_colors_and_show_trajectory(color::blue);
+	//myPhoto.what_is_color("green_ball.jpg");
+	myVideo.track_objects_by_web_cam();
 	return 0;
 }

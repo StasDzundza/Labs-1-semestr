@@ -1,7 +1,7 @@
 #include "PhotoEditor.h"
 #include <iostream>
 #include <exception>
-
+#include <algorithm>    // std::max
 using std::cout;
 using std::cin;
 using std::endl;
@@ -149,6 +149,51 @@ void PhotoEditor::show_image_in_3_colors(const char * path)
 	show_color_by_index(2);//blue
 	dst = src.clone();//Creates a full copy of the src and the underlying data
 
+}
+
+void PhotoEditor::what_is_color(const char * path)
+{
+	Mat image = imread(path);
+	namedWindow("image", CV_WINDOW_AUTOSIZE);
+	imshow("image", image);
+	waitKey(0);
+	//Get The red color
+	Mat outputImage;
+	inRange(image, Scalar(10, 10, 100), Scalar(100, 100, 255), outputImage);
+	//Get the blue color
+	Mat outputImage2;
+	inRange(image, Scalar(100, 10, 10), Scalar(255, 100, 100), outputImage2);
+	//Get the green color
+	Mat outputImage3;
+	inRange(image, Scalar(10, 100, 10), Scalar(100, 255, 100), outputImage3);
+
+	
+	int red, green, blue;
+	red = countNonZero(outputImage);
+	blue = countNonZero(outputImage2);
+	green = countNonZero(outputImage3);
+	int max = std::max(std::max(red, blue), green);
+	if (max == red)
+	{
+		cout << "Object is red";
+		namedWindow("Output", CV_WINDOW_AUTOSIZE);
+		imshow("Output", outputImage);
+		waitKey(0);
+	}
+	if (max == blue)
+	{
+		cout << "Object is blue";
+		namedWindow("Output", CV_WINDOW_AUTOSIZE);
+		imshow("Output", outputImage2);
+		waitKey(0);
+	}
+	if (max == green)
+	{
+		cout << "Object is green";
+		namedWindow("Output", CV_WINDOW_AUTOSIZE);
+		imshow("Output", outputImage3);
+		waitKey(0);
+	}
 }
 //This method shows text before changed image
 int PhotoEditor::display_caption(const char * caption)
