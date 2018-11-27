@@ -1,8 +1,6 @@
 #include "VideoEditor.h"
 #include <iostream>
 #include <exception>
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
 
 using namespace cv; 
 using std::cout;
@@ -357,6 +355,96 @@ void VideoEditor::record_video(string save_path)
 		case 114://pressed r (pause or rec)
 			recording = !recording;
 			break;
+		}
+	}
+}
+
+void VideoEditor::track_objects_by_web_cam()
+{
+	//some boolean variables for different functionality within this
+	//program
+	bool trackObjects = true;
+	bool useMorphOps = true;
+	calibrationMode = true;
+	//Matrix to store each frame of the webcam feed
+	Mat cameraFeed;
+	//matrix storage for HSV image
+	Mat HSV;
+	//matrix storage for binary threshold image
+	Mat threshold;
+	//x and y values for the location of the object
+	int x = 0, y = 0;
+	//video capture object to acquire webcam feed
+	VideoCapture capture;
+	//open capture object at location zero (default location for webcam)
+	capture.open(0);
+	//set height and width of capture frame
+	capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
+	capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
+	//must create a window before setting mouse callback
+	cv::namedWindow(windowName);
+	//set mouse callback function to be active on "Webcam Feed" window
+	//we pass the handle to our "frame" matrix so that we can draw a rectangle to it
+	//as the user clicks and drags the mouse
+	cv::setMouseCallback(windowName, clickAndDrag_Rectangle, &cameraFeed);
+	//initiate mouse move and drag to false 
+	mouseIsDragging = false;
+	mouseMove = false;
+	rectangleSelected = false;
+
+	//start an infinite loop where webcam feed is copied to cameraFeed matrix
+	//all of our operations will be performed within this loop
+	while (1)
+	{
+
+	}
+}
+
+void clickAndDrag_Rectangle(int event, int x, int y, int flags, void * param)
+{
+	//only if calibration mode is true will we use the mouse to change HSV values
+	if (calibrationMode == true)
+	{
+		//get handle to video feed passed in as "param" and cast as Mat pointer
+		Mat* videoFeed = (Mat*)param;
+
+		if (event == CV_EVENT_LBUTTONDOWN && mouseIsDragging == false)
+		{
+			//keep track of initial point clicked
+			initialClickPoint = Point(x, y);
+			//user has begun dragging the mouse
+			mouseIsDragging = true;
+		}
+		/* user is dragging the mouse */
+		if (event == CV_EVENT_MOUSEMOVE && mouseIsDragging == true)
+		{
+			//keep track of current mouse point
+			currentMousePoint = Point(x, y);
+			//user has moved the mouse while clicking and dragging
+			mouseMove = true;
+		}
+		/* user has released left button */
+		if (event == CV_EVENT_LBUTTONUP && mouseIsDragging == true)
+		{
+			//set rectangle ROI to the rectangle that the user has selected
+			rectangleROI = Rect(initialClickPoint, currentMousePoint);
+			//reset boolean variables
+			mouseIsDragging = false;
+			mouseMove = false;
+			rectangleSelected = true;
+		}
+
+		if (event == CV_EVENT_RBUTTONDOWN) 
+		{
+			//user has clicked right mouse button
+			//Reset HSV Values
+			H_MIN = 0;
+			S_MIN = 0;
+			V_MIN = 0;
+			H_MAX = 255;
+			S_MAX = 255;
+			V_MAX = 255;
+
 		}
 	}
 }
