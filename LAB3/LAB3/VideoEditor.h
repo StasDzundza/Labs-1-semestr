@@ -57,6 +57,8 @@ private:
 	//functions for void track_objects_by_web_cam();
 	void recordHSV_values(Mat frame, Mat hsv_frame);
 	void morph_ops(Mat &thresh);
+	void track_filtered_object(int &x, int &y, Mat threshold, Mat &cameraFeed);
+	void draw_object(int x, int y, Mat &frame);
 };
 
 //functions for void track_objects_by_web_cam();

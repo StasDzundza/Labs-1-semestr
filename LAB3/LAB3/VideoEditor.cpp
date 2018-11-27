@@ -411,6 +411,10 @@ void VideoEditor::track_objects_by_web_cam()
 		//pass in thresholded frame to our object tracking function
 		//this function will return the x and y coordinates of the
 		//filtered object
+		if (trackObjects)
+		{
+			track_filtered_object(x, y, threshold, cameraFeed);
+		}
 	}
 }
 
@@ -482,6 +486,85 @@ void VideoEditor::morph_ops(Mat & thresh)
 	dilate(thresh, thresh, getStructuringElement(MORPH_RECT, Size(8, 8)));
 	dilate(thresh, thresh, getStructuringElement(MORPH_RECT, Size(8, 8)));
 
+}
+
+void VideoEditor::draw_object(int x, int y, Mat & frame)
+{
+	//use some of the openCV drawing functions to draw crosshairs tracked on image
+
+	//if and else statements to prevent memory errors from writing off the screen : for example(-25,-25) is not within the window
+
+	circle(frame, Point(x, y), 20, Scalar(0, 255, 0), 2);//BRG!!!
+	if (y - 25 > 0)
+		line(frame, Point(x, y), Point(x, y - 25), Scalar(0, 255, 0), 2);
+	else line(frame, Point(x, y), Point(x, 0), Scalar(0, 255, 0), 2);
+	if (y + 25 < FRAME_HEIGHT)
+		line(frame, Point(x, y), Point(x, y + 25), Scalar(0, 255, 0), 2);
+	else line(frame, Point(x, y), Point(x, FRAME_HEIGHT), Scalar(0, 255, 0), 2);
+	if (x - 25 > 0)
+		line(frame, Point(x, y), Point(x - 25, y), Scalar(0, 255, 0), 2);
+	else line(frame, Point(x, y), Point(0, y), Scalar(0, 255, 0), 2);
+	if (x + 25 < FRAME_WIDTH)
+		line(frame, Point(x, y), Point(x + 25, y), Scalar(0, 255, 0), 2);
+	else line(frame, Point(x, y), Point(FRAME_WIDTH, y), Scalar(0, 255, 0), 2);
+
+	putText(frame, std::to_string(x) + "," + std::to_string(y), Point(x, y + 30), 1, 1, Scalar(0, 255, 0), 2);
+}
+
+void VideoEditor::track_filtered_object(int & x, int & y, Mat threshold, Mat & cameraFeed)
+{
+	Mat temp;
+	threshold.copyTo(temp);
+	//these two vectors needed for output of findContours
+	vector< vector<Point> > contours;
+	vector<Vec4i> hierarchy;
+	//find contours of filtered image using openCV findContours function
+	findContours(temp, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+	//use moments method to find our filtered object
+	double refArea = 0;
+	int largestIndex = 0;
+	bool objectFound = false;
+	if (hierarchy.size() > 0) {
+		int numObjects = hierarchy.size();
+		//if number of objects greater than MAX_NUM_OBJECTS we have a noisy filter
+		if (numObjects < MAX_NUM_OBJECTS) 
+		{
+			for (int index = 0; index >= 0; index = hierarchy[index][0]) 
+			{
+
+				Moments moment = moments((cv::Mat)contours[index]);
+				double area = moment.m00;
+
+				//if the area is less than 20 px by 20px then it is probably just noise
+				//if the area is the same as the 3/2 of the image size, probably just a bad filter
+				//we only want the object with the largest area so we save a reference area each
+				//iteration and compare it to the area in the next iteration.
+				if (area > MIN_OBJECT_AREA && area<MAX_OBJECT_AREA && area>refArea) 
+				{
+					x = moment.m10 / area;
+					y = moment.m01 / area;
+					objectFound = true;
+					refArea = area;
+					//save index of largest contour to use with drawContours
+					largestIndex = index;
+				}
+				else objectFound = false;
+			}
+			//let user know you found an object
+			if (objectFound == true)
+			{
+				putText(cameraFeed, "Tracking Object", Point(0, 50), 2, 1, Scalar(0, 255, 0), 2);
+				//draw object location on screen
+
+				draw_object(x, y, cameraFeed); //this function draws green circle in the center of the object
+
+				//draw largest contour
+				//drawContours(cameraFeed, contours, largestIndex, Scalar(0, 255, 255), 2);
+			}
+
+		}
+		else putText(cameraFeed, "TOO MUCH NOISE! ADJUST FILTER", Point(0, 50), 1, 2, Scalar(0, 0, 255), 2);
+	}
 }
 
 void clickAndDrag_Rectangle(int event, int x, int y, int flags, void * param)
