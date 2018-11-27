@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "VideoEditor.h"
 #include <iostream>
 #include <exception>
@@ -6,6 +7,7 @@ using namespace cv;
 using std::cout;
 using std::cin;
 using std::endl;
+VideoEditor*video_editor;
 
 VideoEditor::VideoEditor()
 {
@@ -361,6 +363,7 @@ void VideoEditor::record_video(string save_path)
 
 void VideoEditor::track_objects_by_web_cam()
 {
+	video_editor = this;
 	//some boolean variables for different functionality within this program
 	bool trackObjects = true;
 	bool useMorphOps = true;
@@ -369,30 +372,27 @@ void VideoEditor::track_objects_by_web_cam()
 	Mat cameraFeed;
 	//matrix storage for HSV image
 	Mat HSV;
-	//matrix storage for binary threshold image
+	//matrix storage for threshold image
 	Mat threshold;
 	//x and y values for the location of the object
 	int x = 0, y = 0;
 	//video capture object to acquire webcam feed
-	VideoCapture capture;
-	//open capture object at location zero (default location for webcam)
-	capture.open(0);
+	VideoCapture capture(0);
 	//set height and width of capture frame
 	capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
 	capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
-	//must create a window before setting mouse callback
+	
 	namedWindow(windowName);
 	//set mouse callback function to be active on "Webcam Feed" window
 	//we pass the handle to our "frame" matrix so that we can draw a rectangle to it
 	//as the user clicks and drags the mouse
-	setMouseCallback(windowName, clickAndDrag_Rectangle, &cameraFeed);
+	setMouseCallback(windowName, click_and_drag_rectangle, &cameraFeed);//such as signal and slot in Qt
 	//initiate mouse move and drag to false 
 	mouseIsDragging = false;
 	mouseMove = false;
 	rectangleSelected = false;
 
 	//start an infinite loop where webcam feed is copied to cameraFeed matrix
-	//all of our operations will be performed within this loop
 	while (1)
 	{
 		//store image to matrix
@@ -415,6 +415,26 @@ void VideoEditor::track_objects_by_web_cam()
 		{
 			track_filtered_object(x, y, threshold, cameraFeed);
 		}
+		//show frames 
+		if (calibrationMode == true) 
+		{
+			//create slider bars for HSV
+			//we create trackbars for changing tracking object
+			create_trackbars();
+			//imshow(windowName1, HSV);
+			imshow(windowName2, threshold);
+		}
+		else
+		{
+			//destroyWindow(windowName1);
+			destroyWindow(windowName2);
+			destroyWindow(trackbarWindowName);
+		}
+		imshow(windowName, cameraFeed);
+		//delay 30ms so that screen can refresh.
+		//image will not appear without this waitKey() command
+		//also use waitKey command to capture keyboard input
+		if (waitKey(30) == 99) calibrationMode = !calibrationMode;//if user presses 'c', toggle calibration mode
 	}
 }
 
@@ -511,20 +531,45 @@ void VideoEditor::draw_object(int x, int y, Mat & frame)
 	putText(frame, std::to_string(x) + "," + std::to_string(y), Point(x, y + 30), 1, 1, Scalar(0, 255, 0), 2);
 }
 
+void VideoEditor::create_trackbars()
+{
+	//create window for trackbars
+	namedWindow(trackbarWindowName, CV_WINDOW_AUTOSIZE);
+	//create memory to store trackbar name on window
+	char TrackbarName[50];
+	sprintf(TrackbarName, "H_MIN", H_MIN);
+	sprintf(TrackbarName, "H_MAX", H_MAX);
+	sprintf(TrackbarName, "S_MIN", S_MIN);
+	sprintf(TrackbarName, "S_MAX", S_MAX);
+	sprintf(TrackbarName, "V_MIN", V_MIN);
+	sprintf(TrackbarName, "V_MAX", V_MAX);
+	//create trackbars and insert them into window
+	//3 parameters are: the address of the variable that is changing when the trackbar is moved(eg.H_LOW),
+	//the max value the trackbar can move (eg. H_HIGH), 
+	//and the function that is called whenever the trackbar is moved(eg. on_trackbar)
+	//                                  ---->    ---->     ---->      
+	createTrackbar("H_MIN", trackbarWindowName, &H_MIN, 255);
+	createTrackbar("H_MAX", trackbarWindowName, &H_MAX, 255);
+	createTrackbar("S_MIN", trackbarWindowName, &S_MIN, 255);
+	createTrackbar("S_MAX", trackbarWindowName, &S_MAX, 255);
+	createTrackbar("V_MIN", trackbarWindowName, &V_MIN, 255);
+	createTrackbar("V_MAX", trackbarWindowName, &V_MAX, 255);
+}
+
 void VideoEditor::track_filtered_object(int & x, int & y, Mat threshold, Mat & cameraFeed)
 {
 	Mat temp;
 	threshold.copyTo(temp);
 	//these two vectors needed for output of findContours
-	vector< vector<Point> > contours;
+	vector<vector<Point>> contours;
 	vector<Vec4i> hierarchy;
 	//find contours of filtered image using openCV findContours function
 	findContours(temp, contours, hierarchy, CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
 	//use moments method to find our filtered object
 	double refArea = 0;
-	int largestIndex = 0;
 	bool objectFound = false;
-	if (hierarchy.size() > 0) {
+	if (hierarchy.size() > 0) 
+	{
 		int numObjects = hierarchy.size();
 		//if number of objects greater than MAX_NUM_OBJECTS we have a noisy filter
 		if (numObjects < MAX_NUM_OBJECTS) 
@@ -532,7 +577,7 @@ void VideoEditor::track_filtered_object(int & x, int & y, Mat threshold, Mat & c
 			for (int index = 0; index >= 0; index = hierarchy[index][0]) 
 			{
 
-				Moments moment = moments((cv::Mat)contours[index]);
+				Moments moment = moments((Mat)contours[index]);
 				double area = moment.m00;
 
 				//if the area is less than 20 px by 20px then it is probably just noise
@@ -545,8 +590,6 @@ void VideoEditor::track_filtered_object(int & x, int & y, Mat threshold, Mat & c
 					y = moment.m01 / area;
 					objectFound = true;
 					refArea = area;
-					//save index of largest contour to use with drawContours
-					largestIndex = index;
 				}
 				else objectFound = false;
 			}
@@ -557,9 +600,6 @@ void VideoEditor::track_filtered_object(int & x, int & y, Mat threshold, Mat & c
 				//draw object location on screen
 
 				draw_object(x, y, cameraFeed); //this function draws green circle in the center of the object
-
-				//draw largest contour
-				//drawContours(cameraFeed, contours, largestIndex, Scalar(0, 255, 255), 2);
 			}
 
 		}
@@ -567,51 +607,50 @@ void VideoEditor::track_filtered_object(int & x, int & y, Mat threshold, Mat & c
 	}
 }
 
-void clickAndDrag_Rectangle(int event, int x, int y, int flags, void * param)
+void click_and_drag_rectangle(int event, int x, int y, int flags, void * param)
 {
 	//only if calibration mode is true will we use the mouse to change HSV values
-	if (calibrationMode == true)
+	if (video_editor->calibrationMode == true)
 	{
 		//get handle to video feed passed in as "param" and cast as Mat pointer
 		Mat* videoFeed = (Mat*)param;
 
-		if (event == CV_EVENT_LBUTTONDOWN && mouseIsDragging == false)
+		if (event == CV_EVENT_LBUTTONDOWN && video_editor->mouseIsDragging == false)
 		{
 			//keep track of initial point clicked
-			initialClickPoint = Point(x, y);
+			video_editor->initialClickPoint = Point(x, y);
 			//user has begun dragging the mouse
-			mouseIsDragging = true;
+			video_editor->mouseIsDragging = true;
 		}
 		/* user is dragging the mouse */
-		if (event == CV_EVENT_MOUSEMOVE && mouseIsDragging == true)
+		if (event == CV_EVENT_MOUSEMOVE && video_editor->mouseIsDragging == true)
 		{
 			//keep track of current mouse point
-			currentMousePoint = Point(x, y);
+			video_editor->currentMousePoint = Point(x, y);
 			//user has moved the mouse while clicking and dragging
-			mouseMove = true;
+			video_editor->mouseMove = true;
 		}
 		/* user has released left button */
-		if (event == CV_EVENT_LBUTTONUP && mouseIsDragging == true)
+		if (event == CV_EVENT_LBUTTONUP && video_editor->mouseIsDragging == true)
 		{
 			//set rectangle ROI to the rectangle that the user has selected
-			rectangleROI = Rect(initialClickPoint, currentMousePoint);
+			video_editor->rectangleROI = Rect(video_editor->initialClickPoint, video_editor->currentMousePoint);
 			//reset boolean variables
-			mouseIsDragging = false;
-			mouseMove = false;
-			rectangleSelected = true;
+			video_editor->mouseIsDragging = false;
+			video_editor->mouseMove = false;
+			video_editor->rectangleSelected = true;
 		}
 
 		if (event == CV_EVENT_RBUTTONDOWN) 
 		{
 			//user has clicked right mouse button
 			//Reset HSV Values
-			H_MIN = 0;
-			S_MIN = 0;
-			V_MIN = 0;
-			H_MAX = 255;
-			S_MAX = 255;
-			V_MAX = 255;
-
+			video_editor->H_MIN = 0;
+			video_editor->S_MIN = 0;
+			video_editor->V_MIN = 0;
+			video_editor->H_MAX = 255;
+			video_editor->S_MAX = 255;
+			video_editor->V_MAX = 255;
 		}
 	}
 }

@@ -51,7 +51,7 @@ private:
 	bool rectangleSelected;
 	Point initialClickPoint, currentMousePoint; //keep track of initial point clicked and current position of mouse
 	Rect rectangleROI; //this is the ROI that the user has selected
-	vector<int> H_ROI, S_ROI, V_ROI;// HSV values from the click/drag ROI region stored in separate vectors so that we can sort them easily
+	vector<int> H_ROI, S_ROI, V_ROI;// ROI is the region of interest
 	
 
 	//functions for void track_objects_by_web_cam();
@@ -59,7 +59,9 @@ private:
 	void morph_ops(Mat &thresh);
 	void track_filtered_object(int &x, int &y, Mat threshold, Mat &cameraFeed);
 	void draw_object(int x, int y, Mat &frame);
+	void create_trackbars();
+	friend void click_and_drag_rectangle(int event, int x, int y, int flags, void * param);
 };
 
 //functions for void track_objects_by_web_cam();
-void clickAndDrag_Rectangle(int event, int x, int y, int flags, void * param);
+void click_and_drag_rectangle(int event, int x, int y, int flags, void * param);
