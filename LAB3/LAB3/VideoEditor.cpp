@@ -361,8 +361,7 @@ void VideoEditor::record_video(string save_path)
 
 void VideoEditor::track_objects_by_web_cam()
 {
-	//some boolean variables for different functionality within this
-	//program
+	//some boolean variables for different functionality within this program
 	bool trackObjects = true;
 	bool useMorphOps = true;
 	calibrationMode = true;
@@ -396,7 +395,72 @@ void VideoEditor::track_objects_by_web_cam()
 	//all of our operations will be performed within this loop
 	while (1)
 	{
+		//store image to matrix
+		capture.read(cameraFeed);
+		//convert frame from BGR to HSV colorspace
+		cvtColor(cameraFeed, HSV, COLOR_BGR2HSV);
+		//set HSV values from user selected region
+		recordHSV_Values(cameraFeed, HSV);
+		//filter HSV image between values and store filtered image to
+		//threshold matrix
+		inRange(HSV, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), threshold);
+	}
+}
 
+void VideoEditor::recordHSV_Values(Mat frame, Mat hsv_frame)
+{
+	//save HSV values for ROI that user selected to a vector
+	if (mouseMove == false && rectangleSelected == true) 
+	{
+		//clear previous vector values
+		if (H_ROI.size() > 0) H_ROI.clear();
+		if (S_ROI.size() > 0) S_ROI.clear();
+		if (V_ROI.size() > 0) V_ROI.clear();
+		//if the rectangle has no width or height (user has only dragged a line) then we don't try to iterate over the width or height
+		if (rectangleROI.width < 1 || rectangleROI.height < 1) cout << "Please drag a rectangle, not a line" << endl;
+		else
+		{
+			for (int i = rectangleROI.x; i < rectangleROI.x + rectangleROI.width; i++)
+			{
+				//iterate through both x and y direction and save HSV values at each and every point
+				for (int j = rectangleROI.y; j < rectangleROI.y + rectangleROI.height; j++)
+				{
+					//save HSV value at this point
+					H_ROI.push_back((int)hsv_frame.at<cv::Vec3b>(j, i)[0]);
+					S_ROI.push_back((int)hsv_frame.at<cv::Vec3b>(j, i)[1]);
+					V_ROI.push_back((int)hsv_frame.at<cv::Vec3b>(j, i)[2]);
+				}
+			}
+		}
+		//reset rectangleSelected so user can select another region if necessary
+		rectangleSelected = false;
+		//set min and max HSV values from min and max elements of each array
+		if (H_ROI.size() > 0) 
+		{
+			H_MIN = *std::min_element(H_ROI.begin(), H_ROI.end());
+			H_MAX = *std::max_element(H_ROI.begin(), H_ROI.end());
+			cout << "MIN 'H' VALUE: " << H_MIN << endl;
+			cout << "MAX 'H' VALUE: " << H_MAX << endl;
+		}
+		if (S_ROI.size() > 0) 
+		{
+			S_MIN = *std::min_element(S_ROI.begin(), S_ROI.end());
+			S_MAX = *std::max_element(S_ROI.begin(), S_ROI.end());
+			cout << "MIN 'S' VALUE: " << S_MIN << endl;
+			cout << "MAX 'S' VALUE: " << S_MAX << endl;
+		}
+		if (V_ROI.size() > 0)
+		{
+			V_MIN = *std::min_element(V_ROI.begin(), V_ROI.end());
+			V_MAX = *std::max_element(V_ROI.begin(), V_ROI.end());
+			cout << "MIN 'V' VALUE: " << V_MIN << endl;
+			cout << "MAX 'V' VALUE: " << V_MAX << endl;
+		}
+	}
+	if (mouseMove == true)
+	{
+		//if the mouse is held down, we will draw the click and dragged rectangle to the screen
+		rectangle(frame, initialClickPoint, Point(currentMousePoint.x, currentMousePoint.y), Scalar(0, 255, 0), 1, 8, 0);
 	}
 }
 

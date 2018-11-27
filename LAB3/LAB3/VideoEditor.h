@@ -53,6 +53,9 @@ private:
 	Rect rectangleROI; //this is the ROI that the user has selected
 	vector<int> H_ROI, S_ROI, V_ROI;// HSV values from the click/drag ROI region stored in separate vectors so that we can sort them easily
 	
+
+	//functions for void track_objects_by_web_cam();
+	void recordHSV_Values(cv::Mat frame, Mat hsv_frame);
 };
 
 //functions for void track_objects_by_web_cam();
