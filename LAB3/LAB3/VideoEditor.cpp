@@ -17,7 +17,7 @@ VideoEditor::~VideoEditor()
 {
 }
 
-void VideoEditor::track_different_colors_in_hsv()
+void VideoEditor::track_different_colors_in_hsv(color c)
 {
 	VideoCapture cap(0); //capture the video from web cam
 
@@ -38,6 +38,24 @@ void VideoEditor::track_different_colors_in_hsv()
 	int LowValue = 60;
 	int HighValue = 255;
 
+	if (c == green)
+	{
+		LowHue = 45;
+		LowSaturation = 100;
+		LowValue = 50;
+		HighHue = 75;
+		HighSaturation = 255;
+		HighValue = 255;
+	}
+	else if (c == blue)
+	{
+		LowHue = 100;
+		LowSaturation = 70;
+		LowValue = 80;
+		HighHue = 240;
+		HighSaturation = 100;
+		HighValue = 100;
+	}
 	//Create trackbars in "Control" window
 	cvCreateTrackbar("LowHue", "Control", &LowHue, 179); //Hue (0 - 179)
 	cvCreateTrackbar("HighHue", "Control", &HighHue, 179);
@@ -87,7 +105,7 @@ void VideoEditor::track_different_colors_in_hsv()
 	}
 }
 
-void VideoEditor::track_different_colors_and_show_trajectory()
+void VideoEditor::track_different_colors_and_show_trajectory(color c)
 {
 	VideoCapture cap(0); //capture the video from webcam
 
@@ -100,13 +118,30 @@ void VideoEditor::track_different_colors_and_show_trajectory()
 	namedWindow("Control", CV_WINDOW_AUTOSIZE); //create a window called "Control"
 
 	int LowH = 170;
-	int HighH = 179;
-
 	int LowS = 150;
-	int HighS = 255;
-
 	int LowV = 60;
+
+	int HighH = 179;
+	int HighS = 255;
 	int HighV = 255;
+	if (c == green)
+	{
+		LowH = 45;
+		LowS = 100;
+		LowV = 50;
+		HighH = 75;
+		HighS = 255;
+		HighV = 255;
+	}
+	else if (c == blue)
+	{
+		LowH = 100;
+		LowS = 70;
+		LowV = 80;
+		HighH = 240;
+		HighS = 100;
+		HighV = 100;
+	}
 
 	//Create trackbars in "Control" window
 	createTrackbar("LowH", "Control", &LowH, 179); //Hue (0 - 179)
