@@ -6,6 +6,6 @@ int main()
 	VideoEditor myVideo;
 	PhotoEditor myPhoto;
 	//myVideo.track_different_colors_in_hsv();
-	myVideo.track_different_colors_and_show_trajectory();
+	myVideo.record_video();
 	return 0;
 }

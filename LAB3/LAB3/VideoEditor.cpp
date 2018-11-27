@@ -134,11 +134,9 @@ void VideoEditor::track_different_colors_and_show_trajectory()
 	{
 		Mat OriginalImg;
 
-		bool bSuccess = cap.read(OriginalImg); // read a new frame from video
+		bool ReadIsSuccess = cap.read(OriginalImg); // read a new frame from video
 
-
-
-		if (!bSuccess) //if not success, break loop
+		if (!ReadIsSuccess) //if not success, break loop
 		{
 			cout << "Cannot read a frame from video stream" << endl;
 			break;
@@ -236,8 +234,8 @@ void VideoEditor::track_red_color_objects()
 
 void VideoEditor::camera_with_different_effects()
 {
-	namedWindow("Control", CV_WINDOW_KEEPRATIO); //create a window called "Control"
-	int Color = 1;
+	namedWindow("Control", CV_WINDOW_AUTOSIZE); //create a window called "Control"
+	int Color = 0;
 	cvCreateTrackbar("Color", "Control", &Color, 3);
 	VideoCapture cap(0); //capture the video from web cam
 
@@ -293,6 +291,71 @@ void VideoEditor::camera_with_different_effects()
 		if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
 		{
 			cout << "esc key is pressed by user" << endl;
+			break;
+		}
+	}
+}
+
+void VideoEditor::record_video(string save_path)
+{
+	cout << "Press \"R\" to REC video" << endl << endl;
+	VideoCapture cap(0); // open the video camera no. 0
+
+	VideoWriter writer;
+	bool recording = false;
+	if (!cap.isOpened())  // if not success, exit program
+	{
+		cout << "Cannot open the web cam" << endl;
+		throw std::exception("Cannot open the web cam");
+	}
+
+	const char* windowName = "Webcam Feed";
+	namedWindow(windowName, CV_WINDOW_AUTOSIZE); //create a window to display our webcam feed
+
+	string filename;
+	if (save_path != "")
+	{
+		filename = save_path + "myVideo.avi";
+	}
+	else
+	{
+		filename = "myVideo.avi";
+	}
+	int fcc = CV_FOURCC('D', 'I', 'V', '3');
+	int fps = 20;
+	Size frame_size(cap.get(CV_CAP_PROP_FRAME_WIDTH), cap.get(CV_CAP_PROP_FRAME_HEIGHT));
+
+	writer = VideoWriter(filename, fcc, fps, frame_size);
+	if (!writer.isOpened()) //test if frame successfully read
+	{
+		cout << "ERROR TO OPEN CAMERA" << endl;
+		throw std::exception("ERROR TO OPEN CAMERA");
+	}
+	while (true) 
+	{
+		Mat frame;
+
+		bool ReadIsSuccess = cap.read(frame); // read a new frame from camera feed
+		if (!ReadIsSuccess) //test if frame successfully read
+		{
+			cout << "ERROR READING FRAME FROM CAMERA FEED" << endl;
+			break;
+		}
+
+		if (recording)
+		{
+			writer.write(frame);
+			putText(frame, "REC", Point(0, 60), 2, 2, Scalar(0, 0, 255));
+		}
+		imshow(windowName, frame); //show the frame in "MyVideo" window
+		
+		//listen for 10ms for a key to be pressed
+		switch (waitKey(10))
+		{
+		case 27://'esc' has been pressed (ASCII value for 'esc' is 27)				//exit program.
+			return;
+		case 114://pressed r (pause or rec)
+			recording = !recording;
 			break;
 		}
 	}

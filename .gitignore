@@ -1,6 +1,8 @@
 x64/
 ChangedImages/
 .vs/
+*.jpg
+*.avi
 *.vcxproj
 *.user
 *.filters
