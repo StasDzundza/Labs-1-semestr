@@ -97,24 +97,24 @@ void VideoEditor::track_different_colors_and_show_trajectory()
 
 	namedWindow("Control", CV_WINDOW_AUTOSIZE); //create a window called "Control"
 
-	int iLowH = 170;
-	int iHighH = 179;
+	int LowH = 170;
+	int HighH = 179;
 
-	int iLowS = 150;
-	int iHighS = 255;
+	int LowS = 150;
+	int HighS = 255;
 
-	int iLowV = 60;
-	int iHighV = 255;
+	int LowV = 60;
+	int HighV = 255;
 
 	//Create trackbars in "Control" window
-	createTrackbar("LowH", "Control", &iLowH, 179); //Hue (0 - 179)
-	createTrackbar("HighH", "Control", &iHighH, 179);
+	createTrackbar("LowH", "Control", &LowH, 179); //Hue (0 - 179)
+	createTrackbar("HighH", "Control", &HighH, 179);
 
-	createTrackbar("LowS", "Control", &iLowS, 255); //Saturation (0 - 255)
-	createTrackbar("HighS", "Control", &iHighS, 255);
+	createTrackbar("LowS", "Control", &LowS, 255); //Saturation (0 - 255)
+	createTrackbar("HighS", "Control", &HighS, 255);
 
-	createTrackbar("LowV", "Control", &iLowV, 255);//Value (0 - 255)
-	createTrackbar("HighV", "Control", &iHighV, 255);
+	createTrackbar("LowV", "Control", &LowV, 255);//Value (0 - 255)
+	createTrackbar("HighV", "Control", &HighV, 255);
 
 	//last center coordinates of our traking object
 	int LastX = -1;
@@ -146,7 +146,7 @@ void VideoEditor::track_different_colors_and_show_trajectory()
 
 		Mat ThresholdedImg;
 
-		inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), ThresholdedImg); //Threshold the image
+		inRange(imgHSV, Scalar(LowH, LowS, LowV), Scalar(HighH, HighS, HighV), ThresholdedImg); //Threshold the image
 
 	   //morphological opening (removes small objects from the foreground)
 		erode(ThresholdedImg, ThresholdedImg, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
@@ -381,11 +381,11 @@ void VideoEditor::track_objects_by_web_cam()
 	capture.set(CV_CAP_PROP_FRAME_WIDTH, FRAME_WIDTH);
 	capture.set(CV_CAP_PROP_FRAME_HEIGHT, FRAME_HEIGHT);
 	//must create a window before setting mouse callback
-	cv::namedWindow(windowName);
+	namedWindow(windowName);
 	//set mouse callback function to be active on "Webcam Feed" window
 	//we pass the handle to our "frame" matrix so that we can draw a rectangle to it
 	//as the user clicks and drags the mouse
-	cv::setMouseCallback(windowName, clickAndDrag_Rectangle, &cameraFeed);
+	setMouseCallback(windowName, clickAndDrag_Rectangle, &cameraFeed);
 	//initiate mouse move and drag to false 
 	mouseIsDragging = false;
 	mouseMove = false;
@@ -400,14 +400,21 @@ void VideoEditor::track_objects_by_web_cam()
 		//convert frame from BGR to HSV colorspace
 		cvtColor(cameraFeed, HSV, COLOR_BGR2HSV);
 		//set HSV values from user selected region
-		recordHSV_Values(cameraFeed, HSV);
+		recordHSV_values(cameraFeed, HSV);
 		//filter HSV image between values and store filtered image to
 		//threshold matrix
 		inRange(HSV, Scalar(H_MIN, S_MIN, V_MIN), Scalar(H_MAX, S_MAX, V_MAX), threshold);
+		if (useMorphOps)
+		{
+			morph_ops(threshold);
+		}
+		//pass in thresholded frame to our object tracking function
+		//this function will return the x and y coordinates of the
+		//filtered object
 	}
 }
 
-void VideoEditor::recordHSV_Values(Mat frame, Mat hsv_frame)
+void VideoEditor::recordHSV_values(Mat frame, Mat hsv_frame)
 {
 	//save HSV values for ROI that user selected to a vector
 	if (mouseMove == false && rectangleSelected == true) 
@@ -426,9 +433,9 @@ void VideoEditor::recordHSV_Values(Mat frame, Mat hsv_frame)
 				for (int j = rectangleROI.y; j < rectangleROI.y + rectangleROI.height; j++)
 				{
 					//save HSV value at this point
-					H_ROI.push_back((int)hsv_frame.at<cv::Vec3b>(j, i)[0]);
-					S_ROI.push_back((int)hsv_frame.at<cv::Vec3b>(j, i)[1]);
-					V_ROI.push_back((int)hsv_frame.at<cv::Vec3b>(j, i)[2]);
+					H_ROI.push_back((int)hsv_frame.at<Vec3b>(j, i)[0]);
+					S_ROI.push_back((int)hsv_frame.at<Vec3b>(j, i)[1]);
+					V_ROI.push_back((int)hsv_frame.at<Vec3b>(j, i)[2]);
 				}
 			}
 		}
@@ -462,6 +469,19 @@ void VideoEditor::recordHSV_Values(Mat frame, Mat hsv_frame)
 		//if the mouse is held down, we will draw the click and dragged rectangle to the screen
 		rectangle(frame, initialClickPoint, Point(currentMousePoint.x, currentMousePoint.y), Scalar(0, 255, 0), 1, 8, 0);
 	}
+}
+
+void VideoEditor::morph_ops(Mat & thresh)
+{
+	//morphological opening (removes small objects from the foreground)
+	//morphological closing (removes small holes from the foreground)
+
+	erode(thresh, thresh, getStructuringElement(MORPH_RECT, Size(3, 3)));
+	erode(thresh, thresh, getStructuringElement(MORPH_RECT, Size(3, 3)));
+
+	dilate(thresh, thresh, getStructuringElement(MORPH_RECT, Size(8, 8)));
+	dilate(thresh, thresh, getStructuringElement(MORPH_RECT, Size(8, 8)));
+
 }
 
 void clickAndDrag_Rectangle(int event, int x, int y, int flags, void * param)
