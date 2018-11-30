@@ -10,10 +10,10 @@ class PhotoEditor
 public:
 	PhotoEditor();
 	~PhotoEditor();
-	void add_some_effects_on_photo(const char*path);
-	void add_canny_effect(const char*path);
-	void show_image_in_3_colors(const char*path);
-	void what_is_color(const char*path);
+	void add_some_effects_on_photo(const char*path = "");
+	void add_canny_effect(const char*path = "");
+	void show_image_in_3_colors(const char*path = "");
+	void what_is_color(const char*path = "");
 private:
 	int DELAY_CAPTION = 1500;
 	int DELAY_BLUR = 100;

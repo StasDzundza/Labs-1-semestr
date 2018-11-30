@@ -19,6 +19,7 @@ VideoEditor::~VideoEditor()
 
 void VideoEditor::track_different_colors_in_hsv(color c)
 {
+	
 	VideoCapture cap(0); //capture the video from web cam
 
 	if (!cap.isOpened())  // if not success, exit program
@@ -99,6 +100,7 @@ void VideoEditor::track_different_colors_in_hsv(color c)
 
 		if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
 		{
+			destroyAllWindows();
 			cout << "esc key is pressed by user" << endl;
 			break;
 		}
@@ -107,6 +109,24 @@ void VideoEditor::track_different_colors_in_hsv(color c)
 
 void VideoEditor::track_different_colors_and_show_trajectory(color c)
 {
+	cout << "What color do you want to track?(1 - red, 2 - green, 3 - blue).Enter the number : ";
+	int n;
+	do {
+		cin >> n;
+		if (n < 1 || n > 3)
+		{
+			cout << "Incorrect input.Try again!" << endl;
+		}
+	} while (n < 1 || n > 3);
+	switch (n)
+	{
+	case 1:c = color::red;
+		break;
+	case 2:c = color::green;
+		break;
+	case 3:c = color::blue;
+		break;
+	}
 	VideoCapture cap(0); //capture the video from webcam
 
 	if (!cap.isOpened())  // if not success, exit program
@@ -136,11 +156,11 @@ void VideoEditor::track_different_colors_and_show_trajectory(color c)
 	else if (c == blue)
 	{
 		LowH = 100;
-		LowS = 70;
-		LowV = 80;
-		HighH = 240;
-		HighS = 100;
-		HighV = 100;
+		LowS = 150;
+		LowV = 0;
+		HighH = 140;
+		HighS = 255;
+		HighV = 255;
 	}
 
 	//Create trackbars in "Control" window
@@ -224,6 +244,7 @@ void VideoEditor::track_different_colors_and_show_trajectory(color c)
 
 		if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
 		{
+			destroyAllWindows();
 			cout << "esc key is pressed by user" << endl;
 			break;
 		}
@@ -261,6 +282,7 @@ void VideoEditor::track_red_color_objects()
 		imshow("Tracking Window", TrackingImg);
 		if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
 		{
+			destroyAllWindows();
 			cout << "esc key is pressed by user" << endl;
 			break;
 		}
@@ -325,6 +347,7 @@ void VideoEditor::camera_with_different_effects()
 		imshow("Changed Window", ChangedImg);
 		if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
 		{
+			destroyAllWindows();
 			cout << "esc key is pressed by user" << endl;
 			break;
 		}
@@ -388,7 +411,7 @@ void VideoEditor::record_video(string save_path)
 		switch (waitKey(10))
 		{
 		case 27://'esc' has been pressed (ASCII value for 'esc' is 27)				//exit program.
-			return;
+			destroyAllWindows(); return;
 		case 114://pressed r (pause or rec)
 			recording = !recording;
 			break;
@@ -398,6 +421,8 @@ void VideoEditor::record_video(string save_path)
 
 void VideoEditor::track_objects_by_web_cam()
 {
+	cout << "Draw a rectangle on the object with the lest mouse button." << endl;
+	cout << "Press right mouse button to reset" << endl;
 	video_editor = this;
 	//some boolean variables for different functionality within this program
 	bool trackObjects = true;

@@ -16,8 +16,19 @@ PhotoEditor::~PhotoEditor()
 
 void PhotoEditor::add_some_effects_on_photo(const char * path)
 {
+	string p;
+	if (path == "")
+	{
+		cout << "Enter the path to your image : ";
+		cin >> p;
+		cin.get();
+	}
+	else
+	{
+		p = path;
+	}
 	namedWindow(window_name, CV_WINDOW_AUTOSIZE);
-	src = imread(path, IMREAD_COLOR);
+	src = imread(p, IMREAD_COLOR);
 	if (src.empty())
 	{
 		cout << " Error opening image" << endl;
@@ -85,8 +96,19 @@ void PhotoEditor::add_some_effects_on_photo(const char * path)
 
 void PhotoEditor::add_canny_effect(const char * path)
 {
+	string p;
+	if (path == "")
+	{
+		cout << "Enter the path to your image : ";
+		cin >> p;
+		cin.get();
+	}
+	else
+	{
+		p = path;
+	}
 	namedWindow(window_name, CV_WINDOW_AUTOSIZE);
-	src = imread(path, IMREAD_COLOR);
+	src = imread(p, IMREAD_COLOR);
 	if (src.empty())
 	{
 		cout << " Error opening image" << endl;
@@ -114,8 +136,19 @@ void PhotoEditor::add_canny_effect(const char * path)
 
 void PhotoEditor::show_image_in_3_colors(const char * path)
 {
+	string p;
+	if (path == "")
+	{
+		cout << "Enter the path to your image : ";
+		cin >> p;
+		cin.get();
+	}
+	else
+	{
+		p = path;
+	}
 	namedWindow(window_name, CV_WINDOW_AUTOSIZE);
-	src = imread(path, IMREAD_COLOR);
+	src = imread(p, IMREAD_COLOR);
 	if (src.empty())
 	{
 		cout << " Error opening image" << endl;
